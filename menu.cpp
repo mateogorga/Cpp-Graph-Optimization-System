@@ -83,7 +83,7 @@ void Menu::mensaje_inicial() {
     cout << endl << endl;
     cout << "Ingrese cualquier letra seguida de enter para continuar . . ." << endl << endl;
     cin >> enter;
-
+    //cin.ignore();
 }
 
 bool Menu::chequear_rango(int a, int x, int b) {
@@ -113,6 +113,7 @@ int Menu::mostrar_menu() {
         cout << "12) Lectura leida " << endl;
         cout << "13) Salir" << endl;
         cin >> respuesta;
+        cin.ignore();
 
         respuesta_correcta = chequear_rango(MENU_OPCION_1, respuesta, MENU_OPCION_13);
         if (!respuesta_correcta)
@@ -122,15 +123,16 @@ int Menu::mostrar_menu() {
 }
 
 void Menu::pedir_datos_lectura(string &titulo, int &minutos, int &anio, int &int_tipo) {
-    cout<<"Ingrese el titulo: "<< endl;
+    cout << "Ingrese el titulo: "<< endl;
+    cin.ignore();
     getline(cin, titulo);
-    cout<<"Ingrese la cantidad de minutos: "<< endl;
-    cin>>minutos;
-    cout<<"Ingrese el anio de publicacion: "<< endl;
-    cin>>anio;
-    cout<<"Ingrese el tipo de lectura (el numero): "<< endl;
-    cout<<"1) Novela\n2)Cuento\n3)Poema"<< endl;
-    cin>>int_tipo;
+    cout << "Ingrese la cantidad de minutos: "<< endl;
+    cin >> minutos;
+    cout << "Ingrese el anio de publicacion: "<< endl;
+    cin >> anio;
+    cout << "Ingrese el tipo de lectura (el numero): "<< endl;
+    cout << "1) Novela\n2)Cuento\n3)Poema"<< endl;
+    cin >> int_tipo;
 }
 
 void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero) {
