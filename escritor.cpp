@@ -45,3 +45,7 @@ int Escritor::obtener_fallecimiento() {
 void Escritor::cambiar_fallecimiento(int anio) {
     fallecimiento = anio;
 }
+
+string Escritor::obtener_codigo() {
+    return codigo;
+}

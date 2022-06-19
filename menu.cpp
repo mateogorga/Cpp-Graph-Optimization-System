@@ -83,7 +83,6 @@ void Menu::mensaje_inicial() {
     cout << endl << endl;
     cout << "Ingrese cualquier letra seguida de enter para continuar . . ." << endl << endl;
     cin >> enter;
-    //cin.ignore();
 }
 
 bool Menu::chequear_rango(int a, int x, int b) {

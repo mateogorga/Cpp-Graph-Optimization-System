@@ -1,22 +1,5 @@
 # tp3
-Victoria: 
-Ingreso de datos (getline)
-Autores en tabla de Hashing
+Ingreso de datos (getline)................Hecho
+Autores en tabla de Hashing...............Va bien
 
-Mateo:
-Impresion de texto que avisa que no se leyeron los archivos
-Arbol expansion minima
-
-Marco:
-Cambio de nombre a funcion “obtener_datito()”
-¿parches de ultimo minuto de la lista aux para que no tenga leaks? (menu.cpp 385)
-Parser_lecturas::procesar_autor cambiar la forma de relacionarlos (ahora busca por posicion en la lista
-debe buscar por ISNI)
-Grafo
-
-Ver el tema de la entrada de autores (ya su codigo no coinvide con la posicion que ocupan en la lista)
-
-
-
-
-
+Falta probar si lo que hice hasta ahora esta bien, los metodos listar y obtener_escritor. Para esta ultima voy a tener que crear un metodo en lista_escritores que me busque al escritor correspondiente segun el codigo pasado. Despues tengo que probar todo y cuando este segura, reemplazar las veces que se use la lista de escritores en todo el codigo por la tabla de hashing, y volver a probar.

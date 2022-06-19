@@ -36,6 +36,7 @@ public:
     string obtener_nacionalidad();
     int obtener_nacimiento();
     int obtener_fallecimiento();
+    string obtener_codigo();
 };
 
 #endif //ESCRITOR_H
