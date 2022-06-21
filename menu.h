@@ -6,7 +6,7 @@
 #include "escritor.h"
 #include "historica.h"
 #include "poema.h"
-#include "lista_escritores.h"
+#include "hash_escritores.h"
 #include "lista_lecturas.h"
 #include "cola.h"
 #include <iostream>
@@ -97,7 +97,7 @@ public:
     //PRE: -
     //POST: modifica el anio de fallecimiento del escritor elegido por el usuario, por el anio ingresado. 
     void cambiar_fallecimiento(Lista_escritores& l_escritores);
-
+    //void cambiar_fallecimiento(Hash_escritores& hash_escritores);
 
     //PRE: -
     //POST: imprime por pantalla todos los escritores de la lista con sus respectivos atributos.

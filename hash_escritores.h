@@ -35,6 +35,10 @@ public:
     //POS:
     void listar();
 
+    //PRE:
+    //POS:
+    void modificar_fallecimiento(int anio);
+
     //Destructor
     ~Hash_escritores();
 private:

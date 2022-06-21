@@ -12,14 +12,18 @@ void Hash_escritores::agregar_escritor(Escritor* escritor){
     int pos = hashing(stoi(escritor->obtener_codigo()));
     vec_escritores[pos]->alta(escritor, vec_escritores[pos]->obtener_cantidad());
 }
-/*
+
 Escritor* Hash_escritores::obtener_escritor(int clave){
     int pos = hashing(clave);
-    return vec_escritores[pos]->buscar_pos(clave);
-}*/
+    return vec_escritores[pos]->buscar_segun_codigo(clave);
+}
 
 void Hash_escritores::listar(){
-
+    for(int i = 0; i < TAMANIO_TABLA; i++){
+        if(vec_escritores[i]->vacia() == false)
+            vec_escritores[i]->listar();
+            //quizas haga falta un cout << endl;
+    }
 }
 
 Hash_escritores::~Hash_escritores(){

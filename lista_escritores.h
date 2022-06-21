@@ -30,6 +30,11 @@ public:
     //POS: devuelve el puntero a escritor que se encuentra en la posicion pasada.
     Escritor* consulta(int pos);
 
+    //PRE: -
+    //POS: devuelve un puntero al escritor de la lista cuyo codigo es el pasado por parametro.
+    //     En caso de no encontrarse este codigo, devuelve un puntero a nullptr.
+    Escritor* buscar_segun_codigo(int codigo);
+
     //PRE: 0 < pos <= cantidad.
     //POS: cambia el anio de fallecimiento del escritor en la posicion pasada.
     void cambiar_fallecimiento(int anio, int pos);

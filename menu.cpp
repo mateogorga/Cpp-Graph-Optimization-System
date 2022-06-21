@@ -280,6 +280,21 @@ void Menu::agregar_escritor(Lista_escritores& l_escritores) {
     Escritor* nuevo_escritor = new Escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, codigo_escritor);
     l_escritores.alta(nuevo_escritor, pos);
 }
+/*
+void Menu::cambiar_fallecimiento(Hash_escritores& hash_escritores) {
+    hash_escritores.listar();
+    int isni;
+    cout << endl << "Ingrese el ISNI del escritor al que le desea cambiar el anio" << endl;
+    cin >> isni;
+    if(hash_escritores.obtener_escritor(isni) == 0)
+        cout << "La posicion ingresada es invalida." << endl;
+    else{
+        cout << "Ingrese el anio de fallecimiento a agregar: " << endl; 
+        int anio;
+        cin >> anio;
+        hash_escritores.obtener_escritor(isni)->cambiar_fallecimiento(anio);
+    }
+}*/
 
 void Menu::cambiar_fallecimiento(Lista_escritores& l_escritores) {
     l_escritores.listar_nombres();
