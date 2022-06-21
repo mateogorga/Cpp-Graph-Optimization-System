@@ -64,13 +64,20 @@ Escritor* Lista_escritores::buscar_segun_codigo(int codigo) {
 
     Nodo<Escritor*>* aux = primero;
     int contador = INICIO_CONTADOR;
-    while ((contador <= cantidad) && (stoi(aux->obtener_dato()->obtener_codigo()) != codigo)) {
-        aux = aux->obtener_siguiente();
-        contador++;
-    }
-    if((stoi(aux->obtener_dato()->obtener_codigo()) != codigo))
+    if(vacia()) {
         aux = 0;
-    return aux->obtener_dato();
+    } else {
+        while ((contador <= cantidad) && (stoi(aux->obtener_dato()->obtener_codigo()) != codigo)) {
+            aux = aux->obtener_siguiente();
+            contador++;
+        }
+        if((stoi(aux->obtener_dato()->obtener_codigo()) != codigo))
+            aux = 0;
+    }
+    if(aux != 0)
+        return aux->obtener_dato();
+    else
+        return 0;
 }
 
 void Lista_escritores::listar() {

@@ -23,7 +23,7 @@ public:
     //PRE: no deben haber mas de 20 escritores.
     //POS: inserta al escritor pasado en posicion que le corresponde en funcion al resultado de la
     //     funcion de hashing aplicada al codigo del escritor.
-    void agregar_escritor(Escritor* escritor);
+    void alta(Escritor* escritor);
     
     //PRE:
     //POS: 
