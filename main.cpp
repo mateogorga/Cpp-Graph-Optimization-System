@@ -41,8 +41,10 @@ int main() {
     cout << endl << "Ahora obtener un escritor" << endl;
     int codigo;
     cin >> codigo;
-    if(escritores.obtener_escritor(codigo))
+    if(escritores.obtener_escritor(codigo) != 0)
         escritores.obtener_escritor(codigo)->mostrar_datos();
+    else
+        cout << "No hay un escritor con ese codigo" << endl;
 
     /*
     cout << endl << "Agrego a Berne en la pos 1" << endl;

@@ -17,7 +17,7 @@ private:
 public:
     
     //PRE: -
-    //POS: 
+    //POS: inicializa el vector con punteros a listas de escritores en todas las posciones.
     Hash_escritores();
 
     //PRE: no deben haber mas de 20 escritores.
@@ -25,8 +25,8 @@ public:
     //     funcion de hashing aplicada al codigo del escritor.
     void alta(Escritor* escritor);
     
-    //PRE:
-    //POS: 
+    //PRE: -
+    //POS: devuelve un puntero al escritor que posee la clave pasada.
     Escritor* obtener_escritor(int clave);
     
     //void eliminar_escritor(); no va a hacer falta no?
@@ -34,10 +34,6 @@ public:
     //PRE:
     //POS:
     void listar();
-
-    //PRE:
-    //POS:
-    void modificar_fallecimiento(int anio);
 
     //Destructor
     ~Hash_escritores();
