@@ -46,23 +46,5 @@ int main() {
     else
         cout << "No hay un escritor con ese codigo" << endl;
 
-    /*
-    cout << endl << "Agrego a Berne en la pos 1" << endl;
-
-    Escritor escritor3("Julio Berne", "chino", 1845, 1900, "777");
-    Escritor* p_escritor3;
-    p_escritor3 = &escritor3;
-    lista.alta(p_escritor3, 1);
-
-    lista.listar();
-    cout << endl << "Doy de baja al 2do" << endl;
-    lista.baja(2);
-
-    lista.listar();
-
-    cout << endl << "Cambio el fallecimiento de Julio Berne por el anio 2022" << endl;
-    lista.cambiar_fallecimiento(2022, 1);
-    lista.listar();*/
-    
     return 0;   
 }

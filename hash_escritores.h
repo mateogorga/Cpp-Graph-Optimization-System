@@ -32,7 +32,7 @@ public:
     //void eliminar_escritor(); no va a hacer falta no?
     
     //PRE:
-    //POS:
+    //POS: muestra por pantalla a los escritores almacenados con su respectiva informacion.
     void listar();
 
     //Destructor

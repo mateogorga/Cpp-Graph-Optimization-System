@@ -3,13 +3,13 @@
 #include <cstdlib>
 
 
-
 const int SI = 1;
 const int NO = 2;
 const int PRIMER_GENERO = 1;
 const int ULTIMO_GENERO = 6;
 const int MENU_OPCION_1 = 1;
 const int MENU_OPCION_13 = 13;
+
 Menu::Menu(){
 
 }
