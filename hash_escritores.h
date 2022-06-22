@@ -29,7 +29,7 @@ public:
     //POS: devuelve un puntero al escritor que posee la clave pasada.
     Escritor* obtener_escritor(int clave);
     
-    //void eliminar_escritor(); no va a hacer falta no?
+    //void eliminar_escritor(); 
     
     //PRE:
     //POS: muestra por pantalla a los escritores almacenados con su respectiva informacion.
