@@ -17,15 +17,17 @@ using namespace std;
 
 int main() {
     /*
+    Menu menu;
+    menu.mensaje_inicial();
+    
     Parser_escritores parser_escritores = Parser_escritores();
     Lista_escritores l_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
     Parser_lecturas parser_lecturas = Parser_lecturas();
     Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, l_escritores);
-    
-    Menu menu;
+
     Lista_lecturas lista_aux;
     Cola cola;
-    menu.mensaje_inicial();
+
     menu.ejecutar_menu(menu, l_lecturas, l_escritores, cola, lista_aux);    */
     
     Hash_escritores escritores;
@@ -45,5 +47,10 @@ int main() {
     else
         cout << "No hay un escritor con ese codigo" << endl;
 
+    cout << "Ahora eliminamos uno, ingrese al q quiere eliminar" << endl;
+    int isni;
+    cin >> isni;
+    escritores.baja(isni);
+    escritores.listar();
     return 0;   
 }

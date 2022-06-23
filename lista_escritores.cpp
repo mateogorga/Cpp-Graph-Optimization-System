@@ -3,6 +3,7 @@
 const int INICIO_CONTADOR = 1;
 const int PRIMER_POS = 1;
 
+
 Lista_escritores::Lista_escritores() {
     primero = 0;
     cantidad = 0;
@@ -114,6 +115,22 @@ void Lista_escritores::listar_nombres() {
         }
     } else
         cout << "La lista de escritores se encuentra vacia" << endl;
+}
+
+int Lista_escritores::obtener_pos_segun_clave(int clave){
+    int contador = INICIO_CONTADOR;
+    if(vacia() == false) {
+        Nodo<Escritor*>* aux = primero;
+        while((contador <= cantidad) && (stoi(aux->obtener_dato()->obtener_codigo()) != clave)){
+            aux = aux->obtener_siguiente();
+            contador++;
+        }
+        if(stoi(aux->obtener_dato()->obtener_codigo()) != clave)
+            contador = POS_INVALIDA;
+    } else
+        contador = POS_INVALIDA;
+
+    return contador;
 }
 
 Lista_escritores::~Lista_escritores() {

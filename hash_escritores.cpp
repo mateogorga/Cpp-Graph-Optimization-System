@@ -33,11 +33,14 @@ void Hash_escritores::listar() {
         cout << "La tabla de hashing de escritores se encuentra vacia" << endl;
 }
 
-/* No se si esto esta bien
 void Hash_escritores::baja(int clave){
-    int pos = hashing(clave);
-    delete vec_escritores[pos]->buscar_segun_codigo(clave);
-}*/
+    int pos_vec = hashing(clave);
+    int pos_lista = vec_escritores[pos_vec]->obtener_pos_segun_clave(clave);
+    if(pos_lista != POS_INVALIDA)
+        vec_escritores[pos_vec]->baja(pos_lista);
+    else
+        cout << "No se encuentro a un escritor con esa clave" << endl;
+}
 
 Hash_escritores::~Hash_escritores(){
     for(int i = 0; i < TAMANIO_TABLA; i++){

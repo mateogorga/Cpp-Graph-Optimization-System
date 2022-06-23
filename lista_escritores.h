@@ -4,6 +4,8 @@
 #include "nodo.h"
 #include "escritor.h"
 
+const int POS_INVALIDA = -1;
+
 class Lista_escritores {
 
 //Atrubutos   
@@ -54,6 +56,10 @@ public:
     //PRE: -
     //POS: imprime por pantalla todos los nombres de los escritores, enumerandolos.
     void listar_nombres();
+
+    //PRE: 
+    //POS: 
+    int obtener_pos_segun_clave( int clave);
 
     // Destructor
     ~Lista_escritores();
