@@ -25,13 +25,16 @@ public:
     //     funcion de hashing aplicada al codigo del escritor.
     void alta(Escritor* escritor);
     
-    //PRE: -
-    //POS: devuelve un puntero al escritor que posee la clave pasada.
+    //PRE: la clave debe ser un numero entero positivo.
+    //POS: devuelve un puntero al escritor que posee la clave pasada. De no encontrarse,
+    //     devuelve un puntero a nullptr.
     Escritor* obtener_escritor(int clave);
     
-    //void eliminar_escritor(); 
+    //PRE: la clave debe ser un numero entero positivo.
+    //POS:
+    void baja(int clave);
     
-    //PRE:
+    //PRE: -
     //POS: muestra por pantalla a los escritores almacenados con su respectiva informacion.
     void listar();
 
@@ -39,8 +42,8 @@ public:
     ~Hash_escritores();
 private:
 
-    //PRE:
-    //POS:
+    //PRE: la clave debe ser un numero entero positivo.
+    //POS: devuelve clave % MAX_ESCRITORES
     int hashing(int clave);
 };
 

@@ -2,7 +2,7 @@
 #include "escritor.h"
 #include "historica.h"
 #include "poema.h"
-#include "hash_escritores.h"
+#include "lista_escritores.h"
 #include "novela.h"
 #include "lectura.h"
 #include "menu.h"
@@ -19,16 +19,15 @@ int main() {
     /*
     Parser_escritores parser_escritores = Parser_escritores();
     Lista_escritores l_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
-
     Parser_lecturas parser_lecturas = Parser_lecturas();
     Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, l_escritores);
     
     Menu menu;
     Lista_lecturas lista_aux;
     Cola cola;
-
     menu.mensaje_inicial();
     menu.ejecutar_menu(menu, l_lecturas, l_escritores, cola, lista_aux);    */
+    
     Hash_escritores escritores;
 
     Escritor* p_escritor = new Escritor("Stephen King", "argentino", 2001, 2002, "123");

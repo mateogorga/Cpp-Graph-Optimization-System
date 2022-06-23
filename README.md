@@ -7,4 +7,6 @@ Falta probar si lo que hice hasta ahora esta bien. Despues cuando este segura, r
 
 Agregue un metodo a lista_escritores, le agregue el codigo al metodo de mostrar datos de escritor
 
-Duda: puede ser que dos escritores tengan el mismo ISNI?
+Falta agregar lectura, ver si tendria que eliminar el listar_por_nombre de la lista de escritores
+
+Ver si se sigen usando todos los metodos de lista_escritores

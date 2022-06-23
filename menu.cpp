@@ -3,13 +3,13 @@
 #include <cstdlib>
 
 
+
 const int SI = 1;
 const int NO = 2;
 const int PRIMER_GENERO = 1;
 const int ULTIMO_GENERO = 6;
 const int MENU_OPCION_1 = 1;
 const int MENU_OPCION_13 = 13;
-
 Menu::Menu(){
 
 }
@@ -231,7 +231,6 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
     l_lecturas.baja(posicion);
 }
 
-
 void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Lista_escritores& l_escritores) {
     string titulo, autor, str_genero;
     int minutos, anio, int_tipo;
@@ -256,10 +255,6 @@ void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Lista_escritores& l_escri
 
 }
 
-
-
-
-
 void Menu::pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &nacimiento, int &fallecimiento) {
     cout << "Ingrese el nombre completo del escritor: " << endl;
     getline(cin, nombre_comp);
@@ -270,6 +265,28 @@ void Menu::pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &
     cout << "Ingrese el anio de fallecimiento. Si el escritor se encuentra vivo, ingrese -1" << endl;
     cin >> fallecimiento;
 }
+/*
+
+void Menu::pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &nacimiento, int &fallecimiento, string& isni) {
+    cout << "Ingrese el nombre completo del escritor: " << endl;
+    getline(cin, nombre_comp);
+    cout << "Ingrese la nacionalidad del escritor: " << endl;
+    getline(cin, nacionalidad);
+    cout << "Ingrese el anio de nacimiento: " << endl;
+    cin >> nacimiento;
+    cout << "Ingrese el anio de fallecimiento. Si el escritor se encuentra vivo, ingrese -1" << endl;
+    cin >> fallecimiento;
+    cout << "Ingrese el ISNI del escritor: " << endl;
+    cin >> isni;
+}
+
+void Menu::agregar_escritor(Hash_escritores& t_escritores) {
+    string nombre_comp, nacionalidad, isni;
+    int nacimiento, fallecimiento;
+    pedir_datos_escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, isni);
+    Escritor* nuevo_escritor = new Escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, isni);
+    t_escritores.alta(nuevo_escritor);
+}*/
 
 void Menu::agregar_escritor(Lista_escritores& l_escritores) {
     string nombre_comp, nacionalidad;
@@ -281,7 +298,7 @@ void Menu::agregar_escritor(Lista_escritores& l_escritores) {
     l_escritores.alta(nuevo_escritor, pos);
 }
 /*
-void Menu::cambiar_fallecimiento(Hash_escritores& hash_escritores) {
+void Menu::cambiar_fallecimiento(Hash_escritores& t_escritores) {
     hash_escritores.listar();
     int isni;
     cout << endl << "Ingrese el ISNI del escritor al que le desea cambiar el anio" << endl;
@@ -315,10 +332,15 @@ void Menu::listar_escritores(Lista_escritores& l_escritores){
     l_escritores.listar();
 }
 
+/*|
+void Menu::listar_escritores(Hash_escritores& t_escritores){ 
+    t_escritores.listar();
+}
+*/
+
 void Menu::listar_lecturas(Lista_lecturas& l_lecturas) {
     l_lecturas.listar();
 }
-
 
 void Menu::listar_lecturas_por_escritor(Lista_lecturas& l_lecturas, 
                                         Lista_escritores& l_escritores) {
@@ -349,6 +371,27 @@ void Menu::listar_lecturas_por_escritor(Lista_lecturas& l_lecturas,
     }
 }
 
+/*
+void Menu::listar_lecturas_por_escritor(Lista_lecturas& l_lecturas, 
+                                        Hash_escritores& t_escritores) {
+    
+    int respuesta, cantidad_de_escritores;
+    t_escritores.listar();
+    cout << "Ingrese el ISNI del escritor cuyas lecturas desea listar" << endl;
+    cout << "(En caso de que el autor no posea ninguna novela escrita, el";
+    cout << " campo permancera vacio)" << endl;
+    cin >> respuesta;
+    if (t_escritores.obtener_escritor(respuesta) == 0) {  //VER SI LO QUIEREN PREGUNTAR EN LOOP
+        cout << "El ISNI ingresado no corresponde a ningun escritor" << endl;
+    }
+    while (i <= l_lecturas.obtener_cantidad()) {
+        if (l_lecturas.consulta(i)->obtener_autor()
+            && respuesta == stoi(l_lecturas.consulta(i)->obtener_autor()->obtener_codigo()))
+            l_lecturas.consulta(i)->mostrar_datos();
+        i++; 
+    }
+}
+*/
 
 void Menu::listar_novelas_por_genero(Lista_lecturas& l_lecturas) {
     bool respuesta_correcta = false;

@@ -16,7 +16,6 @@ int Lista_escritores::obtener_cantidad() {
     return cantidad;
 }
 
-
 Escritor* Lista_escritores::consulta(int pos) {
     Nodo<Escritor*>* aux = obtener_nodo(pos);
     return aux->obtener_dato();
