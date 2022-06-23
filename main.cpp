@@ -39,15 +39,16 @@ int main() {
     escritores.alta(p_escritor2);
 
     escritores.listar();
-    cout << endl << "Ahora obtener un escritor" << endl;
+    cout << endl << "Ahora pruebo obtener un escritor. Ingrese el codigo:" << endl;
     int codigo;
     cin >> codigo;
+    cout << endl;
     if(escritores.obtener_escritor(codigo) != 0)
         escritores.obtener_escritor(codigo)->mostrar_datos();
     else
         cout << "No hay un escritor con ese codigo" << endl;
 
-    cout << "Ahora eliminamos uno, ingrese al q quiere eliminar" << endl;
+    cout << endl << "Ahora eliminamos uno, ingrese al q quiere eliminar" << endl;
     int isni;
     cin >> isni;
     escritores.baja(isni);
