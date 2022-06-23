@@ -25,7 +25,7 @@ private:
 
     //PRE: -
     //POST: pide los datos de un escritor al usuario y los guarda.
-    void pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &nacimiento, int &fallecimiento);
+    void pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &nacimiento, int &fallecimiento, string& isni);
     
 
     //PRE: lista_aux tiene que estar cargada.
@@ -65,7 +65,7 @@ public:
 
     Menu();
 
-    void ejecutar_menu(Menu menu, Lista_lecturas &l_lecturas, Lista_escritores& l_escritores,
+    void ejecutar_menu(Menu menu, Lista_lecturas &l_lecturas, Hash_escritores& t_escritores,
                         Cola& cola, Lista_lecturas& lista_aux);
 
  
@@ -80,7 +80,7 @@ public:
     //PRE: la lectura no debe estar en la lista
     //POS: agrega una nueva lectura a la lista
     //void agregar_lectura(Lista_lecturas& l_lecturas, Lectura *lectura);
-    void agregar_lectura(Lista_lecturas& l_lecturas, Lista_escritores& l_escritores);
+    void agregar_lectura(Lista_lecturas& l_lecturas, Hash_escritores& t_escritores);
 
 
     //PRE: la lectura debe estar en la lista
@@ -91,17 +91,17 @@ public:
 
     //PRE: -
     //POST: agrega un escritor ingresado por el usuario a la lista de escritores al final de la misma.
-    void agregar_escritor(Lista_escritores& l_escritores);
+    void agregar_escritor(Hash_escritores& t_escritores);
 
 
     //PRE: -
     //POST: modifica el anio de fallecimiento del escritor elegido por el usuario, por el anio ingresado. 
-    void cambiar_fallecimiento(Lista_escritores& l_escritores);
+    void cambiar_fallecimiento(Hash_escritores& t_escritores);
     //void cambiar_fallecimiento(Hash_escritores& hash_escritores);
 
     //PRE: -
     //POST: imprime por pantalla todos los escritores de la lista con sus respectivos atributos.
-    void listar_escritores(Lista_escritores& l_escritores);
+    void listar_escritores(Hash_escritores& t_escritores);
 
 
     //PRE: -
@@ -120,7 +120,7 @@ public:
     //PRE: Recibe las listas de escritores y lecturas cargadas.
     //POST: 
     void listar_lecturas_por_escritor(Lista_lecturas& l_lecturas, 
-                                      Lista_escritores& l_escritores);
+                                      Hash_escritores& t_escritores);
     
 
     //PRE: Recibe la lista de lecturas previamente cargada.

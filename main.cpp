@@ -18,16 +18,16 @@ using namespace std;
 int main() {
     
     Menu menu;
-    menu.mensaje_inicial();
+
     Parser_escritores parser_escritores = Parser_escritores();
     Hash_escritores t_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
-    //Parser_lecturas parser_lecturas = Parser_lecturas();
-    //Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, l_escritores);
-    t_escritores.listar();
-    //Lista_lecturas lista_aux;
-    //Cola cola;
-    //menu.mensaje_inicial();
-    //menu.ejecutar_menu(menu, l_lecturas, l_escritores, cola, lista_aux);    
+    Parser_lecturas parser_lecturas = Parser_lecturas();
+    Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, t_escritores);
+    
+    Lista_lecturas lista_aux;
+    Cola cola;
+    menu.mensaje_inicial();
+    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux);    
 /*    
     Hash_escritores escritores;
 
