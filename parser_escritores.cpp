@@ -9,19 +9,19 @@ Parser_escritores::Parser_escritores() {
 }
 
 
-string Parser_escritores::obtener_datito(ifstream& archivo, string datito){
-    while (datito == "" && !archivo.eof()) 
+string Parser_escritores::obtener_dato(ifstream& archivo, string dato){
+    while (dato == "" && !archivo.eof()) 
     {
-        getline(archivo, datito);
+        getline(archivo, dato);
     }
-    return datito;
+    return dato;
 }
 
 
 string Parser_escritores::verificar_terminacion_abrupta(ifstream& archivo) {
     string fallecimiento, aux; 
         if (archivo >> aux) {
-            aux = obtener_datito(archivo, aux);
+            aux = obtener_dato(archivo, aux);
         } else {
             aux = "-1";
         }
@@ -64,10 +64,10 @@ string Parser_escritores::extraer_escritor (ifstream& archivo, string codigo_esc
     string nombre, nacionalidad, nacimiento, fallecimiento, aux;
     bool finEscritor = false;
     while (!archivo.eof() && !finEscritor) {
-        codigo_escritor = obtener_datito(archivo, codigo_escritor);
-        nombre = obtener_datito(archivo, nombre);
-        nacionalidad = obtener_datito(archivo, nacionalidad);
-        nacimiento = obtener_datito(archivo, nacimiento);
+        codigo_escritor = obtener_dato(archivo, codigo_escritor);
+        nombre = obtener_dato(archivo, nombre);
+        nacionalidad = obtener_dato(archivo, nacionalidad);
+        nacimiento = obtener_dato(archivo, nacimiento);
         aux = verificar_terminacion_abrupta(archivo);
         fallecimiento = verificar_fallecimineto(aux);
         finEscritor = true;

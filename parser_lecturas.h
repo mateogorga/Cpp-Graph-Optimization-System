@@ -24,7 +24,7 @@ class Parser_lecturas {
         //POST: Mientras el string sea vacio y exista archivo, va a buscar lineas hasta
         //que deje de ocurrir alguna de las condiciones. Esto se hace para manejar casos
         //donde haya mas de un espacio entre lecturas.
-        string obtener_datito(ifstream& archivo, string datito);
+        string obtener_dato(ifstream& archivo, string dato);
 
 
         //PRE: Recibe el string del genero de la novela.
@@ -39,8 +39,8 @@ class Parser_lecturas {
 
 
         //PRE: Recibe el string de forma "(X)" donde la X es el numero con el que se 
-        //identifica al autor en la lista de escritores. Recbe dicha lista.
-        //POST: Devuelve un puntero a escritor extrayendo la X y usandola con el 
+        //identifica al autor en la lista de escritores. Recibe dicha lista.
+        //POST: Devuelve un puntero a escritor extrayendo la X y usandola con el                //necesito que a la hora de devolver un puntero al autor, busque en la lista de escritores aquel que coincida con el ISNI recibido, enves de devolver la posicion que antes coincidia con el numero que figuraba en el txt
         //metodo de consulta. Recordar que la lista de escritores comienza en la
         //posicion 1. En caso de ser anonimo devuelve un puntero a nullptr.
         Escritor* procesar_autor (string numero_autor, Lista_escritores& le);
