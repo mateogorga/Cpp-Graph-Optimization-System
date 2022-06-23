@@ -32,10 +32,10 @@ int main() {
     
     Hash_escritores escritores;
 
-    Escritor* p_escritor = new Escritor("Stephen King", "argentino", 2001, 2002, "123");
+    Escritor* p_escritor = new Escritor("Stephen King", "estadounidense", 1947, -1, "123");
     escritores.alta(p_escritor);
 
-    Escritor* p_escritor2 = new Escritor("Cortazar", "uruguayo", 2022, 2002, "555");
+    Escritor* p_escritor2 = new Escritor("Cortazar", "uruguayo", 1914, 1984, "555");
     escritores.alta(p_escritor2);
 
     escritores.listar();
