@@ -16,20 +16,19 @@ const string ARCHIVO_ESCRITORES = "escritores.txt";
 using namespace std;
 
 int main() {
-    /*
+    
     Menu menu;
     menu.mensaje_inicial();
-    
     Parser_escritores parser_escritores = Parser_escritores();
-    Lista_escritores l_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
-    Parser_lecturas parser_lecturas = Parser_lecturas();
-    Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, l_escritores);
-
-    Lista_lecturas lista_aux;
-    Cola cola;
-
-    menu.ejecutar_menu(menu, l_lecturas, l_escritores, cola, lista_aux);    */
-    
+    Hash_escritores t_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
+    //Parser_lecturas parser_lecturas = Parser_lecturas();
+    //Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, l_escritores);
+    t_escritores.listar();
+    //Lista_lecturas lista_aux;
+    //Cola cola;
+    //menu.mensaje_inicial();
+    //menu.ejecutar_menu(menu, l_lecturas, l_escritores, cola, lista_aux);    
+/*    
     Hash_escritores escritores;
 
     Escritor* p_escritor = new Escritor("Stephen King", "estadounidense", 1947, -1, "123");
@@ -52,6 +51,6 @@ int main() {
     int isni;
     cin >> isni;
     escritores.baja(isni);
-    escritores.listar();
+    escritores.listar();*/
     return 0;   
 }

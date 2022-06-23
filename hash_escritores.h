@@ -3,6 +3,8 @@
 
 #include "escritor.h"
 #include "lista_escritores.h"
+#include <string> 
+
 
 const int TAMANIO_TABLA = 29; // 0.8 => 20 / m --> m = 25 tomo el num primo mas cercano --> 29
 const int MAX_ESCRITORES = 20;
