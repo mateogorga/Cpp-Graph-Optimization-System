@@ -57,9 +57,10 @@ public:
     //POS: imprime por pantalla todos los nombres de los escritores, enumerandolos.
     void listar_nombres();
 
-    //PRE: 
-    //POS: 
-    int obtener_pos_segun_clave( int clave);
+    //PRE: la clave debe ser un numero entero positivo.
+    //POS: devuelve la posicion dentro de la lista del escritor que posee el isni pasado 
+    //     por parametro, y en caso de no encontrarse devuelve -1.
+    int obtener_pos_segun_clave(int clave);
 
     // Destructor
     ~Lista_escritores();

@@ -31,7 +31,7 @@ public:
     Escritor* obtener_escritor(int clave);
     
     //PRE: la clave debe ser un numero entero positivo.
-    //POS:
+    //POS: elimina de la tabla al escritor en base a su clave.
     void baja(int clave);
     
     //PRE: -
