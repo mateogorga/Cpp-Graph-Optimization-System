@@ -101,14 +101,13 @@ void Lista_escritores::cambiar_fallecimiento(int anio, int pos) {
     aux->obtener_dato()->cambiar_fallecimiento(anio);
 }
 
-void Lista_escritores::listar_nombres() {
+void Lista_escritores::listar_segun_codigo() {
     if(vacia() == false) {
-        cout << "A continuacion se mostraran los nombres de todos los escritores en la lista: " << endl;
         Nodo<Escritor*>* aux = primero;
         int contador = INICIO_CONTADOR;
         while(contador <= cantidad){
             cout << endl;
-            cout << contador << ". ";
+            aux->obtener_dato()->mostrar_codigo();
             aux->obtener_dato()->mostrar_nombre_completo();
             aux = aux->obtener_siguiente(); 
             contador++;

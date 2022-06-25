@@ -54,8 +54,8 @@ public:
     void listar();
 
     //PRE: -
-    //POS: imprime por pantalla todos los nombres de los escritores, enumerandolos.
-    void listar_nombres();
+    //POS: imprime por pantalla todos los codigos y nombres de los escritores, enumerandolos.
+    void listar_segun_codigo();
 
     //PRE: la clave debe ser un numero entero positivo.
     //POS: devuelve la posicion dentro de la lista del escritor que posee el isni pasado 

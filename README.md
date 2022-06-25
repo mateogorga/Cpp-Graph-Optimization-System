@@ -10,4 +10,6 @@ Va todo bien excepto que con algunos numeros que parecen re random me anda mal e
 
 Ver en agregar_escritor del menu si tengo que agregarle los corchetes al codigo cuando doy de alta un escritor.
 
-Podria h6acer en listar las lecturas de un determinado escritor, que le muestre al usuario los escritores de forma enumerada con su respectivo ISNI para que elija desde ah6i, no es tanto trabajp puedo usar listar_seg5un_nomnre. Ver que despues del mensaje inicial se limpie la pantalla otra vez.
+Podria hacer en listar las lecturas de un determinado escritor, que le muestre al usuario los escritores de forma enumerada con su respectivo ISNI para que elija desde ahi, no es tanto trabajo puedo usar listar_segun_nomnre. Ver que despues del mensaje inicial se limpie la pantalla otra vez.
+
+Tambien se podria hacer que agregar_lectura se fije primero si el escritor ya existe.

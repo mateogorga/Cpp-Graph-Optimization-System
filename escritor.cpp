@@ -27,6 +27,10 @@ void Escritor::mostrar_nombre_completo() {
     cout << nombre_completo << endl;
 }
 
+void Escritor::mostrar_codigo() {
+    cout << codigo << endl;
+}
+
 string Escritor::obtener_nombre_completo() {
     return nombre_completo;
 }

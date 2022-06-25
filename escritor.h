@@ -32,6 +32,10 @@ public:
     //POS: imprime por pantalla el nombre del escritor.
     void mostrar_nombre_completo();
 
+    //PRE: -
+    //POS: imprime por pantalla el codigo del escritor.
+    void mostrar_codigo();
+
     string obtener_nombre_completo();
     string obtener_nacionalidad();
     int obtener_nacimiento();

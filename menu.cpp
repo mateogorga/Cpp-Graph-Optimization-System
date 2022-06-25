@@ -23,7 +23,7 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
 
         switch (respuesta) {
             case 1:
-                //menu.agregar_lectura(l_lecturas, t_escritores);
+                menu.agregar_lectura(l_lecturas, t_escritores);
                 break;
             case 2:
                 menu.quitar_lectura(l_lecturas);
@@ -232,14 +232,12 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
     }
     l_lecturas.baja(posicion);
 }
-/*
+
 void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escritores) {
     string titulo, autor, str_genero;
     int minutos, anio, int_tipo;
 
-    agregar_escritor(t_escritores);
-    int pos = l_escritores.obtener_cantidad();
-    Escritor* pescritor = l_escritores.consulta(pos);
+    Escritor* pescritor = agregar_devolver_escritor(t_escritores);
 
     pedir_datos_lectura(titulo, minutos, anio, int_tipo);
 
@@ -255,7 +253,7 @@ void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escrit
         cargar_poema(l_lecturas,titulo,minutos,anio,pescritor);
     }
 
-}*/
+}
 
 
 void Menu::pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &nacimiento, int &fallecimiento, string& isni) {
@@ -269,6 +267,16 @@ void Menu::pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &
     cin >> fallecimiento;
     cout << "Ingrese el ISNI del escritor: " << endl;
     cin >> isni;
+}
+
+
+Escritor* Menu::agregar_devolver_escritor(Hash_escritores& t_escritores) {
+    string nombre_comp, nacionalidad, isni;
+    int nacimiento, fallecimiento;
+    pedir_datos_escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, isni);
+    Escritor* nuevo_escritor = new Escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, isni);
+    t_escritores.alta(nuevo_escritor);
+    return nuevo_escritor;
 }
 
 void Menu::agregar_escritor(Hash_escritores& t_escritores) {
@@ -331,12 +339,13 @@ void Menu::listar_lecturas_por_escritor(Lista_lecturas& l_lecturas,
                                         Hash_escritores& t_escritores) {
     
     int respuesta;
-    t_escritores.listar();
+    t_escritores.listar_segun_codigo();
+    cout << endl;
     cout << "Ingrese el ISNI del escritor cuyas lecturas desea listar" << endl;
     cout << "(En caso de que el autor no posea ninguna novela escrita, el";
     cout << " campo permancera vacio)" << endl;
     cin >> respuesta;
-    if (t_escritores.obtener_escritor(respuesta) == 0) {  //VER SI LO QUIEREN PREGUNTAR EN LOOP
+    if (t_escritores.obtener_escritor(respuesta) == 0) { 
         cout << "El ISNI ingresado no corresponde a ningun escritor" << endl;
     }
     int i = 1;
@@ -373,10 +382,10 @@ void Menu::listar_novelas_por_genero(Lista_lecturas& l_lecturas) {
     string genero_numero1 = to_string(genero_numero);
     while (i <= l_lecturas.obtener_cantidad()) {
         l_lecturas.consulta(i)->mostrar_segun_parametro(genero_numero1);
+        cout << endl;
         i++;
     }
 }
-    
 
 
 
@@ -448,13 +457,14 @@ void Menu::listar_lecturas_entre_anios(Lista_lecturas &l_lecturas) {
     int contador = 1;
     int cant_lecturas = l_lecturas.obtener_cantidad();
 
-    cout<<"Ingrese el primer anio: ";
-    cin>>desde;
-    cout<<"Ingrese el segundo anio: ";
-    cin>>hasta;
+    cout << "Ingrese el primer anio: ";
+    cin >> desde;
+    cout << "Ingrese el segundo anio: ";
+    cin >> hasta;
 
-    while (cant_lecturas>=contador) {
-        if (l_lecturas.consulta(contador)->obtener_anio()>=desde and l_lecturas.consulta(contador)->obtener_anio()<=hasta) {
+    while (cant_lecturas >= contador) {
+        if (l_lecturas.consulta(contador)->obtener_anio() >= desde and l_lecturas.consulta(contador)->obtener_anio()<=hasta) {
+            cout << endl;
             l_lecturas.consulta(contador)->mostrar_datos();
         }
         contador++;

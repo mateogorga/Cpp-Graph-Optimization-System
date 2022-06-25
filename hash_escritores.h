@@ -37,8 +37,12 @@ public:
     void baja(int clave);
     
     //PRE: -
-    //POS: muestra por pantalla a los escritores almacenados con su respectiva informacion.
+    //POS: muestra por pantalla a los escritores de la tabla con su respectiva informacion.
     void listar();
+
+    //PRE: -
+    //POS: muestra por pantalla a los escritores de la tabla con su nombre y su codigo.
+    void listar_segun_codigo();
 
     //Destructor
     ~Hash_escritores();
