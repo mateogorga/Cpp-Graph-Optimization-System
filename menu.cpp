@@ -144,14 +144,14 @@ void Menu::pedir_datos_lectura(string &titulo, int &minutos, int &anio, int &int
 }
 
 void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero) {
-    cout<<"Ingrese uno de estos generos, todo en mayusculas: " << endl;
-    cout<< "DRAMA" << endl;
-    cout<< "FICCION" << endl;
-    cout<< "SUSPENSO" << endl;
-    cout<< "TERROR" << endl;
-    cout<< "ROMANTICA" << endl;
-    cout<< "HISTORICA" << endl;
-    cin>>str_genero;
+    cout <<"Ingrese uno de estos generos, todo en mayusculas: " << endl;
+    cout << "DRAMA" << endl;
+    cout << "FICCION" << endl;
+    cout << "SUSPENSO" << endl;
+    cout << "TERROR" << endl;
+    cout << "ROMANTICA" << endl;
+    cout << "HISTORICA" << endl;
+    cin >> str_genero;
     Genero genero = procesar_str_genero(str_genero);
 
 
@@ -241,29 +241,15 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
 void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escritores) {
     string titulo, autor, str_genero;
     int minutos, anio, int_tipo;
-    Escritor* pescritor = 0;
     cout << "El autor de la lectura que desea agregar ya se encuentra en la tabla de escritores?" << endl;
     cout << "1.Si       2.No" << endl;
-    int respuesta1, respuesta2;
+    int respuesta1;
     cin >> respuesta1;
-    while(respuesta1 != SI && respuesta1 != NO){
+    while((respuesta1 != SI) && (respuesta1 != NO)) {
         cout << "Entrada invalida. Por favor, ingrese '1' para si y '2' para no." << endl;
         cin >> respuesta1;
     }
-    if(respuesta1 == NO) {
-        cout << endl << "Entonces es necesario que agregue la informacion del autor." << endl;
-        pescritor = agregar_devolver_escritor(t_escritores);
-    } else if (respuesta1 == SI){
-        t_escritores.listar_segun_codigo();
-        cout << endl;
-        cout << "Ingrese el ISNI del escritor correspondiente" << endl;
-        cin >> respuesta2;
-        while (t_escritores.obtener_escritor(respuesta2) == 0) { 
-            cout << "El ISNI ingresado no corresponde a ningun escritor. Por favor ingrese uno valido" << endl;
-            cin >> respuesta2;
-        } 
-        pescritor = t_escritores.obtener_escritor(respuesta2);
-    } 
+    Escritor* pescritor = asignar_escritor(t_escritores, respuesta1);
     cout << endl << "Ahora si se le pediran los datos de la lectura." << endl << endl;
     pedir_datos_lectura(titulo, minutos, anio, int_tipo);
     if (int_tipo == 1) {
@@ -273,6 +259,27 @@ void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escrit
     } else {
         cargar_poema(l_lecturas,titulo,minutos,anio,pescritor);
     }
+}
+
+
+Escritor* Menu::asignar_escritor(Hash_escritores& t_escritores, int& respuesta1){
+    Escritor* pescritor;
+    if(respuesta1 == NO) {
+        cout << endl << "Entonces es necesario que agregue la informacion del autor." << endl;
+        pescritor = agregar_devolver_escritor(t_escritores);
+    } else if (respuesta1 == SI){
+        t_escritores.listar_segun_codigo();
+        cout << endl;
+        cout << "Ingrese el ISNI del escritor correspondiente" << endl;
+        int respuesta2;
+        cin >> respuesta2;
+        while (t_escritores.obtener_escritor(respuesta2) == 0) { 
+            cout << "El ISNI ingresado no corresponde a ningun escritor. Por favor ingrese uno valido" << endl;
+            cin >> respuesta2;
+        } 
+        pescritor = t_escritores.obtener_escritor(respuesta2);
+    }
+    return pescritor;
 }
 
 

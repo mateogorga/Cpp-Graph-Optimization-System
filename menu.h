@@ -63,6 +63,10 @@ private:
     void pedir_datos_lectura(string &titulo, int &minutos, int &anio, int &int_tipo);
 
 
+    //PRE: respuesta1 debe valer 1 o 2.
+    //POS: devuelve un puntero al escritor que decida el usuario.
+    Escritor* asignar_escritor(Hash_escritores& t_escritores, int& respuesta1);
+
 public:
 
     //Constructor
