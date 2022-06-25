@@ -3,13 +3,16 @@
 #include <cstdlib>
 
 
-
 const int SI = 1;
 const int NO = 2;
 const int PRIMER_GENERO = 1;
 const int ULTIMO_GENERO = 6;
 const int MENU_OPCION_1 = 1;
 const int MENU_OPCION_13 = 13;
+const int NOVELA = 1;
+const int CUENTO = 2;
+const int POEMA = 3;
+
 Menu::Menu(){
 
 }
@@ -132,8 +135,12 @@ void Menu::pedir_datos_lectura(string &titulo, int &minutos, int &anio, int &int
     cout << "Ingrese el anio de publicacion: "<< endl;
     cin >> anio;
     cout << "Ingrese el tipo de lectura (el numero): "<< endl;
-    cout << "1) Novela\n2)Cuento\n3)Poema"<< endl;
+    cout << "1)Novela\n2)Cuento\n3)Poema"<< endl;
     cin >> int_tipo;
+    while((int_tipo != NOVELA) && (int_tipo != CUENTO) && (int_tipo != POEMA)){
+        cout << endl << "Entrada invalida. Por favor, ingrese un valor de los indicados." << endl;
+        cin >> int_tipo;
+    }
 }
 
 void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero) {
@@ -155,9 +162,7 @@ void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos,
         char* tema = procesar_tema_historica(str_tema);
         Historica* nueva_lectura = new Historica(titulo,minutos,anio,autor,HISTORICA,tema);
         l_lecturas.alta(nueva_lectura, ANIO_L);
-    }
-
-    else {
+    } else {
         Novela* nueva_lectura = new Novela(titulo,minutos,anio,autor,genero);
         l_lecturas.alta(nueva_lectura, ANIO_L);
     }
@@ -236,28 +241,44 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
 void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escritores) {
     string titulo, autor, str_genero;
     int minutos, anio, int_tipo;
-
-    Escritor* pescritor = agregar_devolver_escritor(t_escritores);
-
+    Escritor* pescritor = 0;
+    cout << "El autor de la lectura que desea agregar ya se encuentra en la tabla de escritores?" << endl;
+    cout << "1.Si       2.No" << endl;
+    int respuesta1, respuesta2;
+    cin >> respuesta1;
+    while(respuesta1 != SI && respuesta1 != NO){
+        cout << "Entrada invalida. Por favor, ingrese '1' para si y '2' para no." << endl;
+        cin >> respuesta1;
+    }
+    if(respuesta1 == NO) {
+        cout << endl << "Entonces es necesario que agregue la informacion del autor." << endl;
+        pescritor = agregar_devolver_escritor(t_escritores);
+    } else if (respuesta1 == SI){
+        t_escritores.listar_segun_codigo();
+        cout << endl;
+        cout << "Ingrese el ISNI del escritor correspondiente" << endl;
+        cin >> respuesta2;
+        while (t_escritores.obtener_escritor(respuesta2) == 0) { 
+            cout << "El ISNI ingresado no corresponde a ningun escritor. Por favor ingrese uno valido" << endl;
+            cin >> respuesta2;
+        } 
+        pescritor = t_escritores.obtener_escritor(respuesta2);
+    } 
+    cout << endl << "Ahora si se le pediran los datos de la lectura." << endl << endl;
     pedir_datos_lectura(titulo, minutos, anio, int_tipo);
-
     if (int_tipo == 1) {
         cargar_novela(l_lecturas,titulo,minutos,anio,pescritor,str_genero);
-    }
-
-    else if (int_tipo == 2) {
+    } else if (int_tipo == 2) {
         cargar_cuento(l_lecturas,titulo,minutos,anio,pescritor);
-    }
-
-    else {
+    } else {
         cargar_poema(l_lecturas,titulo,minutos,anio,pescritor);
     }
-
 }
 
 
 void Menu::pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &nacimiento, int &fallecimiento, string& isni) {
     cout << "Ingrese el nombre completo del escritor: " << endl;
+    cin.ignore();
     getline(cin, nombre_comp);
     cout << "Ingrese la nacionalidad del escritor: " << endl;
     getline(cin, nacionalidad);
