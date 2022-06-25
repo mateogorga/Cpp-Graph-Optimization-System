@@ -4,6 +4,8 @@
 #include "nodo.h"
 #include "escritor.h"
 
+const int POS_INVALIDA = -1;
+
 class Lista_escritores {
 
 //Atrubutos   
@@ -30,6 +32,11 @@ public:
     //POS: devuelve el puntero a escritor que se encuentra en la posicion pasada.
     Escritor* consulta(int pos);
 
+    //PRE: -
+    //POS: devuelve un puntero al escritor de la lista cuyo codigo es el pasado por parametro.
+    //     En caso de no encontrarse este codigo, devuelve un puntero a nullptr.
+    Escritor* buscar_segun_codigo(int codigo);
+
     //PRE: 0 < pos <= cantidad.
     //POS: cambia el anio de fallecimiento del escritor en la posicion pasada.
     void cambiar_fallecimiento(int anio, int pos);
@@ -47,8 +54,13 @@ public:
     void listar();
 
     //PRE: -
-    //POS: imprime por pantalla todos los nombres de los escritores, enumerandolos.
-    void listar_nombres();
+    //POS: imprime por pantalla todos los codigos y nombres de los escritores, enumerandolos.
+    void listar_segun_codigo();
+
+    //PRE: la clave debe ser un numero entero positivo.
+    //POS: devuelve la posicion dentro de la lista del escritor que posee el isni pasado 
+    //     por parametro, y en caso de no encontrarse devuelve -1.
+    int obtener_pos_segun_clave(int clave);
 
     // Destructor
     ~Lista_escritores();

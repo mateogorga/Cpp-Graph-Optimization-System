@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <fstream>
-#include "lista_escritores.h"
+#include "hash_escritores.h"
 
 
 using namespace std;
@@ -13,13 +13,13 @@ class Parser_escritores {
 
     private:    
         //PRE: Recibe archivo de escritores abierto en la primer linea y una
-        //lista de escritores vacia.
+        //tabla de escritores vacia.
         //POST: se ejecuta mientras exista archivo abierto. LLama a funcion 
         //extrar_escritor.
-        void procesar_datos(ifstream& archivo, Lista_escritores& l_escritores);
+        void procesar_datos(ifstream& archivo, Hash_escritores& t_escritores);
 
 
-        //PRE: Recibe archivo de escritores abierto, una lista de escriores y
+        //PRE: Recibe archivo de escritores abierto, una tabla de escriores y
         //el codigo del escritor que puede ser vacio.
         //POST: llama a funciones obtener_datitio y crear_enlistar_escritor y
         //verificar_fallecimiento. Devuelve un string con el codigo del escritor. 
@@ -28,7 +28,7 @@ class Parser_escritores {
         //en realidad pertenece al siguiente escritor. En este ultimo caso, obtener_datito
         //no busca otra linea, entonces el codigo se mantiene.
         string extraer_escritor (ifstream& archivo, string codigo_escritor,
-                                 Lista_escritores& l_escritores);
+                                 Hash_escritores& t_escritores);
         
 
         //PRE: Recibe archivo abierto y un dato tipo string.
@@ -51,11 +51,11 @@ class Parser_escritores {
 
 
         //PRE: Recibe los datos correspondientes para crear un escritor.
-        //POST: Carga el escritor en memoria y carga la lista con un puntero al 
+        //POST: Carga el escritor en memoria y carga la tabla con un puntero al 
         //mismo.
         void crear_enlistar_escritor(string nombre, string nacionalidad, 
                                      string nacimiento, string fallecimiento,
-                                     Lista_escritores& l_escritores, 
+                                     Hash_escritores& t_escritores, 
                                      string codigo_escritor);
 
 
@@ -71,8 +71,8 @@ class Parser_escritores {
 
         //PRE: Recibe un archivo.txt de escritores cuyos datos siguen el orden pedido 
         //en el enunciado del TP2.
-        //POST: devuelve una lista cargada con los datos por escritor.
-        Lista_escritores cargar_lista_escritores(string nombre_archivo);
+        //POST: devuelve una tabla cargada con los datos por escritor.
+        Hash_escritores cargar_lista_escritores(string nombre_archivo);
 
         //destructor
         ~Parser_escritores(){};
