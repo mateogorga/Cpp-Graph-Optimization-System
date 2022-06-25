@@ -286,28 +286,7 @@ void Menu::agregar_escritor(Hash_escritores& t_escritores) {
     Escritor* nuevo_escritor = new Escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, isni);
     t_escritores.alta(nuevo_escritor);
 }
-/*
-void Menu::pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &nacimiento, int &fallecimiento) {
-    cout << "Ingrese el nombre completo del escritor: " << endl;
-    getline(cin, nombre_comp);
-    cout << "Ingrese la nacionalidad del escritor: " << endl;
-    getline(cin, nacionalidad);
-    cout << "Ingrese el anio de nacimiento: " << endl;
-    cin >> nacimiento;
-    cout << "Ingrese el anio de fallecimiento. Si el escritor se encuentra vivo, ingrese -1" << endl;
-    cin >> fallecimiento;
-}
 
-
-void Menu::agregar_escritor(Lista_escritores& l_escritores) {
-    string nombre_comp, nacionalidad;
-    int nacimiento, fallecimiento;
-    pedir_datos_escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento);
-    int pos = l_escritores.obtener_cantidad() + 1;
-    string codigo_escritor = '(' + to_string(pos) + ')';
-    Escritor* nuevo_escritor = new Escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, codigo_escritor);
-    l_escritores.alta(nuevo_escritor, pos);
-}*/
 
 void Menu::cambiar_fallecimiento(Hash_escritores& t_escritores) {
     t_escritores.listar();
