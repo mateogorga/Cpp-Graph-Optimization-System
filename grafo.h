@@ -54,12 +54,12 @@ class Grafo {
 
         //PRE:
         //POST:
-        void insertar_peso (string origen, string destino, int peso);
+        void eliminar_arista (string origen, string destino);
 
 
         //PRE:
         //POST:
-        void eliminar_arista (string origen, string destino);
+        void insertar_peso (string origen, string destino, int peso);
 
 
         //PRE:

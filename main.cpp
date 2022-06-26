@@ -28,12 +28,15 @@ int main() {
     Lista_lecturas lista_aux;
     Cola cola;
     Grafo grafo;
+
     grafo.insertar_arista("A", "B");
-    grafo.insertar_arista("B", "A");
-    grafo.insertar_peso("A", "B", 20);
-    grafo.insertar_peso("B", "A", 20);
-    grafo.insertar_arista("A", "C");
     grafo.insertar_arista("C", "B");
+    grafo.insertar_peso("B", "A", 15);
+    grafo.insertar_peso("C", "B", 80);
+
+  
+
+
 
     menu.mensaje_inicial();
     menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo);    

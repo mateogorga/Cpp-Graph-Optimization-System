@@ -82,17 +82,24 @@ void Grafo::insertar_arista (string origen, string destino) {
         insertar_lectura(destino);
     long unsigned int posicion_origen = encontrar_posicion_lectura(origen);
     long unsigned int posicion_destino = encontrar_posicion_lectura(destino);
-    if (!buscar_arista(origen, destino))
+    if (!buscar_arista(origen, destino)) {
         matriz_adyacente[posicion_origen][posicion_destino] = 1;
+        matriz_adyacente[posicion_destino][posicion_origen] = 1;
+        //linea anterior hace que la matriz se carge simetricamente
+        //por ser no dirigido por enunciado       
+    }
 }
 
 
 //los pesos van a ser fijos SUPONGO QUE EXISTE ARISTA
-//quizas hacer metodo que cuando inserte arista pida el peso directamente
+//supongo que solo se agraga una vez, sino se pisa
 void Grafo::insertar_peso (string origen, string destino, int peso) {
     long unsigned int posicion_origen = encontrar_posicion_lectura(origen);
     long unsigned int posicion_destino = encontrar_posicion_lectura(destino);
     matriz_pesos[posicion_origen][posicion_destino] = peso;
+    matriz_pesos[posicion_destino][posicion_origen] = peso;
+    //linea anterior hace que la matriz se carge simetricamente
+    //por ser no dirigido por enunciado
 }   
 
 
