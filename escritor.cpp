@@ -14,6 +14,7 @@ Escritor::Escritor(string nombre_completo, string nacionalidad, int nacimiento,
 void Escritor::mostrar_datos() {
 
     cout << "Nombre del escritor: " << nombre_completo << endl;
+    cout << "ISNI de identificacion: " << codigo << endl;
     cout << "Nacionalidad: " << nacionalidad << endl;
     cout << "Nacio en: " << nacimiento << endl;
     if(fallecimiento != SIGUE_VIVO)
@@ -24,6 +25,10 @@ void Escritor::mostrar_datos() {
 
 void Escritor::mostrar_nombre_completo() {
     cout << nombre_completo << endl;
+}
+
+void Escritor::mostrar_codigo() {
+    cout << codigo << endl;
 }
 
 string Escritor::obtener_nombre_completo() {
@@ -44,4 +49,8 @@ int Escritor::obtener_fallecimiento() {
 
 void Escritor::cambiar_fallecimiento(int anio) {
     fallecimiento = anio;
+}
+
+string Escritor::obtener_codigo() {
+    return codigo;
 }

@@ -11,7 +11,7 @@
 #include "poema.h"
 #include "lista_lecturas.h"
 #include "escritor.h"
-#include "lista_escritores.h"
+#include "hash_escritores.h"
 
 
 using namespace std;
@@ -43,27 +43,27 @@ class Parser_lecturas {
         //POST: Devuelve un puntero a escritor extrayendo la X y usandola con el                //necesito que a la hora de devolver un puntero al autor, busque en la lista de escritores aquel que coincida con el ISNI recibido, enves de devolver la posicion que antes coincidia con el numero que figuraba en el txt
         //metodo de consulta. Recordar que la lista de escritores comienza en la
         //posicion 1. En caso de ser anonimo devuelve un puntero a nullptr.
-        Escritor* procesar_autor (string numero_autor, Lista_escritores& le);
+        Escritor* procesar_autor (string numero_autor, Hash_escritores& le);
 
 
         //PRE: Recibe los datos listos para cargar, menos minutos y anios.
         //POST: Castea minutos y anios a integers. Crea un puntero a la novela
         //que instancia y la carga en la lista de lecturas.
-        void cargar_novela(Lista_lecturas& ll, Lista_escritores& le,string titulo, 
+        void cargar_novela(Lista_lecturas& ll, Hash_escritores& le,string titulo, 
                                    string minutos, string anio, Escritor* p_autor, 
                                    Genero genero);
 
         //PRE: Recibe los datos listos para cargar, menos minutos y anios.
         //POST: Castea minutos y anios a integers. Crea un puntero a la novela historica
         //que instancia y la carga en la lista de lecturas.
-        void cargar_novela_historica(Lista_lecturas&ll, Lista_escritores& le, string titulo, 
+        void cargar_novela_historica(Lista_lecturas&ll, Hash_escritores& le, string titulo, 
                                    string minutos, string anio, Escritor* p_autor, 
                                    Genero genero, char* tema);
 
         //PRE: Recibe los datos listos para cargar, menos minutos y anios.
         //POST: Castea minutos y anios a integers. Crea un puntero al cuento
         //que instancia y lo carga en la lista de lecturas.
-        void cargar_cuento(Lista_lecturas& ll, Lista_escritores& le, string titulo, 
+        void cargar_cuento(Lista_lecturas& ll, Hash_escritores& le, string titulo, 
                            string minutos, string anio, Escritor* p_autor, 
                            string titulo_libro);
 
@@ -71,7 +71,7 @@ class Parser_lecturas {
         //veros.
         //POST: Castea minutos, anios y cantidad de versos a integer. Crea un puntero 
         //al poema que instancia y lo carga en la lista de lecturas.
-        void cargar_poema(Lista_lecturas& ll, Lista_escritores& le, string titulo,
+        void cargar_poema(Lista_lecturas& ll, Hash_escritores& le, string titulo,
                           string minutos, string anio, Escritor* p_autor, 
                           string cantidad_versos);
 
@@ -82,7 +82,7 @@ class Parser_lecturas {
         //POST: Decide si llamar a cargar_novela o cargar_novela_historica, con los datos
         //procesados menos minutos y anio que los entrega como strings.
         void extraer_datos_novela(ifstream& archivo, Lista_lecturas& ll, 
-                                  Lista_escritores& le);
+                                  Hash_escritores& le);
 
 
         //PRE: Recibe el archivo de lecturas abierto luego de haber leido una C. La
@@ -91,7 +91,7 @@ class Parser_lecturas {
         //POST: Llama a la funcion cargar_cuento con los datos procesados menos minutos y
         //anio que los entrega como strings.
         void extraer_datos_cuento(ifstream& archivo, Lista_lecturas& ll, 
-                                  Lista_escritores& le);
+                                  Hash_escritores& le);
 
 
         //PRE: Recibe el archivo de lecturas abierto luego de haber leido una P. La
@@ -100,7 +100,7 @@ class Parser_lecturas {
         //POST: Llama a la funcion cargar_poema con los datos procesados menos minutos
         // anio y cantidad de versos que los entrega como strings.
         void extraer_datos_poema(ifstream& archivo, Lista_lecturas& ll,
-                                 Lista_escritores& le);
+                                 Hash_escritores& le);
        
         
         //PRE: Recibe archivo de lecturas abierto en la primer linea y una
@@ -108,7 +108,7 @@ class Parser_lecturas {
         //POST: se ejecuta mientras exista archivo abierto. Compara las lineas de letras
         //para decidir que tipo de lectura carga. Llama a la carga correspondiente.
         void procesar_datos(ifstream& archivo, Lista_lecturas& ll, 
-                            Lista_escritores& le);
+                            Hash_escritores& le);
 
 
     public:
@@ -121,7 +121,7 @@ class Parser_lecturas {
         //POST: devuelve una lista cargada con los datos por novela ordenada por anio
         //con punteros a sus escritores correspondientes.
         Lista_lecturas cargar_lista_lecturas(string nombre_archivo, 
-                                             Lista_escritores& le );
+                                             Hash_escritores& le);
     
         //Destructor.
         ~Parser_lecturas();

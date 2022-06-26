@@ -3,6 +3,7 @@
 const int INICIO_CONTADOR = 1;
 const int PRIMER_POS = 1;
 
+
 Lista_escritores::Lista_escritores() {
     primero = 0;
     cantidad = 0;
@@ -15,7 +16,6 @@ bool Lista_escritores::vacia() {
 int Lista_escritores::obtener_cantidad() {
     return cantidad;
 }
-
 
 Escritor* Lista_escritores::consulta(int pos) {
     Nodo<Escritor*>* aux = obtener_nodo(pos);
@@ -60,6 +60,26 @@ Nodo<Escritor*>* Lista_escritores::obtener_nodo(int pos) {
     return aux;
 }
 
+Escritor* Lista_escritores::buscar_segun_codigo(int codigo) {
+
+    Nodo<Escritor*>* aux = primero;
+    int contador = INICIO_CONTADOR;
+    if(vacia()) {
+        aux = 0;
+    } else {
+        while ((contador <= cantidad) && (stoi(aux->obtener_dato()->obtener_codigo()) != codigo)) {
+            aux = aux->obtener_siguiente();
+            contador++;
+        }
+        if((stoi(aux->obtener_dato()->obtener_codigo()) != codigo))
+            aux = 0;
+    }
+    if(aux != 0)
+        return aux->obtener_dato();
+    else
+        return 0;
+}
+
 void Lista_escritores::listar() {
     if(vacia() == false) {
         Nodo<Escritor*>* aux = primero;
@@ -81,20 +101,35 @@ void Lista_escritores::cambiar_fallecimiento(int anio, int pos) {
     aux->obtener_dato()->cambiar_fallecimiento(anio);
 }
 
-void Lista_escritores::listar_nombres() {
+void Lista_escritores::listar_segun_codigo() {
     if(vacia() == false) {
-        cout << "A continuacion se mostraran los nombres de todos los escritores en la lista: " << endl;
         Nodo<Escritor*>* aux = primero;
         int contador = INICIO_CONTADOR;
         while(contador <= cantidad){
             cout << endl;
-            cout << contador << ". ";
+            aux->obtener_dato()->mostrar_codigo();
             aux->obtener_dato()->mostrar_nombre_completo();
             aux = aux->obtener_siguiente(); 
             contador++;
         }
     } else
         cout << "La lista de escritores se encuentra vacia" << endl;
+}
+
+int Lista_escritores::obtener_pos_segun_clave(int clave){
+    int contador = INICIO_CONTADOR;
+    if(vacia() == false) {
+        Nodo<Escritor*>* aux = primero;
+        while((contador <= cantidad) && (stoi(aux->obtener_dato()->obtener_codigo()) != clave)){
+            aux = aux->obtener_siguiente();
+            contador++;
+        }
+        if(stoi(aux->obtener_dato()->obtener_codigo()) != clave)
+            contador = POS_INVALIDA;
+    } else
+        contador = POS_INVALIDA;
+
+    return contador;
 }
 
 Lista_escritores::~Lista_escritores() {

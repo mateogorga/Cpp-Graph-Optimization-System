@@ -49,7 +49,7 @@ char* Parser_lecturas::procesar_tema(string str_tema) {
     return tema;
 }
 
-Escritor* Parser_lecturas::procesar_autor(string numero_autor, Lista_escritores& le) {
+Escritor* Parser_lecturas::procesar_autor(string numero_autor, Hash_escritores& le) {
     int codigo_autor;
     Escritor* p_autor;
     if (numero_autor == "ANONIMO") {
@@ -58,14 +58,14 @@ Escritor* Parser_lecturas::procesar_autor(string numero_autor, Lista_escritores&
         numero_autor = numero_autor.erase(0, 1);
         numero_autor = numero_autor.erase(numero_autor.size() - 1, 1);
         codigo_autor = stoi(numero_autor);
-        p_autor = le.consulta(codigo_autor); //aca deberia recorrer la lista de escritores
+        p_autor = le.obtener_escritor(codigo_autor);
     };
     return p_autor;
 }
 
 
 
-void Parser_lecturas::cargar_novela(Lista_lecturas& ll, Lista_escritores& le, string titulo, 
+void Parser_lecturas::cargar_novela(Lista_lecturas& ll, Hash_escritores& le, string titulo, 
                                    string minutos, string anio, Escritor* p_autor, 
                                    Genero genero) {
     int int_minutos = stoi(minutos);
@@ -75,7 +75,7 @@ void Parser_lecturas::cargar_novela(Lista_lecturas& ll, Lista_escritores& le, st
 }
 
 
-void Parser_lecturas::cargar_novela_historica(Lista_lecturas& ll, Lista_escritores& le,
+void Parser_lecturas::cargar_novela_historica(Lista_lecturas& ll, Hash_escritores& le,
                                               string titulo, string minutos, string anio,
                                               Escritor* p_autor, Genero genero, char* tema) {
     int int_minutos = stoi(minutos);
@@ -86,7 +86,7 @@ void Parser_lecturas::cargar_novela_historica(Lista_lecturas& ll, Lista_escritor
 
 
 void Parser_lecturas::extraer_datos_novela(ifstream& archivo, Lista_lecturas& ll,
-                                           Lista_escritores& le) {
+                                           Hash_escritores& le) {
     string titulo, minutos, anio, str_genero, str_tema, autor;
     Genero genero;
     char* tema;
@@ -112,7 +112,7 @@ void Parser_lecturas::extraer_datos_novela(ifstream& archivo, Lista_lecturas& ll
 }
 
 
-void Parser_lecturas::cargar_cuento(Lista_lecturas& ll, Lista_escritores& le, string titulo, 
+void Parser_lecturas::cargar_cuento(Lista_lecturas& ll, Hash_escritores& le, string titulo, 
                                    string minutos, string anio, Escritor* p_autor, 
                                    string titulo_libro) {
     int int_minutos = stoi(minutos);
@@ -123,7 +123,7 @@ void Parser_lecturas::cargar_cuento(Lista_lecturas& ll, Lista_escritores& le, st
 
 
 void Parser_lecturas::extraer_datos_cuento(ifstream& archivo, Lista_lecturas& ll, 
-                                           Lista_escritores& le) {
+                                           Hash_escritores& le) {
     string titulo, minutos, anio, titulo_libro, autor;
 
     getline (archivo, titulo);
@@ -138,7 +138,7 @@ void Parser_lecturas::extraer_datos_cuento(ifstream& archivo, Lista_lecturas& ll
 }
 
 
-void Parser_lecturas::cargar_poema(Lista_lecturas& ll, Lista_escritores& le, string titulo, 
+void Parser_lecturas::cargar_poema(Lista_lecturas& ll, Hash_escritores& le, string titulo, 
                                    string minutos, string anio, Escritor* p_autor, 
                                    string cantidad_versos) {
     int int_minutos = stoi(minutos);
@@ -150,7 +150,7 @@ void Parser_lecturas::cargar_poema(Lista_lecturas& ll, Lista_escritores& le, str
 
 
 void Parser_lecturas::extraer_datos_poema(ifstream& archivo, Lista_lecturas& ll, 
-                                          Lista_escritores& le) {
+                                          Hash_escritores& le) {
     string titulo, minutos, anio, cantidad_versos, autor;
 
     getline (archivo, titulo);
@@ -166,7 +166,7 @@ void Parser_lecturas::extraer_datos_poema(ifstream& archivo, Lista_lecturas& ll,
 
 
 void Parser_lecturas::procesar_datos(ifstream& archivo, Lista_lecturas& ll,
-                                        Lista_escritores& le) {
+                                        Hash_escritores& le) {
     string palabra;   
 
     while (archivo >> palabra) {
@@ -181,7 +181,7 @@ void Parser_lecturas::procesar_datos(ifstream& archivo, Lista_lecturas& ll,
 }
 
 Lista_lecturas Parser_lecturas::cargar_lista_lecturas(string nombre_archivo, 
-                                                      Lista_escritores& le){
+                                                      Hash_escritores& le){
     ifstream archivo;
     archivo.open(nombre_archivo);
     Lista_lecturas ll = Lista_lecturas();

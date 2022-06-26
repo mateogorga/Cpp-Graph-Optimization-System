@@ -17,18 +17,40 @@ using namespace std;
 
 int main() {
     
-    Parser_escritores parser_escritores = Parser_escritores();
-    Lista_escritores l_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
-
-    Parser_lecturas parser_lecturas = Parser_lecturas();
-    Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, l_escritores);
-    
     Menu menu;
+
+    Parser_escritores parser_escritores = Parser_escritores();
+    Hash_escritores t_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
+    Parser_lecturas parser_lecturas = Parser_lecturas();
+    Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, t_escritores);
+    
     Lista_lecturas lista_aux;
     Cola cola;
-
     menu.mensaje_inicial();
-    menu.ejecutar_menu(menu, l_lecturas, l_escritores, cola, lista_aux);
-    
+    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux);    
+/*    
+    Hash_escritores escritores;
+
+    Escritor* p_escritor = new Escritor("Stephen King", "estadounidense", 1947, -1, "123");
+    escritores.alta(p_escritor);
+
+    Escritor* p_escritor2 = new Escritor("Cortazar", "uruguayo", 1914, 1984, "555");
+    escritores.alta(p_escritor2);
+
+    escritores.listar();
+    cout << endl << "Ahora pruebo obtener un escritor. Ingrese el codigo:" << endl;
+    int codigo;
+    cin >> codigo;
+    cout << endl;
+    if(escritores.obtener_escritor(codigo) != 0)
+        escritores.obtener_escritor(codigo)->mostrar_datos();
+    else
+        cout << "No hay un escritor con ese codigo" << endl;
+
+    cout << endl << "Ahora eliminamos uno, ingrese al q quiere eliminar" << endl;
+    int isni;
+    cin >> isni;
+    escritores.baja(isni);
+    escritores.listar();*/
     return 0;   
 }
