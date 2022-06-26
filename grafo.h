@@ -1,10 +1,11 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 
-
 #include <vector>
 #include <string>
 #include <iostream>
+
+
 using namespace std;
 
 class Grafo {
@@ -36,6 +37,7 @@ class Grafo {
 
          
     public:
+
     
         //PRE:
         //POST:

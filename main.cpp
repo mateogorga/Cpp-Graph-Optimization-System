@@ -28,10 +28,15 @@ int main() {
     Lista_lecturas lista_aux;
     Cola cola;
     Grafo grafo;
+    int n = l_lecturas.obtener_cantidad();
+    for (int i = 1; i < n; i++) {
+        grafo.insertar_lectura(l_lecturas.consulta(i)->obtener_titulo());
+        //necesito agregarles atricbutos a las lecturas para saber el peso de un a otra
+    }
 
-    grafo.insertar_arista(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo());
-    grafo.insertar_arista(l_lecturas.consulta(3)->obtener_titulo(), l_lecturas.consulta(4)->obtener_titulo());
-    grafo.insertar_peso(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo(), 20);
+    //grafo.insertar_arista(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo());
+    //grafo.insertar_arista(l_lecturas.consulta(3)->obtener_titulo(), l_lecturas.consulta(4)->obtener_titulo());
+    //grafo.insertar_peso(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo(), 20);
 
   
 

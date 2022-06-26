@@ -1,5 +1,7 @@
 #include "grafo.h"
 
+
+
 void Grafo::actualizar_matriz(long unsigned int tamanio) {
             vector<vector<int>>  matriz_adyacente_anterior = matriz_adyacente;
             vector<vector<int>>  matriz_pesos_anterior = matriz_pesos;
