@@ -154,6 +154,9 @@ void Grafo::mostrar_grafo() {
     }
 }
 
+
+
+/*
 void Grafo::cargar_grafo(Lista_lecturas& ll){
     int n = ll.obtener_cantidad();
     for (int i = 0; i < n; i++) {
@@ -172,3 +175,4 @@ void Grafo::cargar_grafo(Lista_lecturas& ll){
         
     }
 }
+*/
