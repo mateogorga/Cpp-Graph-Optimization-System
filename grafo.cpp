@@ -44,15 +44,19 @@ long unsigned int Grafo::encontrar_posicion_lectura(string nombre) {
 }
 
 
-void Grafo::insertar_lectura(string nombre) {
+void Grafo::insertar_lectura(string nombre, string tipo) {
     if (nombres_lecturas.size() == 0) {
         nombres_lecturas.push_back(nombre);
+        tipos_lecturas.push_back(tipo);
         actualizar_matriz(nombres_lecturas.size());
     } else if (!encontrar_lectura(nombre)) {
         nombres_lecturas.push_back(nombre);
+        tipos_lecturas.push_back(tipo);
         actualizar_matriz(nombres_lecturas.size());
     }
 }
+
+
 
 
 void Grafo::eliminar_lectura(string nombre) {
@@ -78,18 +82,17 @@ bool Grafo::buscar_arista (string origen, string destino) {
 
 
 void Grafo::insertar_arista (string origen, string destino) {
-    if (!encontrar_lectura(origen))
-        insertar_lectura(origen);
-    if (!encontrar_lectura(destino))
-        insertar_lectura(destino);
-    long unsigned int posicion_origen = encontrar_posicion_lectura(origen);
-    long unsigned int posicion_destino = encontrar_posicion_lectura(destino);
-    if (!buscar_arista(origen, destino)) {
-        matriz_adyacente[posicion_origen][posicion_destino] = 1;
-        matriz_adyacente[posicion_destino][posicion_origen] = 1;
-        //linea anterior hace que la matriz se carge simetricamente
-        //por ser no dirigido por enunciado       
+    if (encontrar_lectura(origen) && encontrar_lectura(destino)) {
+        long unsigned int posicion_origen = encontrar_posicion_lectura(origen);
+        long unsigned int posicion_destino = encontrar_posicion_lectura(destino);
+        if (!buscar_arista(origen, destino)) {
+            matriz_adyacente[posicion_origen][posicion_destino] = 1;
+            matriz_adyacente[posicion_destino][posicion_origen] = 1;
+            //linea anterior hace que la matriz se carge simetricamente
+            //por ser no dirigido por enunciado       
+        }
     }
+
 }
 
 
@@ -148,5 +151,24 @@ void Grafo::mostrar_grafo() {
             cout << "     " << matriz_pesos[fila][columna];
         }
         cout << endl;
+    }
+}
+
+void Grafo::cargar_grafo(Lista_lecturas& ll){
+    int n = ll.obtener_cantidad();
+    for (int i = 0; i < n; i++) {
+        insertar_lectura(ll.consulta(i)->obtener_titulo(),
+                         ll.consulta(i)->obtener_tipo());
+        long unsigned int lec = nombres_lecturas.size();
+        for (long unsigned int pos = 0; pos < lec; pos++) {
+            int siesta;
+            if (ll.consulta(pos)->obtener_tipo() == "Cuento") {
+                
+            }// hacer dibujito para visualizar mejor las comparacioons necesarias para
+            //calcular el peso
+        }
+
+        //necesito agregarles atricbutos a las lecturas para saber el peso de un a otra
+        
     }
 }
