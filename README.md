@@ -21,3 +21,10 @@ Marco:
         -->hacer cpp y h
         -->generalizarlo? facilitar metodos de alta y baja? (unificar aristas con pesos)
         -->integrarlo al resto del tp
+
+AGREGAR OPCION EN EL MENU DE MOSTRAR EL GRAFO 
+        a) Recordar que cada vez que se inserte una arista se debe insertar la opuesta y el peso correspondiente.
+        b)
+        c) Quiero que el grafo se cargue a medida que se carga la lista de lecturas
+        d) Cuando agregamos un a lectura mediante la funcion tambien se debe cargar en el grafo.
+        e) Cuando quitamos una lectura, tambien se debe quitar del grafo

@@ -13,6 +13,7 @@
 #include <fstream> 
 #include <string>
 #include <stdlib.h>
+#include "grafo.h"
 
 class Menu {
 
@@ -74,7 +75,7 @@ public:
 
 
     void ejecutar_menu(Menu menu, Lista_lecturas &l_lecturas, Hash_escritores& t_escritores,
-                        Cola& cola, Lista_lecturas& lista_aux);
+                        Cola& cola, Lista_lecturas& lista_aux, Grafo grafo);
 
     //PRE: -
     //POS: imprime por pantalla un mensaje inicial para el usuario.

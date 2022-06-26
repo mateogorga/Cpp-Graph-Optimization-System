@@ -8,7 +8,7 @@ const int NO = 2;
 const int PRIMER_GENERO = 1;
 const int ULTIMO_GENERO = 6;
 const int MENU_OPCION_1 = 1;
-const int MENU_OPCION_13 = 13;
+const int MENU_OPCION_14 = 14;
 const int NOVELA = 1;
 const int CUENTO = 2;
 const int POEMA = 3;
@@ -18,7 +18,7 @@ Menu::Menu(){
 }
 
 void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores& t_escritores,
-                        Cola& cola, Lista_lecturas& lista_aux){
+                        Cola& cola, Lista_lecturas& lista_aux, Grafo grafo){
     bool terminar_programa = false;
     int respuesta;
     while (!terminar_programa) {
@@ -63,6 +63,10 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
                 menu.lectura_leida(cola);
                 break;
             case 13:
+                grafo.mostrar_grafo();
+                break;
+
+            case 14:
                 terminar_programa = true;
                 break;
             
@@ -102,7 +106,7 @@ int Menu::mostrar_menu() {
     while (!respuesta_correcta) {
         cout << endl << endl;
         cout << "Ingrese el numero de la opcion que desee: " << endl;
-        cout << "ENTRE 1 Y 12" << endl;
+        cout << "ENTRE 1 Y 14" << endl;
         cout << "1) Agregar una nueva lectura a la lista " << endl;
         cout << "2) Quitar una lectura de la lista " << endl;
         cout << "3) Agregar un escritor " << endl;
@@ -115,13 +119,14 @@ int Menu::mostrar_menu() {
         cout << "10) Listar las novelas de determinado género " << endl;
         cout << "11) Armar una cola ordenada por tiempo de lectura " << endl;
         cout << "12) Lectura leida " << endl;
-        cout << "13) Salir" << endl;
+        cout << "13) Mostrar Grafo" << endl;
+        cout << "14) Salir" << endl;
         cin >> respuesta;
         cin.ignore();
 
-        respuesta_correcta = chequear_rango(MENU_OPCION_1, respuesta, MENU_OPCION_13);
+        respuesta_correcta = chequear_rango(MENU_OPCION_1, respuesta, MENU_OPCION_14);
         if (!respuesta_correcta)
-            cout << "LO LAMENTO, LA RESPUESTA DEBE SER ENTRE 1 Y 12" << endl;
+            cout << "LO LAMENTO, LA RESPUESTA DEBE SER ENTRE 1 Y 14" << endl;
     }
     return respuesta;
 }

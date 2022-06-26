@@ -1,3 +1,7 @@
+#ifndef GRAFO_H
+#define GRAFO_H
+
+
 #include <vector>
 #include <string>
 #include <iostream>
@@ -61,4 +65,7 @@ class Grafo {
         //PRE:
         //POST:
         void mostrar_grafo();
+
     };
+
+    #endif //GRAFO_H

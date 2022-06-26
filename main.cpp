@@ -10,6 +10,7 @@
 #include <string>
 #include "parser_lecturas.h"
 #include "parser_escritores.h"
+#include "grafo.h"
 
 const string ARCHIVO_LECTURAS = "lecturas.txt";
 const string ARCHIVO_ESCRITORES = "escritores.txt";
@@ -26,8 +27,16 @@ int main() {
     
     Lista_lecturas lista_aux;
     Cola cola;
+    Grafo grafo;
+    grafo.insertar_arista("A", "B");
+    grafo.insertar_arista("B", "A");
+    grafo.insertar_peso("A", "B", 20);
+    grafo.insertar_peso("B", "A", 20);
+    grafo.insertar_arista("A", "C");
+    grafo.insertar_arista("C", "B");
+
     menu.mensaje_inicial();
-    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux);    
+    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo);    
 /*    
     Hash_escritores escritores;
 
