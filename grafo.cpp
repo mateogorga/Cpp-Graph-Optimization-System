@@ -42,8 +42,6 @@ long unsigned int Grafo::encontrar_posicion_lectura(string nombre) {
 }
 
 
-//PRE: El grafo debe existir, el nodo no debe haber sido insertado previamente.
-//POST: El nodo queda agregado al grafo.
 void Grafo::insertar_lectura(string nombre) {
     if (nombres_lecturas.size() == 0) {
         nombres_lecturas.push_back(nombre);
