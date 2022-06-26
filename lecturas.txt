@@ -6,14 +6,14 @@ Bestiario
 (1568)
 
 N
-Rayuela titulo "Rayuela"
+Rayuela
 2900
 1963
 FICCION
 (1568)
 
 N
-Rayuela titulo "Rayuela"
+Rayuela
 2900
 1963
 FICCION
@@ -41,7 +41,7 @@ Voy a dormir
 (4567)
 
 N
-Rayuela titulo "Rayuela"
+Rayuela
 2900
 1963
 FICCION

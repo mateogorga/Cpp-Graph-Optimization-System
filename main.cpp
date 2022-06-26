@@ -29,10 +29,9 @@ int main() {
     Cola cola;
     Grafo grafo;
 
-    grafo.insertar_arista("A", "B");
-    grafo.insertar_arista("C", "B");
-    grafo.insertar_peso("B", "A", 15);
-    grafo.insertar_peso("C", "B", 80);
+    grafo.insertar_arista(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo());
+    grafo.insertar_arista(l_lecturas.consulta(3)->obtener_titulo(), l_lecturas.consulta(4)->obtener_titulo());
+    grafo.insertar_peso(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo(), 20);
 
   
 
