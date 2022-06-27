@@ -5,7 +5,6 @@ Historica::Historica(string titulo, int minutos, int anio, Escritor* autor,
                     Genero genero, char* tema) : Novela (titulo, minutos, anio, autor, genero) {
     this -> genero = Genero::HISTORICA;
     this -> tema = tema;
-    this -> tipo = "Novela Historica";
 }
 
 char* Historica::obtener_tema() {

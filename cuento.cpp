@@ -3,7 +3,6 @@
 Cuento::Cuento(string titulo, int minutos, int anio, Escritor* autor, string libro)
             :Lectura(titulo, minutos, anio, autor){
     this->libro = libro;
-    this->tipo = "Cuento";
 }
 
 string Cuento::obtener_libro(){

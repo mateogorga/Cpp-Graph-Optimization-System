@@ -4,7 +4,6 @@
 Novela::Novela(string titulo, int minutos, int anio, Escritor* autor, Genero genero)
             :Lectura(titulo, minutos, anio, autor){
     this->genero = genero;
-    this -> tipo = "Novela";
 }
 
 Genero Novela::obtener_genero() {

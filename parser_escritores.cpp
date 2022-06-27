@@ -41,15 +41,13 @@ string Parser_escritores::verificar_fallecimineto(string aux) {
 
 void Parser_escritores::crear_enlistar_escritor(string nombre, string nacionalidad, 
                                                 string nacimiento, string fallecimiento,
-                                                Hash_escritores& t_escritores, 
+                                                Lista_escritores& l_escritores, 
                                                 string codigo_escritor) {
-    
-    codigo_escritor = codigo_escritor.erase(0, 1);
-    codigo_escritor = codigo_escritor.erase(codigo_escritor.size() - 1, 1);
     Escritor* e;
     e =  new Escritor(nombre, nacionalidad, stoi(nacimiento), stoi(fallecimiento), 
                       codigo_escritor);
-    t_escritores.alta(e);
+    int pos = l_escritores.obtener_cantidad() + 1;
+    l_escritores.alta(e, pos);
 }
 
 
@@ -62,7 +60,7 @@ string Parser_escritores::verificar_codigo(string aux) {
 
 
 string Parser_escritores::extraer_escritor (ifstream& archivo, string codigo_escritor, 
-                                            Hash_escritores& t_escritores) {
+                                            Lista_escritores& l_escritores) {
     string nombre, nacionalidad, nacimiento, fallecimiento, aux;
     bool finEscritor = false;
     while (!archivo.eof() && !finEscritor) {
@@ -74,32 +72,32 @@ string Parser_escritores::extraer_escritor (ifstream& archivo, string codigo_esc
         fallecimiento = verificar_fallecimineto(aux);
         finEscritor = true;
         crear_enlistar_escritor(nombre, nacionalidad, nacimiento, fallecimiento,
-                                t_escritores, codigo_escritor);
+                                l_escritores, codigo_escritor);
     }
     codigo_escritor = verificar_codigo(aux);
     return codigo_escritor;
 }
 
 
-void Parser_escritores::procesar_datos(ifstream& archivo, Hash_escritores& t_escritores) {
+void Parser_escritores::procesar_datos(ifstream& archivo, Lista_escritores& l_escritores) {
     string codigo_escritor = "";
     while (!archivo.eof()) {
-        codigo_escritor = extraer_escritor(archivo, codigo_escritor, t_escritores);
+        codigo_escritor = extraer_escritor(archivo, codigo_escritor, l_escritores);
     }
 }
 
 
-Hash_escritores Parser_escritores::cargar_lista_escritores(string nombre_archivo){
+Lista_escritores Parser_escritores::cargar_lista_escritores(string nombre_archivo){
     ifstream archivo;
     archivo.open(nombre_archivo);
-    Hash_escritores t_escritores = Hash_escritores();
+    Lista_escritores l_escritores = Lista_escritores();
 
     if (!archivo) {
         cout << "No se pudo abrir el archivo de escritores" << endl;
     } else {
-        procesar_datos(archivo, t_escritores);
+        procesar_datos(archivo, l_escritores);
     }
     
     archivo.close();
-    return t_escritores;
+    return l_escritores;
 }

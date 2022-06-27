@@ -96,20 +96,21 @@ void Lista_escritores::listar() {
         cout << "La lista de escritores se encuentra vacia" << endl;
 }
 
-void Lista_escritores::cambiar_fallecimiento(int anio, int pos) {    
+void Lista_escritores::cambiar_fallecimiento(int anio, int pos) {
     Nodo<Escritor*>* aux = obtener_nodo(pos);
     aux->obtener_dato()->cambiar_fallecimiento(anio);
 }
 
-void Lista_escritores::listar_segun_codigo() {
+void Lista_escritores::listar_nombres() {
     if(vacia() == false) {
+        cout << "A continuacion se mostraran los nombres de todos los escritores en la lista: " << endl;
         Nodo<Escritor*>* aux = primero;
         int contador = INICIO_CONTADOR;
         while(contador <= cantidad){
             cout << endl;
-            aux->obtener_dato()->mostrar_codigo();
+            cout << contador << ". ";
             aux->obtener_dato()->mostrar_nombre_completo();
-            aux = aux->obtener_siguiente(); 
+            aux = aux->obtener_siguiente();
             contador++;
         }
     } else
