@@ -199,45 +199,26 @@ int calcular_siesta(string tipo_nodo_a, string tipo_nodo_b) {
 }
 
 
-void Grafo::cargar_grafo(Lectura* lectura_a_cargar) {
-
+void Grafo::cargar_grafo(Lectura* lectura_a_insertar) {
+    string nombre_nodo_nuevo = lectura_a_insertar->obtener_titulo();
+    string tipo_nodo_nuevo = lectura_a_insertar->obtener_tipo();
+    insertar_lectura(nombre_nodo_nuevo, tipo_nodo_nuevo);
+    size_t aux = nombres_lecturas.size();
+    int cantidad_lecturas_en_vector = (int)aux;
+    for (int i_lectura_vector = 0; i_lectura_vector < cantidad_lecturas_en_vector ; i_lectura_vector++) {
+        string nombre_nodo_viejo = nombres_lecturas[i_lectura_vector];
+        string tipo_nodo_viejo = tipos_lecturas[i_lectura_vector];
+        int siesta = calcular_siesta(tipo_nodo_viejo, tipo_nodo_nuevo);
+        insertar_arista(nombre_nodo_nuevo, nombre_nodo_viejo);
+        insertar_peso(nombre_nodo_nuevo, nombre_nodo_viejo, siesta);
+    } 
 }
+
 
 void Grafo::cargar_grafo(Lista_lecturas& ll){//meterle un caracter booleano
     int cantidad_lecturas_en_lista = ll.obtener_cantidad();
-
-    //su el bool es verdadero entonnces 
-    //llamo a modularizar y no entro al for que sirve para cargar desde la lista de lecturas
-
-    //sino modularizr me hace todo menos recorrer la lista.
-
-
-    //if 
-
     for (int i_lectura_lista = 0; i_lectura_lista < cantidad_lecturas_en_lista; i_lectura_lista++) {
-
         Lectura* lectura_a_insertar = ll.consulta(i_lectura_lista);
-        //---modularizar ()
-
-        string nombre_nodo_nuevo = lectura_a_insertar->obtener_titulo();
-        string tipo_nodo_nuevo = lectura_a_insertar->obtener_tipo();
-        insertar_lectura(nombre_nodo_nuevo, tipo_nodo_nuevo);
-
-        size_t aux = nombres_lecturas.size();
-        int cantidad_lecturas_en_vector = (int)aux;
-        for (int i_lectura_vector = 0; i_lectura_vector < cantidad_lecturas_en_vector ; i_lectura_vector++) {
-
-            //Lectura* lectura_a_comparar = ll.consulta(i_lectura_vector);
-            //string nombre_nodo_viejo = lectura_a_comparar->obtener_titulo();
-            //string tipo_nodo_viejo = lectura_a_comparar->obtener_tipo();
-            string nombre_nodo_viejo = nombres_lecturas[i_lectura_vector];
-            string tipo_nodo_viejo = tipos_lecturas[i_lectura_vector];
-
-            int siesta = calcular_siesta(tipo_nodo_viejo, tipo_nodo_nuevo);
-
-            insertar_arista(nombre_nodo_nuevo, nombre_nodo_viejo);
-            insertar_peso(nombre_nodo_nuevo, nombre_nodo_viejo, siesta);
-        } 
-        //modularizarr ^^
+        cargar_grafo(lectura_a_insertar);
     }
 }

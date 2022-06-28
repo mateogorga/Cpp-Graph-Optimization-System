@@ -18,7 +18,7 @@ Menu::Menu(){
 }
 
 void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores& t_escritores,
-                        Cola& cola, Lista_lecturas& lista_aux, Grafo grafo){
+                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo){
     bool terminar_programa = false;
     int respuesta;
     while (!terminar_programa) {
@@ -26,7 +26,7 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
 
         switch (respuesta) {
             case 1:
-                menu.agregar_lectura(l_lecturas, t_escritores);
+                menu.agregar_lectura(l_lecturas, t_escritores, grafo);
                 break;
             case 2:
                 menu.quitar_lectura(l_lecturas);
@@ -148,7 +148,7 @@ void Menu::pedir_datos_lectura(string &titulo, int &minutos, int &anio, int &int
     }
 }
 
-void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero) {
+void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero, Grafo& grafo) {
     cout <<"Ingrese uno de estos generos, todo en mayusculas: " << endl;
     cout << "DRAMA" << endl;
     cout << "FICCION" << endl;
@@ -167,9 +167,11 @@ void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos,
         char* tema = procesar_tema_historica(str_tema);
         Historica* nueva_lectura = new Historica(titulo,minutos,anio,autor,HISTORICA,tema);
         l_lecturas.alta(nueva_lectura, ANIO_L);
+        grafo.cargar_grafo(nueva_lectura);
     } else {
         Novela* nueva_lectura = new Novela(titulo,minutos,anio,autor,genero);
         l_lecturas.alta(nueva_lectura, ANIO_L);
+        grafo.cargar_grafo(nueva_lectura);
     }
 
 }
@@ -206,23 +208,25 @@ char* Menu::procesar_tema_historica(string str_tema) {
 }
 
 
-void Menu::cargar_cuento(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor) {
+void Menu::cargar_cuento(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, Grafo& grafo) {
     string str_libro;
     cout<<"Ingrese el libro en el que se encuentra el cuento: ";
     cin>>str_libro;
 
     Cuento* nueva_lectura = new Cuento(titulo,minutos,anio,autor,str_libro);
     l_lecturas.alta(nueva_lectura, ANIO_L);
+    //grafo.cargar_grafo(nueva_lectura);
 }
 
 
-void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor) {
+void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, Grafo& grafo) {
     int cant_versos;
     cout<< "Ingrese la cantidad de versos: ";
     cin >> cant_versos;
 
     Poema* nueva_lectura = new Poema(titulo, minutos, anio, autor, cant_versos);
     l_lecturas.alta(nueva_lectura, ANIO_L);
+    //grafo.cargar_grafo(nueva_lectura);
 }
 
 
@@ -243,7 +247,7 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
     l_lecturas.baja(posicion);
 }
 
-void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escritores) {
+void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escritores, Grafo& grafo) {
     string titulo, autor, str_genero;
     int minutos, anio, int_tipo;
     cout << "El autor de la lectura que desea agregar ya se encuentra en la tabla de escritores?" << endl;
@@ -258,11 +262,11 @@ void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escrit
     cout << endl << "Ahora si se le pediran los datos de la lectura." << endl << endl;
     pedir_datos_lectura(titulo, minutos, anio, int_tipo);
     if (int_tipo == 1) {
-        cargar_novela(l_lecturas,titulo,minutos,anio,pescritor,str_genero);
+        cargar_novela(l_lecturas,titulo,minutos,anio,pescritor,str_genero, grafo);
     } else if (int_tipo == 2) {
-        cargar_cuento(l_lecturas,titulo,minutos,anio,pescritor);
+        cargar_cuento(l_lecturas,titulo,minutos,anio,pescritor, grafo);
     } else {
-        cargar_poema(l_lecturas,titulo,minutos,anio,pescritor);
+        cargar_poema(l_lecturas,titulo,minutos,anio,pescritor, grafo);
     }
 }
 

@@ -8,10 +8,8 @@ Marco:
 
     *Grafo
         -->integrarlo al resto del tp
-
-        c) Quiero que el grafo se cargue a medida que se carga la lista de lecturas
-        -->voy bien, solo me falta solucionar el tema de los pesos.
         d) Cuando agregamos un a lectura mediante la funcion tambien se debe cargar en el grafo.
+        --->solucionar bug de impresion de menu infinita (ya comprobe que no es  causa del grafo)
         e) Cuando quitamos una lectura, tambien se debe quitar del grafo
   
     Finalmente modularizar, corregir nombres de variables y completar pres y post
