@@ -28,7 +28,7 @@ int main() {
     Lista_lecturas lista_aux;
     Cola cola;
     Grafo grafo;
-    //grafo.cargar_grafo(l_lecturas);
+    grafo.cargar_grafo(l_lecturas);
 
     //grafo.insertar_arista(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo());
     //grafo.insertar_arista(l_lecturas.consulta(3)->obtener_titulo(), l_lecturas.consulta(4)->obtener_titulo());

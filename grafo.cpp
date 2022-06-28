@@ -156,18 +156,27 @@ void Grafo::mostrar_grafo() {
 
 
 
-/*
+
 void Grafo::cargar_grafo(Lista_lecturas& ll){
     int n = ll.obtener_cantidad();
     for (int i = 0; i < n; i++) {
         insertar_lectura(ll.consulta(i)->obtener_titulo(),
                          ll.consulta(i)->obtener_tipo());
-        long unsigned int lec = nombres_lecturas.size();
-        for (long unsigned int pos = 0; pos < lec; pos++) {
-            int siesta;
+        size_t lec = nombres_lecturas.size();
+        int lec2 = (int)lec;
+        for (int pos = 0; pos < lec2; pos++) {
+            //int siesta;
             if (ll.consulta(pos)->obtener_tipo() == "Cuento") {
-                
-            }// hacer dibujito para visualizar mejor las comparacioons necesarias para
+                insertar_arista(ll.consulta(i)->obtener_titulo(), ll.consulta(pos)->obtener_titulo());
+                insertar_peso(ll.consulta(i)->obtener_titulo(), ll.consulta(pos)->obtener_titulo(), 3);
+
+            } else if (ll.consulta(pos)->obtener_tipo() == "Novela") {
+                insertar_arista(ll.consulta(i)->obtener_titulo(), ll.consulta(pos)->obtener_titulo());
+                insertar_peso(ll.consulta(i)->obtener_titulo(), ll.consulta(pos)->obtener_titulo(), 11);
+            }
+            
+            
+            // hacer dibujito para visualizar mejor las comparacioons necesarias para
             //calcular el peso
         }
 
@@ -175,4 +184,3 @@ void Grafo::cargar_grafo(Lista_lecturas& ll){
         
     }
 }
-*/
