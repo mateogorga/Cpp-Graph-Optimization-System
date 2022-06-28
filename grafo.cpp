@@ -1,6 +1,8 @@
 #include "grafo.h"
 #include <iomanip>
 
+const int ESPACIO_NOMBRES_FILAS = 25;
+const int ESPACIO_COLUMNAS = 15;
 
 void Grafo::actualizar_matriz(long unsigned int tamanio) {
             vector<vector<int>>  matriz_adyacente_anterior = matriz_adyacente;
@@ -123,61 +125,70 @@ void Grafo::mostrar_grafo() {
     long unsigned int cantidad_lecturas = nombres_lecturas.size();
     cout << endl;
     cout << "ARISTAS" << endl;
-    cout<< setw(25) << " ";
+    cout<< setw(ESPACIO_NOMBRES_FILAS) << " ";
     for (long unsigned int columna = 0; columna < cantidad_lecturas; columna++) {
-        cout << setw(15)<< nombres_lecturas[columna];
+        cout << setw(ESPACIO_COLUMNAS)<< nombres_lecturas[columna];
     }
     cout << endl;
     for (long unsigned int fila = 0; fila < cantidad_lecturas; fila++) {
-        cout << setw(25) << nombres_lecturas[fila];
+        cout << setw(ESPACIO_NOMBRES_FILAS) << nombres_lecturas[fila];
         for (long unsigned int columna = 0; columna < cantidad_lecturas; columna++) {
-            cout << setw(15) << matriz_adyacente[fila][columna];
+            cout << setw(ESPACIO_COLUMNAS) << matriz_adyacente[fila][columna];
         }
         cout << endl;
     }
     cout << endl;
     cout << endl;
     cout << "PESOS" << endl;
-    cout<< setw(25) << " ";;
+    cout<< setw(ESPACIO_NOMBRES_FILAS) << " ";;
     for (long unsigned int columna = 0; columna < cantidad_lecturas; columna++) {
-        cout << setw(15) << nombres_lecturas[columna];
+        cout << setw(ESPACIO_COLUMNAS) << nombres_lecturas[columna];
     }
     cout << endl;
     for (long unsigned int fila = 0; fila < cantidad_lecturas; fila++) {
-        cout << setw(25) << nombres_lecturas[fila];
+        cout << setw(ESPACIO_NOMBRES_FILAS) << nombres_lecturas[fila];
         for (long unsigned int columna = 0; columna < cantidad_lecturas; columna++) {
-            cout << setw(15)<< matriz_pesos[fila][columna];
+            cout << setw(ESPACIO_COLUMNAS)<< matriz_pesos[fila][columna];
         }
         cout << endl;
     }
 }
 
 
+int calcular_siesta(string nodo_a, string nodo_b) {
+    //IMPLEMENTAR MATRIZ DINAMICA?
+}
+
 
 void Grafo::cargar_grafo(Lista_lecturas& ll){
-    int n = ll.obtener_cantidad();
-    for (int i = 0; i < n; i++) {
-        insertar_lectura(ll.consulta(i)->obtener_titulo(),
-                         ll.consulta(i)->obtener_tipo());
-        size_t lec = nombres_lecturas.size();
-        int lec2 = (int)lec;
-        for (int pos = 0; pos < lec2; pos++) {
-            //int siesta;
-            if (ll.consulta(pos)->obtener_tipo() == "Cuento") {
-                insertar_arista(ll.consulta(i)->obtener_titulo(), ll.consulta(pos)->obtener_titulo());
-                insertar_peso(ll.consulta(i)->obtener_titulo(), ll.consulta(pos)->obtener_titulo(), 3);
+    int cantidad_lecturas_en_lista = ll.obtener_cantidad();
+    for (int i_lectura_lista = 0; i_lectura_lista < cantidad_lecturas_en_lista; i_lectura_lista++) {
+        //inserto el nodo de la lista al grafo
+        insertar_lectura(ll.consulta(i_lectura_lista)->obtener_titulo(),
+                         ll.consulta(i_lectura_lista)->obtener_tipo());
 
-            } else if (ll.consulta(pos)->obtener_tipo() == "Novela") {
-                insertar_arista(ll.consulta(i)->obtener_titulo(), ll.consulta(pos)->obtener_titulo());
-                insertar_peso(ll.consulta(i)->obtener_titulo(), ll.consulta(pos)->obtener_titulo(), 11);
-            }
-            
-            
-            // hacer dibujito para visualizar mejor las comparacioons necesarias para
-            //calcular el peso
-        }
+        //calculo la cantidad de elementos en el vector del grafo
+        size_t aux = nombres_lecturas.size();
+        int cantidad_lecturas_en_vector = (int)aux;
 
-        //necesito agregarles atricbutos a las lecturas para saber el peso de un a otra
+        //guardo el tipo y nombre de lectura que agregue recien
+        string nombre_nodo_nuevo = ll.consulta(i_lectura_lista)->obtener_titulo();
+        string tipo_nodo_nuevo = ll.consulta(i_lectura_lista)->obtener_tipo();
         
+        for (int i_lectura_vector = 0; i_lectura_vector < cantidad_lecturas_en_vector ; i_lectura_vector++) {
+
+            //aca ya trabajo para la matriz
+            //busco para cada elemtno del vector del grafo, su tipo y su nombre
+            string nombre_nodo_viejo = ll.consulta(i_lectura_vector)->obtener_titulo();
+            string tipo_nodo_viejo = ll.consulta(i_lectura_vector)->obtener_tipo();
+
+            //mando tipos de nodo viejo y nuevo a una funcion que me devuelva el valor de la siesta
+            int siesta = calcular_siesta(tipo_nodo_viejo, tipo_nodo_nuevo);
+
+            //inserto la arista
+            //inserto el peso de la misma
+            insertar_arista(nombre_nodo_nuevo, nombre_nodo_viejo);
+            insertar_peso(nombre_nodo_nuevo, nombre_nodo_viejo, siesta);
+        } 
     }
 }
