@@ -4,6 +4,18 @@
 const int ESPACIO_NOMBRES_FILAS = 25;
 const int ESPACIO_COLUMNAS = 15;
 
+const int CUENTO_A_NOVELA = 10;
+const int CUENTO_A_NOVELA_HISTORICA = 15;
+const int CUENTO_A_POEMA = 0;
+const int CUENTO_A_CUENTO = 8;
+const int POEMA_A_NOVELA = 5;
+const int POEMA_A_NOVELA_HISTORICA = 20;
+const int POEMA_A_POEMA = 1;
+const int NOVELA_A_NOVELA = 30;
+const int NOVELA_A_NOVELA_HISTORICA = 60;
+const int NOVELA_HISORICA_A_NOVELA_HISORICA = 80;
+
+
 void Grafo::actualizar_matriz(long unsigned int tamanio) {
             vector<vector<int>>  matriz_adyacente_anterior = matriz_adyacente;
             vector<vector<int>>  matriz_pesos_anterior = matriz_pesos;
@@ -155,8 +167,33 @@ void Grafo::mostrar_grafo() {
 }
 
 
-int calcular_siesta(string nodo_a, string nodo_b) {
-    //IMPLEMENTAR MATRIZ DINAMICA?
+int calcular_siesta(string tipo_nodo_a, string tipo_nodo_b) {
+    int siesta;
+    if (tipo_nodo_a == tipo_nodo_b) {
+        if (tipo_nodo_a == "Cuento") {
+            siesta = CUENTO_A_CUENTO;
+        } else if (tipo_nodo_a == "Poema") {
+            siesta = POEMA_A_POEMA;
+        } else if (tipo_nodo_a == "Novela") {
+            siesta = NOVELA_A_NOVELA;
+        } else if (tipo_nodo_a == "Novela Historica") {
+            siesta = NOVELA_HISORICA_A_NOVELA_HISORICA;
+        }
+    //se supone que no son el mismo, porque no entro en el if de arriba
+    } else if ((tipo_nodo_a == "Cuento" || tipo_nodo_b == "Cuento") && (tipo_nodo_a == "Novela" || tipo_nodo_b == "Novela")) {
+        siesta = CUENTO_A_NOVELA;
+    } else if ((tipo_nodo_a == "Cuento" || tipo_nodo_b == "Cuento") && (tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica")) {
+        siesta = CUENTO_A_NOVELA_HISTORICA;
+    } else if ((tipo_nodo_a == "Cuento" || tipo_nodo_b == "Cuento") && (tipo_nodo_a == "Poema" || tipo_nodo_b == "Poema")) {
+        siesta = CUENTO_A_POEMA;
+    } else if ((tipo_nodo_a == "Novela" || tipo_nodo_b == "Novela") && (tipo_nodo_a == "Poema" || tipo_nodo_b == "Poema")) {
+        siesta = POEMA_A_NOVELA;
+    } else if ((tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica") && (tipo_nodo_a == "Poema" || tipo_nodo_b == "Poema")) {
+        siesta = POEMA_A_NOVELA_HISTORICA;
+    } else if ((tipo_nodo_a == "Novela" || tipo_nodo_b == "Novela") && (tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica")) {
+        siesta = NOVELA_HISORICA_A_NOVELA_HISORICA;
+    }
+    return siesta;
 }
 
 

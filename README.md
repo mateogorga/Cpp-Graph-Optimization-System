@@ -13,9 +13,9 @@ Marco:
         -->voy bien, solo me falta solucionar el tema de los pesos.
         d) Cuando agregamos un a lectura mediante la funcion tambien se debe cargar en el grafo.
         e) Cuando quitamos una lectura, tambien se debe quitar del grafo
-
-    Por ahora deje comentada la funcion que carga el grafo.    
+  
     Finalmente modularizar, corregir nombres de variables y completar pres y post
+    ¿Uso el nombre "peso" o "siesta" para referirme al peso de las aristas?
 
 RECORDAR: Agregue un atributo a las lecturas de tipo string, el mismo desctibe el tipo de lectura que son
 para poder acceder desde el grafo y calcular los pesos.
