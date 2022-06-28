@@ -1,5 +1,5 @@
 #include "grafo.h"
-
+#include <iomanip>
 
 
 void Grafo::actualizar_matriz(long unsigned int tamanio) {
@@ -123,37 +123,34 @@ void Grafo::mostrar_grafo() {
     long unsigned int cantidad_lecturas = nombres_lecturas.size();
     cout << endl;
     cout << "ARISTAS" << endl;
-    cout << "                  ";
+    cout<< setw(25) << " ";
     for (long unsigned int columna = 0; columna < cantidad_lecturas; columna++) {
-        cout << "     " << nombres_lecturas[columna];
+        cout << setw(15)<< nombres_lecturas[columna];
     }
     cout << endl;
     for (long unsigned int fila = 0; fila < cantidad_lecturas; fila++) {
-        cout << "     " << nombres_lecturas[fila];
-        cout << "      ";
+        cout << setw(25) << nombres_lecturas[fila];
         for (long unsigned int columna = 0; columna < cantidad_lecturas; columna++) {
-            cout << "     " << matriz_adyacente[fila][columna];
+            cout << setw(15) << matriz_adyacente[fila][columna];
         }
         cout << endl;
     }
     cout << endl;
     cout << endl;
     cout << "PESOS" << endl;
-    cout << "                  ";
+    cout<< setw(25) << " ";;
     for (long unsigned int columna = 0; columna < cantidad_lecturas; columna++) {
-        cout << "     " << nombres_lecturas[columna];
+        cout << setw(15) << nombres_lecturas[columna];
     }
     cout << endl;
     for (long unsigned int fila = 0; fila < cantidad_lecturas; fila++) {
-        cout << "     " << nombres_lecturas[fila];
-        cout << "      ";
+        cout << setw(25) << nombres_lecturas[fila];
         for (long unsigned int columna = 0; columna < cantidad_lecturas; columna++) {
-            cout << "     " << matriz_pesos[fila][columna];
+            cout << setw(15)<< matriz_pesos[fila][columna];
         }
         cout << endl;
     }
 }
-
 
 
 
