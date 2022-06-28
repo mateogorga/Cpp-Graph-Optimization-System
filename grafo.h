@@ -62,7 +62,6 @@ class Grafo {
         void eliminar_arista (string origen, string destino);
 
 
-
         //PRE:
         //POST:
         void insertar_peso (string origen, string destino, int peso);
@@ -74,6 +73,9 @@ class Grafo {
 
 
         void cargar_grafo(Lista_lecturas& ll);
+
+
+        void cargar_grafo(Lectura* lectura_a_insertar);
 
     };
 

@@ -96,7 +96,7 @@ bool Grafo::buscar_arista (string origen, string destino) {
 
 
 void Grafo::insertar_arista (string origen, string destino) {
-    if (encontrar_lectura(origen) && encontrar_lectura(destino)) {
+    if ((encontrar_lectura(origen) && encontrar_lectura(destino)) && (origen != destino)) {
         long unsigned int posicion_origen = encontrar_posicion_lectura(origen);
         long unsigned int posicion_destino = encontrar_posicion_lectura(destino);
         if (!buscar_arista(origen, destino)) {
@@ -113,12 +113,14 @@ void Grafo::insertar_arista (string origen, string destino) {
 //los pesos van a ser fijos SUPONGO QUE EXISTE ARISTA
 //supongo que solo se agraga una vez, sino se pisa
 void Grafo::insertar_peso (string origen, string destino, int peso) {
+    if (buscar_arista(origen, destino)) {
     long unsigned int posicion_origen = encontrar_posicion_lectura(origen);
     long unsigned int posicion_destino = encontrar_posicion_lectura(destino);
     matriz_pesos[posicion_origen][posicion_destino] = peso;
     matriz_pesos[posicion_destino][posicion_origen] = peso;
     //linea anterior hace que la matriz se carge simetricamente
     //por ser no dirigido por enunciado
+    }
 }   
 
 
@@ -197,35 +199,45 @@ int calcular_siesta(string tipo_nodo_a, string tipo_nodo_b) {
 }
 
 
-void Grafo::cargar_grafo(Lista_lecturas& ll){
-    int cantidad_lecturas_en_lista = ll.obtener_cantidad();
-    for (int i_lectura_lista = 0; i_lectura_lista < cantidad_lecturas_en_lista; i_lectura_lista++) {
-        //inserto el nodo de la lista al grafo
-        insertar_lectura(ll.consulta(i_lectura_lista)->obtener_titulo(),
-                         ll.consulta(i_lectura_lista)->obtener_tipo());
+void Grafo::cargar_grafo(Lectura* lectura_a_cargar) {
 
-        //calculo la cantidad de elementos en el vector del grafo
+}
+
+void Grafo::cargar_grafo(Lista_lecturas& ll){//meterle un caracter booleano
+    int cantidad_lecturas_en_lista = ll.obtener_cantidad();
+
+    //su el bool es verdadero entonnces 
+    //llamo a modularizar y no entro al for que sirve para cargar desde la lista de lecturas
+
+    //sino modularizr me hace todo menos recorrer la lista.
+
+
+    //if 
+
+    for (int i_lectura_lista = 0; i_lectura_lista < cantidad_lecturas_en_lista; i_lectura_lista++) {
+
+        Lectura* lectura_a_insertar = ll.consulta(i_lectura_lista);
+        //---modularizar ()
+
+        string nombre_nodo_nuevo = lectura_a_insertar->obtener_titulo();
+        string tipo_nodo_nuevo = lectura_a_insertar->obtener_tipo();
+        insertar_lectura(nombre_nodo_nuevo, tipo_nodo_nuevo);
+
         size_t aux = nombres_lecturas.size();
         int cantidad_lecturas_en_vector = (int)aux;
-
-        //guardo el tipo y nombre de lectura que agregue recien
-        string nombre_nodo_nuevo = ll.consulta(i_lectura_lista)->obtener_titulo();
-        string tipo_nodo_nuevo = ll.consulta(i_lectura_lista)->obtener_tipo();
-        
         for (int i_lectura_vector = 0; i_lectura_vector < cantidad_lecturas_en_vector ; i_lectura_vector++) {
 
-            //aca ya trabajo para la matriz
-            //busco para cada elemtno del vector del grafo, su tipo y su nombre
-            string nombre_nodo_viejo = ll.consulta(i_lectura_vector)->obtener_titulo();
-            string tipo_nodo_viejo = ll.consulta(i_lectura_vector)->obtener_tipo();
+            //Lectura* lectura_a_comparar = ll.consulta(i_lectura_vector);
+            //string nombre_nodo_viejo = lectura_a_comparar->obtener_titulo();
+            //string tipo_nodo_viejo = lectura_a_comparar->obtener_tipo();
+            string nombre_nodo_viejo = nombres_lecturas[i_lectura_vector];
+            string tipo_nodo_viejo = tipos_lecturas[i_lectura_vector];
 
-            //mando tipos de nodo viejo y nuevo a una funcion que me devuelva el valor de la siesta
             int siesta = calcular_siesta(tipo_nodo_viejo, tipo_nodo_nuevo);
 
-            //inserto la arista
-            //inserto el peso de la misma
             insertar_arista(nombre_nodo_nuevo, nombre_nodo_viejo);
             insertar_peso(nombre_nodo_nuevo, nombre_nodo_viejo, siesta);
         } 
+        //modularizarr ^^
     }
 }
