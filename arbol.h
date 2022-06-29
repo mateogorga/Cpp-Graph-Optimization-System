@@ -9,7 +9,7 @@ using namespace std;
 class Arbol {
 public:
     Arbol();
-    Arbol(int cant_lecturas);
+
     vector<vector<int>> kruskal();
     void cargar_arbol(Lista_lecturas ll, Grafo grafo);
     void ordenar_arbol(Grafo grafo, int cant_lecturas);

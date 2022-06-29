@@ -21,7 +21,7 @@ protected:
     int minutos;
     int anio;
     Escritor* autor;
-    char tipo;
+    string tipo;
 
 public:
     //constructor
