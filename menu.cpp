@@ -29,7 +29,7 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
                 menu.agregar_lectura(l_lecturas, t_escritores, grafo);
                 break;
             case 2:
-                menu.quitar_lectura(l_lecturas);
+                menu.quitar_lectura(l_lecturas, grafo);
                 break;
             case 3:
                 menu.agregar_escritor(t_escritores);
@@ -64,7 +64,7 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
                 break;
             case 13:
                 grafo.mostrar_grafo();
-                arbol.ordenar_arbol(grafo, l_lecturas.obtener_cantidad());
+                //arbol.ordenar_arbol(grafo, l_lecturas.obtener_cantidad());
                 break;
 
             case 14:
@@ -231,7 +231,7 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
 }
 
 
- void Menu::quitar_lectura(Lista_lecturas &l_lecturas) {
+ void Menu::quitar_lectura(Lista_lecturas &l_lecturas, Grafo& grafo) {
 
     l_lecturas.listar();
     int cota_sup = l_lecturas.obtener_cantidad();
@@ -245,7 +245,9 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
         cin >> posicion;
         posicion_valida = chequear_rango(1, posicion, cota_sup);
     }
+    grafo.eliminar_lectura(l_lecturas.consulta(posicion)->obtener_titulo());
     l_lecturas.baja(posicion);
+    
 }
 
 void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escritores, Grafo& grafo) {

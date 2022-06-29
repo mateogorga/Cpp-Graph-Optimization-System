@@ -96,7 +96,7 @@ public:
     //PRE: la lectura debe estar en la lista
     //POS: elimina la lectura de la lista
     //void quitar_lectura(Lista_lecturas& l_lecturas);
-    void quitar_lectura(Lista_lecturas& l_lecturas);
+    void quitar_lectura(Lista_lecturas& l_lecturas, Grafo& grafo);
 
 
     //PRE: -
