@@ -1,68 +1,91 @@
-#include <stdio.h>
+#include <vector>
 #include <algorithm>
-#include <cstring>
+#include <iostream>
+#include <string.h>
 #include "arbol.h"
-#include <iomanip>
+
+using namespace std;
+
+Arista::Arista(int v1, int v2, int peso) {
+    vertice1 = v1;
+    vertice2 = v2;
+    this->peso = peso;
+}
+
+int Arista::obtener_vertice1() {
+    return vertice1;
+}
+
+int Arista::obtener_vertice2() {
+    return vertice2;
+}
+
+int Arista::obtener_peso() {
+    return peso;
+}
+
+bool Arista::operator<(const Arista &arista2) const {
+    return (peso < arista2.peso);
+}
 
 
-Arbol::Arbol() {}
 
-/*
+
 Arbol::Arbol(int cant_lecturas) {
-
-    this->lecturas = cant_lecturas;
-    this->ady = vector<vector<int>>(cant_lecturas);
-
-    for (int i = 0; i < cant_lecturas; i++)
-        ady[i] = vector<int>(cant_lecturas, INF);
+    this->cant_lecturas = cant_lecturas;
 }
-*/
 
+void Arbol::agregar_arista(int v1, int v2, int peso) {
+    Arista arista(v1, v2, peso);
+    aristas.push_back(arista);
+}
 
-void Arbol::ordenar_arbol(Grafo grafo, int cn) {
-    int nodoA;
-    int nodoB;
-    int arcos = 1;
-    vector< vector<int> > adyacencia = grafo.matriz_adyacente;
-    vector< vector<int> > arbol;
-    vector<int> pertenece(cn); // indica a que árbol pertenece el nodo
+int Arbol::buscar(int *subconjunto, int i) {
+    if (subconjunto[i] == -1) {
+        return i;
+    }
+    return buscar(subconjunto, subconjunto[i]);
+}
 
-    for(int i = 0; i < cn; i++){
-        arbol[i] = vector<int> (cn, 0);
-        pertenece[i] = i;
+void Arbol::unir_subconjuntos(int *subconjunto, int v1, int v2) {
+    int v1_set = buscar(subconjunto, v1);
+    int v2_set = buscar(subconjunto, v2);
+    subconjunto[v1_set] = v2_set;
+}
+
+void Arbol::kruskal() {
+    vector<Arista> arbol;
+    int tamanio_aristas = aristas.size();
+
+    sort(aristas.begin(), aristas.end());//ordena las aristas por menor peso
+
+    int * subconjunto = new int[cant_lecturas];
+
+    //inicializa todos los subconjuntos como conjuntos de un unico elemento
+    memset(subconjunto, -1, sizeof(int) * cant_lecturas);
+
+    for(int i = 0; i < tamanio_aristas; i++) {
+        int v1 = buscar(subconjunto, aristas[i].obtener_vertice1());
+        int v2 = buscar(subconjunto, aristas[i].obtener_vertice2());
+
+        if(v1 != v2) {
+            //si son diferentes es porque no forman un ciclo
+            arbol.push_back(aristas[i]);
+            unir_subconjuntos(subconjunto, v1, v2);
+        }
     }
 
-    while(arcos < cn){
-        // Encontrar  el arco mínimo que no forma ciclo y guardar los nodos y la distancia.
-        int min = INF;
-        for(int i = 0; i < cn; i++)
-            for(int j = 0; j < cn; j++)
-                if(min > adyacencia[i][j] && adyacencia[i][j]!=0 && pertenece[i] != pertenece[j]){
-                    min = adyacencia[i][j];
-                    nodoA = i;
-                    nodoB = j;
-                }
+    int tamanio_arbol = arbol.size();
+    int tiempo_lecturas = 0;
 
-        // Si los nodos no pertenecen al mismo árbol agrego el arco al árbol mínimo.
-        if(pertenece[nodoA] != pertenece[nodoB]){
-            arbol[nodoA][nodoB] = min;
-            arbol[nodoB][nodoA] = min;
-
-            // Todos los nodos del árbol del nodoB ahora pertenecen al árbol del nodoA.
-            int temp = pertenece[nodoB];
-            pertenece[nodoB] = pertenece[nodoA];
-            for(int k = 0; k < cn; k++)
-                if(pertenece[k] == temp)
-                    pertenece[k] = pertenece[nodoA];}
-        arcos++;
-        }
-
-    for ( int fila = 0; fila < cn; fila++) {
-
-        for (int columna = 0; columna < cn; columna++) {
-            cout << arbol[fila][columna];
-        }
-        cout << endl;
+    for(int i = 0; i < tamanio_arbol; i++) {
+        char v1 = 'A' + arbol[i].obtener_vertice1();
+        char v2 = 'A' + arbol[i].obtener_vertice2();
+        tiempo_lecturas = tiempo_lecturas + arbol[i].obtener_peso();
+        cout << "(" << v1 << ", " << v2 << ") = " << arbol[i].obtener_peso() << endl;
     }
 
+    cout << "En total tardaras: " << tiempo_lecturas << " minutos\n";
 }
+
+
