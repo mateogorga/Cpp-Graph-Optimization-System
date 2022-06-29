@@ -3,6 +3,12 @@ Mateo:
 Impresion de texto que avisa que no se leyeron los archivos
 Arbol expansion minima
 
+--asegurarme de copiar bien la matriz de adyacencia y de pesos
+--imprimirla
+kruskal esas matrices--> se va guardando en la matriz arbol 
+imprimir matriz arbol
+
+
 Marco:
     *¿parches de ultimo minuto de la lista aux para que no tenga leaks? (menu.cpp 385)
 
@@ -14,6 +20,3 @@ Marco:
   
     Finalmente modularizar, corregir nombres de variables y completar pres y post
     ¿Uso el nombre "peso" o "siesta" para referirme al peso de las aristas?
-
-RECORDAR: Agregue un atributo a las lecturas de tipo string, el mismo desctibe el tipo de lectura que son
-para poder acceder desde el grafo y calcular los pesos.

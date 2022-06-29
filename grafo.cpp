@@ -222,3 +222,12 @@ void Grafo::cargar_grafo(Lista_lecturas& ll){//meterle un caracter booleano
         cargar_grafo(lectura_a_insertar);
     }
 }
+
+
+    vector<vector<int>> Grafo::obtener_adyacencia() {
+        return matriz_adyacente;
+    }
+    vector<vector<int>> Grafo::obtener_pesos(){
+        return matriz_pesos;
+
+    }

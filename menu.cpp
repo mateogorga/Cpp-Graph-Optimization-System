@@ -18,7 +18,7 @@ Menu::Menu(){
 }
 
 void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores& t_escritores,
-                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo){
+                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo, Arbol& arbol){
     bool terminar_programa = false;
     int respuesta;
     while (!terminar_programa) {
@@ -64,6 +64,7 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
                 break;
             case 13:
                 grafo.mostrar_grafo();
+                arbol.ordenar_arbol(grafo, l_lecturas.obtener_cantidad());
                 break;
 
             case 14:

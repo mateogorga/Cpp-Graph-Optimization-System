@@ -18,7 +18,6 @@ class Grafo {
         vector<vector<int>> matriz_adyacente;
         vector<vector<int>> matriz_pesos;
 
-
         //PRE:
         //POST:
         void actualizar_matriz(long unsigned int tamanio);
@@ -41,6 +40,9 @@ class Grafo {
          
     public:
 
+
+        vector<vector<int>> obtener_adyacencia();
+        vector<vector<int>> obtener_pesos();
     
         //PRE:
         //POST:

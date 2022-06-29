@@ -11,6 +11,7 @@
 #include "parser_lecturas.h"
 #include "parser_escritores.h"
 #include "grafo.h"
+#include "arbol.h"
 
 const string ARCHIVO_LECTURAS = "lecturas.txt";
 const string ARCHIVO_ESCRITORES = "escritores.txt";
@@ -30,6 +31,10 @@ int main() {
     Grafo grafo;
     grafo.cargar_grafo(l_lecturas);
 
+
+    Arbol arbol = Arbol(l_lecturas.obtener_cantidad());
+    //arbol.ordenar_arbol(grafo, l_lecturas.obtener_cantidad());
+
     //grafo.insertar_arista(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo());
     //grafo.insertar_arista(l_lecturas.consulta(3)->obtener_titulo(), l_lecturas.consulta(4)->obtener_titulo());
     //grafo.insertar_peso(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo(), 20);
@@ -39,7 +44,7 @@ int main() {
 
 
     menu.mensaje_inicial();
-    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo);    
+    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo, arbol);    
 /*    
     Hash_escritores escritores;
 
