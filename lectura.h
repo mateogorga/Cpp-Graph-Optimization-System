@@ -21,6 +21,7 @@ protected:
     int minutos;
     int anio;
     Escritor* autor;
+    string tipo;
 
 public:
     //constructor
@@ -31,6 +32,7 @@ public:
     int obtener_minutos();
     int obtener_anio();
     Escritor* obtener_autor();
+    string obtener_tipo();
 
     //PRE: el parametro debe ser o minutos o anio.
     //POS: si el parametro recibido es minutos, llama al metodo comparar para los minutos, y si es anio

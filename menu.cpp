@@ -8,7 +8,7 @@ const int NO = 2;
 const int PRIMER_GENERO = 1;
 const int ULTIMO_GENERO = 6;
 const int MENU_OPCION_1 = 1;
-const int MENU_OPCION_13 = 13;
+const int MENU_OPCION_14 = 14;
 const int NOVELA = 1;
 const int CUENTO = 2;
 const int POEMA = 3;
@@ -18,7 +18,7 @@ Menu::Menu(){
 }
 
 void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores& t_escritores,
-                        Cola& cola, Lista_lecturas& lista_aux){
+                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo, Arbol& arbol){
     bool terminar_programa = false;
     int respuesta;
     while (!terminar_programa) {
@@ -26,10 +26,10 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
 
         switch (respuesta) {
             case 1:
-                menu.agregar_lectura(l_lecturas, t_escritores);
+                menu.agregar_lectura(l_lecturas, t_escritores, grafo);
                 break;
             case 2:
-                menu.quitar_lectura(l_lecturas);
+                menu.quitar_lectura(l_lecturas, grafo);
                 break;
             case 3:
                 menu.agregar_escritor(t_escritores);
@@ -63,6 +63,11 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
                 menu.lectura_leida(cola);
                 break;
             case 13:
+                grafo.mostrar_grafo();
+                //arbol.ordenar_arbol(grafo, l_lecturas.obtener_cantidad());
+                break;
+
+            case 14:
                 terminar_programa = true;
                 break;
             
@@ -102,7 +107,7 @@ int Menu::mostrar_menu() {
     while (!respuesta_correcta) {
         cout << endl << endl;
         cout << "Ingrese el numero de la opcion que desee: " << endl;
-        cout << "ENTRE 1 Y 12" << endl;
+        cout << "ENTRE 1 Y 14" << endl;
         cout << "1) Agregar una nueva lectura a la lista " << endl;
         cout << "2) Quitar una lectura de la lista " << endl;
         cout << "3) Agregar un escritor " << endl;
@@ -115,13 +120,14 @@ int Menu::mostrar_menu() {
         cout << "10) Listar las novelas de determinado género " << endl;
         cout << "11) Armar una cola ordenada por tiempo de lectura " << endl;
         cout << "12) Lectura leida " << endl;
-        cout << "13) Salir" << endl;
+        cout << "13) Mostrar Grafo" << endl;
+        cout << "14) Salir" << endl;
         cin >> respuesta;
         cin.ignore();
 
-        respuesta_correcta = chequear_rango(MENU_OPCION_1, respuesta, MENU_OPCION_13);
+        respuesta_correcta = chequear_rango(MENU_OPCION_1, respuesta, MENU_OPCION_14);
         if (!respuesta_correcta)
-            cout << "LO LAMENTO, LA RESPUESTA DEBE SER ENTRE 1 Y 12" << endl;
+            cout << "LO LAMENTO, LA RESPUESTA DEBE SER ENTRE 1 Y 14" << endl;
     }
     return respuesta;
 }
@@ -143,7 +149,7 @@ void Menu::pedir_datos_lectura(string &titulo, int &minutos, int &anio, int &int
     }
 }
 
-void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero) {
+void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero, Grafo& grafo) {
     cout <<"Ingrese uno de estos generos, todo en mayusculas: " << endl;
     cout << "DRAMA" << endl;
     cout << "FICCION" << endl;
@@ -158,13 +164,16 @@ void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos,
     if (str_genero == "HISTORICA") {
         string str_tema;
         cout<<"Ingrese el tema: ";
-        cin>>str_tema;
+        cin.ignore();
+        getline(cin, str_tema);
         char* tema = procesar_tema_historica(str_tema);
         Historica* nueva_lectura = new Historica(titulo,minutos,anio,autor,HISTORICA,tema);
         l_lecturas.alta(nueva_lectura, ANIO_L);
+        grafo.cargar_grafo(nueva_lectura);
     } else {
         Novela* nueva_lectura = new Novela(titulo,minutos,anio,autor,genero);
         l_lecturas.alta(nueva_lectura, ANIO_L);
+        grafo.cargar_grafo(nueva_lectura);
     }
 
 }
@@ -201,27 +210,29 @@ char* Menu::procesar_tema_historica(string str_tema) {
 }
 
 
-void Menu::cargar_cuento(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor) {
+void Menu::cargar_cuento(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, Grafo& grafo) {
     string str_libro;
     cout<<"Ingrese el libro en el que se encuentra el cuento: ";
-    cin>>str_libro;
-
+    cin.ignore();
+    getline(cin, str_libro);
     Cuento* nueva_lectura = new Cuento(titulo,minutos,anio,autor,str_libro);
     l_lecturas.alta(nueva_lectura, ANIO_L);
+    grafo.cargar_grafo(nueva_lectura);
 }
 
 
-void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor) {
+void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, Grafo& grafo) {
     int cant_versos;
     cout<< "Ingrese la cantidad de versos: ";
     cin >> cant_versos;
 
     Poema* nueva_lectura = new Poema(titulo, minutos, anio, autor, cant_versos);
     l_lecturas.alta(nueva_lectura, ANIO_L);
+    grafo.cargar_grafo(nueva_lectura);
 }
 
 
- void Menu::quitar_lectura(Lista_lecturas &l_lecturas) {
+ void Menu::quitar_lectura(Lista_lecturas &l_lecturas, Grafo& grafo) {
 
     l_lecturas.listar();
     int cota_sup = l_lecturas.obtener_cantidad();
@@ -235,10 +246,12 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
         cin >> posicion;
         posicion_valida = chequear_rango(1, posicion, cota_sup);
     }
+    grafo.eliminar_lectura(l_lecturas.consulta(posicion)->obtener_titulo());
     l_lecturas.baja(posicion);
+    
 }
 
-void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escritores) {
+void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escritores, Grafo& grafo) {
     string titulo, autor, str_genero;
     int minutos, anio, int_tipo;
     cout << "El autor de la lectura que desea agregar ya se encuentra en la tabla de escritores?" << endl;
@@ -253,11 +266,11 @@ void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escrit
     cout << endl << "Ahora si se le pediran los datos de la lectura." << endl << endl;
     pedir_datos_lectura(titulo, minutos, anio, int_tipo);
     if (int_tipo == 1) {
-        cargar_novela(l_lecturas,titulo,minutos,anio,pescritor,str_genero);
+        cargar_novela(l_lecturas,titulo,minutos,anio,pescritor,str_genero, grafo);
     } else if (int_tipo == 2) {
-        cargar_cuento(l_lecturas,titulo,minutos,anio,pescritor);
+        cargar_cuento(l_lecturas,titulo,minutos,anio,pescritor, grafo);
     } else {
-        cargar_poema(l_lecturas,titulo,minutos,anio,pescritor);
+        cargar_poema(l_lecturas,titulo,minutos,anio,pescritor, grafo);
     }
 }
 

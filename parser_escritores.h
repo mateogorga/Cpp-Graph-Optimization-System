@@ -21,11 +21,11 @@ class Parser_escritores {
 
         //PRE: Recibe archivo de escritores abierto, una tabla de escriores y
         //el codigo del escritor que puede ser vacio.
-        //POST: llama a funciones obtener_datitio y crear_enlistar_escritor y
+        //POST: llama a funciones obtener_dato y crear_enlistar_escritor y
         //verificar_fallecimiento. Devuelve un string con el codigo del escritor. 
         //IMPORTANTE: Reutiliza el 
-        //codigo devuelto. Si es vacio, obtener_datito lo buscará, sino ese codigo
-        //en realidad pertenece al siguiente escritor. En este ultimo caso, obtener_datito
+        //codigo devuelto. Si es vacio, obtener_dato lo buscará, sino ese codigo
+        //en realidad pertenece al siguiente escritor. En este ultimo caso, obtener_dato
         //no busca otra linea, entonces el codigo se mantiene.
         string extraer_escritor (ifstream& archivo, string codigo_escritor,
                                  Hash_escritores& t_escritores);
@@ -34,7 +34,7 @@ class Parser_escritores {
         //PRE: Recibe archivo abierto y un dato tipo string.
         //POST: Si el string es vacio, busca una nueva linea en elarchivo, sino
         //lo devuelve.
-        string obtener_datito(ifstream& archivo, string datito);
+        string obtener_dato(ifstream& archivo, string dato);
 
         
         //PRE: Recibe archivo abierto. El arvhico puede terminar abruptamente antes de

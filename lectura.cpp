@@ -24,6 +24,10 @@ Escritor* Lectura::obtener_autor() {
     return autor;
 }
 
+string Lectura::obtener_tipo() {
+    return tipo;
+}
+
 int Lectura::comparar(Lectura* l, char parametro){
     int resultado;
     if(parametro == MINUTOS_L)
