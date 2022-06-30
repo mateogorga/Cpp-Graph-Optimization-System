@@ -358,9 +358,10 @@ void Menu::listar_lecturas_por_escritor(Lista_lecturas& l_lecturas,
     int i = 1;
     while (i <= l_lecturas.obtener_cantidad()) {
         if (l_lecturas.consulta(i)->obtener_autor()
-            && respuesta == stoi(l_lecturas.consulta(i)->obtener_autor()->obtener_codigo()))
+            && respuesta == stoi(l_lecturas.consulta(i)->obtener_autor()->obtener_codigo())){
             cout << endl;
             l_lecturas.consulta(i)->mostrar_datos();
+        }
         i++; 
     }
 }
