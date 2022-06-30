@@ -11,12 +11,12 @@ Parser_lecturas::Parser_lecturas() {}
 
 
 
-string Parser_lecturas::obtener_datito(ifstream& archivo, string datito){
-    while (datito == "" && !archivo.eof()) 
+string Parser_lecturas::obtener_dato(ifstream& archivo, string dato){
+    while (dato == "" && !archivo.eof()) 
     {
-        getline(archivo, datito);
+        getline(archivo, dato);
     }
-    return datito;
+    return dato;
 }
 
 
@@ -92,7 +92,7 @@ void Parser_lecturas::extraer_datos_novela(ifstream& archivo, Lista_lecturas& ll
     char* tema;
 
     getline(archivo, titulo);
-    titulo = obtener_datito(archivo, titulo);
+    titulo = obtener_dato(archivo, titulo);
     getline(archivo, minutos);
     getline(archivo, anio);
     getline(archivo, str_genero);
@@ -127,7 +127,7 @@ void Parser_lecturas::extraer_datos_cuento(ifstream& archivo, Lista_lecturas& ll
     string titulo, minutos, anio, titulo_libro, autor;
 
     getline (archivo, titulo);
-    titulo = obtener_datito(archivo, titulo);
+    titulo = obtener_dato(archivo, titulo);
     getline(archivo, minutos);
     getline(archivo, anio);
     getline(archivo, titulo_libro);
@@ -154,7 +154,7 @@ void Parser_lecturas::extraer_datos_poema(ifstream& archivo, Lista_lecturas& ll,
     string titulo, minutos, anio, cantidad_versos, autor;
 
     getline (archivo, titulo);
-    titulo = obtener_datito(archivo, titulo);
+    titulo = obtener_dato(archivo, titulo);
     getline(archivo, minutos);
     getline(archivo, anio);
     getline(archivo, cantidad_versos);

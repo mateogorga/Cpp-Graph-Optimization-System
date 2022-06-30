@@ -13,6 +13,8 @@
 #include <fstream> 
 #include <string>
 #include <stdlib.h>
+#include "grafo.h"
+#include "arbol.h"
 
 class Menu {
 
@@ -35,17 +37,17 @@ private:
 
     //PRE: str_genero debe ser ingresado en mayusculas
     //POS: carga una nueva novela a la lista de lecturas
-    void cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero);
+    void cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero, Grafo& grafo);
 
 
     //PRE: -
     //POS: carga un nuevo cuento a la lista de lecturas
-    void cargar_cuento(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor);
+    void cargar_cuento(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, Grafo& grafo);
 
 
     //PRE: -
     //POS: carga un nuevo poema a la lista de lecturas
-    void cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor);
+    void cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, Grafo& grafo);
 
 
     //PRE: str_tema debe ser un string
@@ -74,7 +76,7 @@ public:
 
 
     void ejecutar_menu(Menu menu, Lista_lecturas &l_lecturas, Hash_escritores& t_escritores,
-                        Cola& cola, Lista_lecturas& lista_aux);
+                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo, Arbol& arbol);
 
     //PRE: -
     //POS: imprime por pantalla un mensaje inicial para el usuario.
@@ -88,13 +90,13 @@ public:
 
     //PRE: la lectura no debe estar en la lista.
     //POS: agrega una nueva lectura a la lista.
-    void agregar_lectura(Lista_lecturas& l_lecturas, Hash_escritores& t_escritores);
+    void agregar_lectura(Lista_lecturas& l_lecturas, Hash_escritores& t_escritores, Grafo& grafo);
 
 
     //PRE: la lectura debe estar en la lista
     //POS: elimina la lectura de la lista
     //void quitar_lectura(Lista_lecturas& l_lecturas);
-    void quitar_lectura(Lista_lecturas& l_lecturas);
+    void quitar_lectura(Lista_lecturas& l_lecturas, Grafo& grafo);
 
 
     //PRE: -
