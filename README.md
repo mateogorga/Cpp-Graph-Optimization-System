@@ -1,11 +1,16 @@
-Ya encontre la idea: la arista es un vector de tres posiciones.
-Las primeras dos corresponden a las posiciones de las lecturas 
-en el vector de strings nombres_lecturas, que significan en la arista sus
+Ya encontre la idea: 
+
+En el grafo vamos a agregar dos atributos.
+El primero es un "vector<int> arista", 
+un vector de tres posiciones. Las primeras dos corresponden a las 
+posiciones en el vector de strings llamado "nombres_lecturas", que significan en la arista sus
 vertices.
 
-La matriz arbol es una matriz 3xn, donde n es la cantidad de aristas.
+El segundo es un "vector<vector<int>> arbol", una matriz 3xn, donde n es la cantidad de aristas.
+Es decir, un vector de aristas.
 Ordenamos las aristas dentro de esa matriz segun su tercera posicion (el peso).
-Es lo que ya esta haciendo el algoritmo de mateo, pero con objetos arista enves de vectores.
+Es lo que ya esta haciendo el algoritmo de mateo, pero antes lo hacia con objetos arista 
+enves de vectores que seria una gran idea si fueramos a almacenar distintos tipos 
 
 Con eso llegaría a la linea 62 que es donde se ejecuta el sort() de kruskal. Despues no entiendo
 que hace el código. PERO ya se tendrían todos los elementos como para que sea un
