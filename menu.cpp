@@ -164,7 +164,8 @@ void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos,
     if (str_genero == "HISTORICA") {
         string str_tema;
         cout<<"Ingrese el tema: ";
-        cin>>str_tema;
+        cin.ignore();
+        getline(cin, str_tema);
         char* tema = procesar_tema_historica(str_tema);
         Historica* nueva_lectura = new Historica(titulo,minutos,anio,autor,HISTORICA,tema);
         l_lecturas.alta(nueva_lectura, ANIO_L);
@@ -212,11 +213,11 @@ char* Menu::procesar_tema_historica(string str_tema) {
 void Menu::cargar_cuento(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, Grafo& grafo) {
     string str_libro;
     cout<<"Ingrese el libro en el que se encuentra el cuento: ";
-    cin>>str_libro;
-
+    cin.ignore();
+    getline(cin, str_libro);
     Cuento* nueva_lectura = new Cuento(titulo,minutos,anio,autor,str_libro);
     l_lecturas.alta(nueva_lectura, ANIO_L);
-    //grafo.cargar_grafo(nueva_lectura);
+    grafo.cargar_grafo(nueva_lectura);
 }
 
 
@@ -227,7 +228,7 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
 
     Poema* nueva_lectura = new Poema(titulo, minutos, anio, autor, cant_versos);
     l_lecturas.alta(nueva_lectura, ANIO_L);
-    //grafo.cargar_grafo(nueva_lectura);
+    grafo.cargar_grafo(nueva_lectura);
 }
 
 
