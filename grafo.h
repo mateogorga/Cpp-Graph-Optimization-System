@@ -53,7 +53,7 @@ class Grafo {
     
         //PRE:
         //POST:
-        void insertar_lectura(string nombre, char tipo);
+        void insertar_lectura(string nombre);
 
 
         //PRE:
