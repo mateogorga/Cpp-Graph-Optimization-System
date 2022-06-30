@@ -20,3 +20,7 @@ Marco:
   
     Finalmente modularizar, corregir nombres de variables y completar pres y post
     ¿Uso el nombre "peso" o "siesta" para referirme al peso de las aristas?
+
+
+Bugs: Al eliminar todas las lecturas no puedo seguir ocn el programa
+Ver que pasa con el grafo al eliminar todas las lecturas
