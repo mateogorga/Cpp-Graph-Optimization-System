@@ -32,7 +32,8 @@ int main() {
     grafo.cargar_grafo(l_lecturas);
 
 
-    Arbol arbol = Arbol(l_lecturas.obtener_cantidad());
+    Arbol arbol = Arbol(400);
+    
     //arbol.ordenar_arbol(grafo, l_lecturas.obtener_cantidad());
 
     //grafo.insertar_arista(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo());
@@ -41,7 +42,26 @@ int main() {
 
   
 
-
+    arbol.agregar_arista(100, 200, 0);
+    arbol.agregar_arista(100, 100, 1);
+    arbol.agregar_arista(100, 400, 20);
+    arbol.agregar_arista(100, 300, 5);
+    arbol.agregar_arista(200, 100, 0);
+    arbol.agregar_arista(200, 300, 10);
+    arbol.agregar_arista(200, 400, 15);
+    arbol.agregar_arista(200, 100, 0);
+    arbol.agregar_arista(100, 100, 1);
+    arbol.agregar_arista(100, 300, 5);
+    arbol.agregar_arista(100, 400 ,20);
+    arbol.agregar_arista(100, 200, 0);
+    arbol.agregar_arista(400, 100, 20);
+    arbol.agregar_arista(400, 100, 20);
+    arbol.agregar_arista(400, 300, 60);
+    arbol.agregar_arista(400, 200, 15);
+    arbol.agregar_arista(300, 100, 5);
+    arbol.agregar_arista(300, 200 ,10);
+    arbol.agregar_arista(300, 100, 5);
+    arbol.agregar_arista(300, 400, 60);
 
     menu.mensaje_inicial();
     menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo, arbol);    

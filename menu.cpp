@@ -64,7 +64,7 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
                 break;
             case 13:
                 grafo.mostrar_grafo();
-                //arbol.ordenar_arbol(grafo, l_lecturas.obtener_cantidad());
+                arbol.kruskal();
                 break;
 
             case 14:
