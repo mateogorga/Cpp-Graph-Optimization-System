@@ -10,14 +10,19 @@ using namespace std;
 
 class Grafo {
     private:
-
+        //tengo un orden que me importa.
         vector<string> nombres_lecturas;
         vector<string> tipos_lecturas;
         //voy a hacer un vector de strings donde guardo el tipo de lectura en la misma
         //posicion que su nombre. vere si lo hago matriz despues
+
+
+
         vector<vector<int>> matriz_adyacente;
         vector<vector<int>> matriz_pesos;
 
+        
+        vector<vector<int>> arbol;
         //PRE:
         //POST:
         void actualizar_matriz(long unsigned int tamanio);
@@ -78,7 +83,6 @@ class Grafo {
 
 
         void cargar_grafo(Lectura* lectura_a_insertar);
+};
 
-    };
-
-    #endif //GRAFO_H
+#endif //GRAFO_H

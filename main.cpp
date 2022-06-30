@@ -32,7 +32,7 @@ int main() {
     grafo.cargar_grafo(l_lecturas);
 
 
-    Arbol arbol = Arbol(400);
+    Arbol arbol = Arbol(l_lecturas.obtener_cantidad());
     
     //arbol.ordenar_arbol(grafo, l_lecturas.obtener_cantidad());
 
@@ -42,26 +42,30 @@ int main() {
 
   
 
-    arbol.agregar_arista(100, 200, 0);
-    arbol.agregar_arista(100, 100, 1);
-    arbol.agregar_arista(100, 400, 20);
-    arbol.agregar_arista(100, 300, 5);
-    arbol.agregar_arista(200, 100, 0);
-    arbol.agregar_arista(200, 300, 10);
-    arbol.agregar_arista(200, 400, 15);
-    arbol.agregar_arista(200, 100, 0);
-    arbol.agregar_arista(100, 100, 1);
-    arbol.agregar_arista(100, 300, 5);
-    arbol.agregar_arista(100, 400 ,20);
-    arbol.agregar_arista(100, 200, 0);
-    arbol.agregar_arista(400, 100, 20);
-    arbol.agregar_arista(400, 100, 20);
-    arbol.agregar_arista(400, 300, 60);
-    arbol.agregar_arista(400, 200, 15);
-    arbol.agregar_arista(300, 100, 5);
-    arbol.agregar_arista(300, 200 ,10);
-    arbol.agregar_arista(300, 100, 5);
-    arbol.agregar_arista(300, 400, 60);
+    arbol.agregar_arista(0, 1, 5);
+    arbol.agregar_arista(0, 2, 1);
+    arbol.agregar_arista(0, 3, 0);
+    arbol.agregar_arista(0, 4, 20);
+
+    arbol.agregar_arista(1, 0, 5);
+    arbol.agregar_arista(1, 2, 5);
+    arbol.agregar_arista(1, 3, 10);
+    arbol.agregar_arista(1, 4, 60);
+
+    arbol.agregar_arista(2, 0, 1);
+    arbol.agregar_arista(2, 1, 5);
+    arbol.agregar_arista(2, 3, 0);
+    arbol.agregar_arista(2, 4, 20);
+
+    arbol.agregar_arista(3, 0, 0);
+    arbol.agregar_arista(3, 1, 10);
+    arbol.agregar_arista(3, 2, 0);
+    arbol.agregar_arista(3, 4, 15);
+
+    arbol.agregar_arista(4, 0, 20);
+    arbol.agregar_arista(4, 1, 60);
+    arbol.agregar_arista(4, 2, 20);
+    arbol.agregar_arista(4, 3, 15);
 
     menu.mensaje_inicial();
     menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo, arbol);    

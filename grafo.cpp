@@ -120,6 +120,7 @@ void Grafo::insertar_peso (string origen, string destino, int peso) {
     matriz_pesos[posicion_destino][posicion_origen] = peso;
     //linea anterior hace que la matriz se carge simetricamente
     //por ser no dirigido por enunciado
+
     }
 }   
 
@@ -137,6 +138,7 @@ void Grafo::eliminar_arista (string origen, string destino) {
 
 void Grafo::mostrar_grafo() {
     long unsigned int cantidad_lecturas = nombres_lecturas.size();
+
     cout << endl;
     cout << "ARISTAS" << endl;
     cout<< setw(ESPACIO_NOMBRES_FILAS) << " ";
@@ -193,7 +195,7 @@ int calcular_siesta(string tipo_nodo_a, string tipo_nodo_b) {
     } else if ((tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica") && (tipo_nodo_a == "Poema" || tipo_nodo_b == "Poema")) {
         siesta = POEMA_A_NOVELA_HISTORICA;
     } else if ((tipo_nodo_a == "Novela" || tipo_nodo_b == "Novela") && (tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica")) {
-        siesta = NOVELA_HISORICA_A_NOVELA_HISORICA;
+        siesta = NOVELA_A_NOVELA_HISTORICA;
     }
     return siesta;
 }
@@ -205,6 +207,7 @@ void Grafo::cargar_grafo(Lectura* lectura_a_insertar) {
     insertar_lectura(nombre_nodo_nuevo, tipo_nodo_nuevo);
     size_t aux = nombres_lecturas.size();
     int cantidad_lecturas_en_vector = (int)aux;
+
     for (int i_lectura_vector = 0; i_lectura_vector < cantidad_lecturas_en_vector ; i_lectura_vector++) {
         string nombre_nodo_viejo = nombres_lecturas[i_lectura_vector];
         string tipo_nodo_viejo = tipos_lecturas[i_lectura_vector];
@@ -217,6 +220,9 @@ void Grafo::cargar_grafo(Lectura* lectura_a_insertar) {
 
 void Grafo::cargar_grafo(Lista_lecturas& ll){//meterle un caracter booleano
     int cantidad_lecturas_en_lista = ll.obtener_cantidad();
+
+    cantidad_lecturas_en_lista++;
+
     for (int i_lectura_lista = 0; i_lectura_lista < cantidad_lecturas_en_lista; i_lectura_lista++) {
         Lectura* lectura_a_insertar = ll.consulta(i_lectura_lista);
         cargar_grafo(lectura_a_insertar);
@@ -224,10 +230,10 @@ void Grafo::cargar_grafo(Lista_lecturas& ll){//meterle un caracter booleano
 }
 
 
-    vector<vector<int>> Grafo::obtener_adyacencia() {
+vector<vector<int>> Grafo::obtener_adyacencia() {
         return matriz_adyacente;
     }
-    vector<vector<int>> Grafo::obtener_pesos(){
+vector<vector<int>> Grafo::obtener_pesos(){
         return matriz_pesos;
-
     }
+
