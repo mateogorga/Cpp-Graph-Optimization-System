@@ -16,7 +16,11 @@ const int NOVELA_A_NOVELA_HISTORICA = 60;
 const int NOVELA_HISORICA_A_NOVELA_HISORICA = 80;
 
 Grafo::Grafo() {
+}
     
+int Grafo::castear_a_int(size_t n) {
+    int int_n = (int)n;
+    return int_n;
 }
 
 
@@ -76,7 +80,6 @@ void Grafo::insertar_lectura(string nombre, string tipo) {
 
 
 
-
 void Grafo::eliminar_lectura(string nombre) {
     if (encontrar_lectura(nombre)) {
         long unsigned int posicion = encontrar_posicion_lectura (nombre);
@@ -87,11 +90,12 @@ void Grafo::eliminar_lectura(string nombre) {
         matriz_adyacente.erase(matriz_adyacente.begin() + posicion);
         matriz_pesos.erase(matriz_pesos.begin() + posicion);
         nombres_lecturas.erase(nombres_lecturas.begin() + posicion);
+        //sacar_arista(castear_a_int(posicion));
     }
 }
 
 
-//supongoq eu los nodos o existen o fueron agregados
+
 bool Grafo::buscar_arista (string origen, string destino) {
     long unsigned int posicion_origen = encontrar_posicion_lectura(origen);
     long unsigned int posicion_destino = encontrar_posicion_lectura(destino);
@@ -114,8 +118,7 @@ void Grafo::insertar_arista (string origen, string destino) {
 }
 
 
-//los pesos van a ser fijos SUPONGO QUE EXISTE ARISTA
-//supongo que solo se agraga una vez, sino se pisa
+
 void Grafo::insertar_peso (string origen, string destino, int peso) {
     if (buscar_arista(origen, destino)) {
     long unsigned int posicion_origen = encontrar_posicion_lectura(origen);
@@ -124,6 +127,12 @@ void Grafo::insertar_peso (string origen, string destino, int peso) {
     matriz_pesos[posicion_destino][posicion_origen] = peso;
     //linea anterior hace que la matriz se carge simetricamente
     //por ser no dirigido por enunciado
+
+    int v1 = castear_a_int(posicion_origen);
+    int v2 = castear_a_int(posicion_destino);
+
+    agregar_arista(v1, v2, peso);
+
     }
 }   
 
@@ -141,6 +150,7 @@ void Grafo::eliminar_arista (string origen, string destino) {
 
 void Grafo::mostrar_grafo() {
     long unsigned int cantidad_lecturas = nombres_lecturas.size();
+
     cout << endl;
     cout << "ARISTAS" << endl;
     cout<< setw(ESPACIO_NOMBRES_FILAS) << " ";
@@ -173,7 +183,7 @@ void Grafo::mostrar_grafo() {
 }
 
 
-int calcular_siesta(string tipo_nodo_a, string tipo_nodo_b) {
+int Grafo::calcular_peso(string tipo_nodo_a, string tipo_nodo_b) {
     int siesta;
     if (tipo_nodo_a == tipo_nodo_b) {
         if (tipo_nodo_a == "Cuento") {
@@ -197,7 +207,7 @@ int calcular_siesta(string tipo_nodo_a, string tipo_nodo_b) {
     } else if ((tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica") && (tipo_nodo_a == "Poema" || tipo_nodo_b == "Poema")) {
         siesta = POEMA_A_NOVELA_HISTORICA;
     } else if ((tipo_nodo_a == "Novela" || tipo_nodo_b == "Novela") && (tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica")) {
-        siesta = NOVELA_HISORICA_A_NOVELA_HISORICA;
+        siesta = NOVELA_A_NOVELA_HISTORICA;
     }
     return siesta;
 }
@@ -207,12 +217,13 @@ void Grafo::cargar_grafo(Lectura* lectura_a_insertar) {
     string nombre_nodo_nuevo = lectura_a_insertar->obtener_titulo();
     string tipo_nodo_nuevo = lectura_a_insertar->obtener_tipo();
     insertar_lectura(nombre_nodo_nuevo, tipo_nodo_nuevo);
-    size_t aux = nombres_lecturas.size();
-    int cantidad_lecturas_en_vector = (int)aux;
+
+    int cantidad_lecturas_en_vector = castear_a_int(nombres_lecturas.size());
+
     for (int i_lectura_vector = 0; i_lectura_vector < cantidad_lecturas_en_vector ; i_lectura_vector++) {
         string nombre_nodo_viejo = nombres_lecturas[i_lectura_vector];
         string tipo_nodo_viejo = tipos_lecturas[i_lectura_vector];
-        int siesta = calcular_siesta(tipo_nodo_viejo, tipo_nodo_nuevo);
+        int siesta = calcular_peso(tipo_nodo_viejo, tipo_nodo_nuevo);
         insertar_arista(nombre_nodo_nuevo, nombre_nodo_viejo);
         insertar_peso(nombre_nodo_nuevo, nombre_nodo_viejo, siesta);
     } 
@@ -221,6 +232,9 @@ void Grafo::cargar_grafo(Lectura* lectura_a_insertar) {
 
 void Grafo::cargar_grafo(Lista_lecturas& ll){//meterle un caracter booleano
     int cantidad_lecturas_en_lista = ll.obtener_cantidad();
+
+    cantidad_lecturas_en_lista++;
+
     for (int i_lectura_lista = 0; i_lectura_lista < cantidad_lecturas_en_lista; i_lectura_lista++) {
         Lectura* lectura_a_insertar = ll.consulta(i_lectura_lista);
         cargar_grafo(lectura_a_insertar);
@@ -228,10 +242,81 @@ void Grafo::cargar_grafo(Lista_lecturas& ll){//meterle un caracter booleano
 }
 
 
-    vector<vector<int>> Grafo::obtener_adyacencia() {
+vector<vector<int>> Grafo::obtener_adyacencia() {
         return matriz_adyacente;
-    }
-    vector<vector<int>> Grafo::obtener_pesos(){
+}
+vector<vector<int>> Grafo::obtener_pesos(){
         return matriz_pesos;
+}
 
+
+
+
+
+
+
+
+
+void Grafo::agregar_arista(int v1, int v2, int peso) {
+    Arista arista(v1, v2, peso);
+    aristas.push_back(arista);
+}
+void Grafo::sacar_arista(int vertice_a_remover) {
+    int cant_aritas = castear_a_int(aristas.size());
+    for (int i = 0; i < cant_aritas; i++) {
+        if (aristas[i].obtener_vertice1() == vertice_a_remover || aristas[i].obtener_vertice2() == vertice_a_remover)
+            aristas.erase(aristas.begin() + i);
     }
+}
+//TIENE QUE HABER UN QUITAR ARISTA
+
+int Grafo::buscar(int *subconjunto, int i) {
+    if (subconjunto[i] == -1) {
+        return i;
+    }
+    return buscar(subconjunto, subconjunto[i]);
+}
+
+void Grafo::unir_subconjuntos(int *subconjunto, int v1, int v2) {
+    int v1_set = buscar(subconjunto, v1);
+    int v2_set = buscar(subconjunto, v2);
+    subconjunto[v1_set] = v2_set;
+}
+
+void Grafo::kruskal() {
+    vector<Arista> arbol;
+    sort(aristas.begin(), aristas.end());//ordena las aristas por menor peso
+
+    int cant_lecturas = castear_a_int(nombres_lecturas.size());
+    //esto se carga desde el vector de nombres de lecturas que se actualiza cuando saco o pongo lecturas
+    int * subconjunto = new int[cant_lecturas];
+
+    //inicializa todos los subconjuntos como conjuntos de un unico elemento
+    memset(subconjunto, -1, sizeof(int) * cant_lecturas);
+
+    int tamanio_aristas = castear_a_int(aristas.size());
+    for(int i = 0; i < tamanio_aristas; i++) {
+        int v1 = buscar(subconjunto, aristas[i].obtener_vertice1());
+        int v2 = buscar(subconjunto, aristas[i].obtener_vertice2());
+        cout << "Compara: "<< nombres_lecturas[v1] << "   -   "<< nombres_lecturas[v2] << "   peso: " <<aristas[i].obtener_peso() <<"\n";
+
+        if(v1 != v2) {
+            //si son diferentes es porque no forman un ciclo
+            arbol.push_back(aristas[i]);
+            unir_subconjuntos(subconjunto, v1, v2);
+        }
+    }
+
+    int tamanio_arbol= castear_a_int(arbol.size());
+    int tiempo_lecturas = 0;
+
+    for(int i = 0; i < tamanio_arbol; i++) {
+        int v1 = arbol[i].obtener_vertice1();
+        int v2 = arbol[i].obtener_vertice2();
+        tiempo_lecturas = tiempo_lecturas + arbol[i].obtener_peso();
+        cout << "(" << nombres_lecturas[v1] << ", " << nombres_lecturas[v2] << ") = " << arbol[i].obtener_peso() << endl;
+    }
+
+    cout << "En total tardaras: " << tiempo_lecturas << " minutos\n";
+    delete [] subconjunto;
+}

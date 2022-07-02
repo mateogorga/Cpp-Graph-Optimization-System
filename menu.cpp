@@ -18,7 +18,7 @@ Menu::Menu(){
 }
 
 void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores& t_escritores,
-                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo, Arbol& arbol){
+                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo){
     bool terminar_programa = false;
     int respuesta;
     while (!terminar_programa) {
@@ -64,7 +64,7 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
                 break;
             case 13:
                 grafo.mostrar_grafo();
-                arbol.kruskal();
+                grafo.kruskal();
                 break;
 
             case 14:
@@ -233,22 +233,30 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
 
 
  void Menu::quitar_lectura(Lista_lecturas &l_lecturas, Grafo& grafo) {
-
     l_lecturas.listar();
     int cota_sup = l_lecturas.obtener_cantidad();
     int posicion;
     bool posicion_valida = false;
+    bool cero_lecturas = false;
     cout << endl << "Ingrese el numero de la lectura a quitar " << endl;
     cin >> posicion;
     posicion_valida = chequear_rango(1, posicion, cota_sup);
     while (!posicion_valida) {
-        cout << "La posicion ingresada es invalida, debe ser entre 1 y " << cota_sup;
-        cin >> posicion;
-        posicion_valida = chequear_rango(1, posicion, cota_sup);
+        if (!cota_sup == 0) {
+            cout << "La posicion ingresada es invalida, debe ser entre 1 y " << cota_sup << endl;
+            cout << endl << "Ingrese el numero de la lectura a quitar " << endl;
+            cin >> posicion;
+            posicion_valida = chequear_rango(1, posicion, cota_sup);
+        } else {
+            cout << "No hay mas lecturas" << endl;
+            posicion_valida = true;
+            cero_lecturas = true;
+        }       
     }
-    grafo.eliminar_lectura(l_lecturas.consulta(posicion)->obtener_titulo());
-    l_lecturas.baja(posicion);
-    
+    if (!cero_lecturas) {
+        grafo.eliminar_lectura(l_lecturas.consulta(posicion)->obtener_titulo());
+        l_lecturas.baja(posicion);
+    }
 }
 
 void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escritores, Grafo& grafo) {

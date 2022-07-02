@@ -5,18 +5,25 @@
 #include <string>
 #include <iostream>
 #include "lista_lecturas.h"
+#include "arista.h"
 
 using namespace std;
 
 class Grafo {
     private:
-
+        //tengo un orden que me importa.
         vector<string> nombres_lecturas;
         vector<string> tipos_lecturas;
         //voy a hacer un vector de strings donde guardo el tipo de lectura en la misma
         //posicion que su nombre. vere si lo hago matriz despues
+
         vector<vector<int>> matriz_adyacente;
         vector<vector<int>> matriz_pesos;
+        vector<Arista> aristas;
+        
+        //PRE: Recibe un parametro size_t de valor n.
+        //POST: Retorna el mismo valor pero de tipo int.
+        int castear_a_int (size_t n);
 
         //PRE: El tamanio no puede ser negativo.
         //POST: Actualiza la matriz de adyacencia.
@@ -39,6 +46,13 @@ class Grafo {
         //retorna false.
         bool buscar_arista (string origen, string destino);
 
+
+        //PRE: Recibe dos tipos de lecturas que se encuentren agrgadas como constantes al
+        //grafo
+        //POST: Retorna el valor que corresponde a la arista entre dos lecturas de ese tipo.
+        int calcular_peso(string tipo_nodo_a, string tipo_nodo_b);
+
+
          
     public:
 
@@ -51,18 +65,18 @@ class Grafo {
         //PRE: El grafo debe existir, el tipo de lectura debe pertenecer a las 
         //contempladas por el grafo.
         //POST: Si la lectura ya se encontraba en el grafo no hace nada, de lo 
-        //contrario la agrega y carga su peso.
+        //contrario la agregasu matriz de adyacencia.
         void insertar_lectura(string nombre, string tipo);
 
         
         //PRE:
-        //POST: Si la lectura se encuentra en el grafo la elimina.
+        //POST: Si la lectura se encuentra en el grafo la elimina y actualiza sus matrices.
         void eliminar_lectura(string nombre);
 
 
         //PRE:
         //POST: Si las lecturas se encuentran en el grafo y son distintas, carga 
-        //una arista entre ellas.
+        //una arista entre ellas (carga un uno en su matriz de adyacencia)
         void insertar_arista(string origen, string destino);
 
 
@@ -73,21 +87,41 @@ class Grafo {
 
 
         //PRE:
-        //POST: Si las aristas entre lecturas existen las elimina, de lo contrario no
-        //hace nada.
+        //POST: Si las aristas entre lecturas existen las elimina, (cero en su matriz de \
+        //adyacencia) de lo contrario no hace nada.
         void eliminar_arista(string origen, string destino);
 
 
         //PRE:
-        //POST:
+        //POST: Imprime por consola las matrices de adyacencia del grafo. Primero la de
+        //aristas, luego la de sus pesos. Ambas matrices acompañadas por los nombres de
+        //las lecturas.
         void mostrar_grafo();
 
 
+        //PRE: El grafo debe existir, puede recibir tanto una lista de lecturas como un punter
+        // a una lectura en particular.
+        //POST: Si recibe una lista, la recorre y carga el grafo con la informacion pertinante
+        //de todas las lecturas de la lista. Si recibe solo el puntero a la lectura, carga su 
+        //informacion pertinente al grafo.
         void cargar_grafo(Lista_lecturas& ll);
 
 
+        //PRE:El grafo debe existir, puede recibir tanto una lista de lecturas como un punter
+        // a una lectura en particular.
+        //POST: Si recibe una lista, la recorre y carga el grafo con la informacion pertinante
+        //de todas las lecturas de la lista. Si recibe solo el puntero a la lectura, carga su 
+        //informacion pertinente al grafo.
         void cargar_grafo(Lectura* lectura_a_insertar);
 
-    };
 
-    #endif //GRAFO_H
+
+            
+        void agregar_arista(int v1, int v2, int peso);
+        void sacar_arista(int vertice_a_remover);
+        int buscar(int subconjunto[], int i);//busca el subconjunto de un elemento "i"
+        void unir_subconjuntos(int subconjunto[], int v1, int v2);
+        void kruskal();
+};
+
+#endif //GRAFO_H
