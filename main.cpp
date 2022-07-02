@@ -19,21 +19,75 @@ using namespace std;
 
 int main() {
     
-    Parser_escritores parser_escritores = Parser_escritores();
-    Lista_escritores l_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
-
-    Parser_lecturas parser_lecturas = Parser_lecturas();
-    Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, l_escritores);
-
-    Arbol arbol;
-    arbol.cargar_arbol(l_lecturas);
-    
     Menu menu;
+
+    Parser_escritores parser_escritores = Parser_escritores();
+    Hash_escritores t_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
+    Parser_lecturas parser_lecturas = Parser_lecturas();
+    Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, t_escritores);
+    
     Lista_lecturas lista_aux;
     Cola cola;
+    Grafo grafo;
+    grafo.cargar_grafo(l_lecturas);
+
+
+    Arbol arbol = Arbol(400);
+    
+    //arbol.ordenar_arbol(grafo, l_lecturas.obtener_cantidad());
+
+    //grafo.insertar_arista(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo());
+    //grafo.insertar_arista(l_lecturas.consulta(3)->obtener_titulo(), l_lecturas.consulta(4)->obtener_titulo());
+    //grafo.insertar_peso(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo(), 20);
+
+  
+
+    arbol.agregar_arista(100, 200, 0);
+    arbol.agregar_arista(100, 100, 1);
+    arbol.agregar_arista(100, 400, 20);
+    arbol.agregar_arista(100, 300, 5);
+    arbol.agregar_arista(200, 100, 0);
+    arbol.agregar_arista(200, 300, 10);
+    arbol.agregar_arista(200, 400, 15);
+    arbol.agregar_arista(200, 100, 0);
+    arbol.agregar_arista(100, 100, 1);
+    arbol.agregar_arista(100, 300, 5);
+    arbol.agregar_arista(100, 400 ,20);
+    arbol.agregar_arista(100, 200, 0);
+    arbol.agregar_arista(400, 100, 20);
+    arbol.agregar_arista(400, 100, 20);
+    arbol.agregar_arista(400, 300, 60);
+    arbol.agregar_arista(400, 200, 15);
+    arbol.agregar_arista(300, 100, 5);
+    arbol.agregar_arista(300, 200 ,10);
+    arbol.agregar_arista(300, 100, 5);
+    arbol.agregar_arista(300, 400, 60);
 
     menu.mensaje_inicial();
-    menu.ejecutar_menu(menu, l_lecturas, l_escritores, cola, lista_aux);
-    
+    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo, arbol);    
+/*    
+    Hash_escritores escritores;
+
+    Escritor* p_escritor = new Escritor("Stephen King", "estadounidense", 1947, -1, "123");
+    escritores.alta(p_escritor);
+
+    Escritor* p_escritor2 = new Escritor("Cortazar", "uruguayo", 1914, 1984, "555");
+    escritores.alta(p_escritor2);
+
+    escritores.listar();
+    cout << endl << "Ahora pruebo obtener un escritor. Ingrese el codigo:" << endl;
+    int codigo;
+    cin >> codigo;
+    cout << endl;
+    if(escritores.obtener_escritor(codigo) != 0)
+        escritores.obtener_escritor(codigo)->mostrar_datos();
+    else
+        cout << "No hay un escritor con ese codigo" << endl;
+
+    cout << endl << "Ahora eliminamos uno, ingrese al q quiere eliminar" << endl;
+    int isni;
+    cin >> isni;
+    escritores.baja(isni);
+    escritores.listar();*/
     return 0;   
 }

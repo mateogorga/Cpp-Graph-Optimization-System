@@ -1,13 +1,9 @@
-
-#ifndef TP3_MARCO_HASH_ESCRITORES_H
-#define TP3_MARCO_HASH_ESCRITORES_H
-
 #ifndef HASH_ESCRITORES_H
 #define HASH_ESCRITORES_H
 
 #include "escritor.h"
 #include "lista_escritores.h"
-#include <string>
+#include <string> 
 
 
 const int TAMANIO_TABLA = 29; // 0.8 => 20 / m --> m = 25 tomo el num primo mas cercano --> 29
@@ -21,7 +17,7 @@ private:
 
 //Metodos
 public:
-
+    
     //PRE: -
     //POS: inicializa el vector con punteros a listas de escritores en todas las posciones.
     Hash_escritores();
@@ -30,19 +26,23 @@ public:
     //POS: inserta al escritor pasado en posicion que le corresponde en funcion al resultado de la
     //     funcion de hashing aplicada al codigo del escritor.
     void alta(Escritor* escritor);
-
+    
     //PRE: la clave debe ser un numero entero positivo.
     //POS: devuelve un puntero al escritor que posee la clave pasada. De no encontrarse,
     //     devuelve un puntero a nullptr.
     Escritor* obtener_escritor(int clave);
-
+    
     //PRE: la clave debe ser un numero entero positivo.
     //POS: elimina de la tabla al escritor en base a su clave.
     void baja(int clave);
+    
+    //PRE: -
+    //POS: muestra por pantalla a los escritores de la tabla con su respectiva informacion.
+    void listar();
 
     //PRE: -
-    //POS: muestra por pantalla a los escritores almacenados con su respectiva informacion.
-    void listar();
+    //POS: muestra por pantalla a los escritores de la tabla con su nombre y su codigo.
+    void listar_segun_codigo();
 
     //Destructor
     ~Hash_escritores();
@@ -54,4 +54,3 @@ private:
 };
 
 #endif //HASH_ESCRITORES_H
-#endif //TP3_MARCO_HASH_ESCRITORES_H

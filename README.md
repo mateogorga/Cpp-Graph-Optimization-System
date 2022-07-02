@@ -1,20 +1,26 @@
 # tp3
-Victoria: 
-Ingreso de datos (getline)
-Autores en tabla de Hashing
-
 Mateo:
 Impresion de texto que avisa que no se leyeron los archivos
 Arbol expansion minima
 
+--asegurarme de copiar bien la matriz de adyacencia y de pesos
+--imprimirla
+kruskal esas matrices--> se va guardando en la matriz arbol 
+imprimir matriz arbol
+
+
 Marco:
     *¿parches de ultimo minuto de la lista aux para que no tenga leaks? (menu.cpp 385)
 
-    *Parser_lecturas::procesar_autor cambiar la forma de relacionarlos (ahora busca por posicion en la lista
-        debe buscar por ISNI) 
-        --> ver como hace  vicky la tabla
-
     *Grafo
-        -->hacer cpp y h
-        -->generalizarlo? facilitar metodos de alta y baja? (unificar aristas con pesos)
         -->integrarlo al resto del tp
+        d) Cuando agregamos un a lectura mediante la funcion tambien se debe cargar en el grafo.
+        --->solucionar bug de impresion de menu infinita (ya comprobe que no es  causa del grafo)
+        e) Cuando quitamos una lectura, tambien se debe quitar del grafo
+  
+    Finalmente modularizar, corregir nombres de variables y completar pres y post
+    ¿Uso el nombre "peso" o "siesta" para referirme al peso de las aristas?
+
+
+Bugs: Al eliminar todas las lecturas no puedo seguir ocn el programa
+Ver que pasa con el grafo al eliminar todas las lecturas
