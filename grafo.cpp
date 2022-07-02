@@ -196,17 +196,28 @@ int Grafo::calcular_peso(string tipo_nodo_a, string tipo_nodo_b) {
             siesta = NOVELA_HISORICA_A_NOVELA_HISORICA;
         }
     //se supone que no son el mismo, porque no entro en el if de arriba
-    } else if ((tipo_nodo_a == "Cuento" || tipo_nodo_b == "Cuento") && (tipo_nodo_a == "Novela" || tipo_nodo_b == "Novela")) {
+    } else if ((tipo_nodo_a == "Cuento" || tipo_nodo_b == "Cuento") && 
+    (tipo_nodo_a == "Novela" || tipo_nodo_b == "Novela")) {
         siesta = CUENTO_A_NOVELA;
-    } else if ((tipo_nodo_a == "Cuento" || tipo_nodo_b == "Cuento") && (tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica")) {
+
+    } else if ((tipo_nodo_a == "Cuento" || tipo_nodo_b == "Cuento") && 
+    (tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica")) {
         siesta = CUENTO_A_NOVELA_HISTORICA;
-    } else if ((tipo_nodo_a == "Cuento" || tipo_nodo_b == "Cuento") && (tipo_nodo_a == "Poema" || tipo_nodo_b == "Poema")) {
+
+    } else if ((tipo_nodo_a == "Cuento" || tipo_nodo_b == "Cuento") && 
+    (tipo_nodo_a == "Poema" || tipo_nodo_b == "Poema")) {
         siesta = CUENTO_A_POEMA;
-    } else if ((tipo_nodo_a == "Novela" || tipo_nodo_b == "Novela") && (tipo_nodo_a == "Poema" || tipo_nodo_b == "Poema")) {
+
+    } else if ((tipo_nodo_a == "Novela" || tipo_nodo_b == "Novela") && 
+    (tipo_nodo_a == "Poema" || tipo_nodo_b == "Poema")) {
         siesta = POEMA_A_NOVELA;
-    } else if ((tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica") && (tipo_nodo_a == "Poema" || tipo_nodo_b == "Poema")) {
+
+    } else if ((tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica")
+     && (tipo_nodo_a == "Poema" || tipo_nodo_b == "Poema")) {
         siesta = POEMA_A_NOVELA_HISTORICA;
-    } else if ((tipo_nodo_a == "Novela" || tipo_nodo_b == "Novela") && (tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica")) {
+
+    } else if ((tipo_nodo_a == "Novela" || tipo_nodo_b == "Novela") &&
+     (tipo_nodo_a == "Novela Historica" || tipo_nodo_b == "Novela Historica")) {
         siesta = NOVELA_A_NOVELA_HISTORICA;
     }
     return siesta;
@@ -220,7 +231,8 @@ void Grafo::cargar_grafo(Lectura* lectura_a_insertar) {
 
     int cantidad_lecturas_en_vector = castear_a_int(nombres_lecturas.size());
 
-    for (int i_lectura_vector = 0; i_lectura_vector < cantidad_lecturas_en_vector ; i_lectura_vector++) {
+    for (int i_lectura_vector = 0; i_lectura_vector < cantidad_lecturas_en_vector;
+         i_lectura_vector++) {
         string nombre_nodo_viejo = nombres_lecturas[i_lectura_vector];
         string tipo_nodo_viejo = tipos_lecturas[i_lectura_vector];
         int siesta = calcular_peso(tipo_nodo_viejo, tipo_nodo_nuevo);
@@ -230,12 +242,13 @@ void Grafo::cargar_grafo(Lectura* lectura_a_insertar) {
 }
 
 
-void Grafo::cargar_grafo(Lista_lecturas& ll){//meterle un caracter booleano
+void Grafo::cargar_grafo(Lista_lecturas& ll) {
     int cantidad_lecturas_en_lista = ll.obtener_cantidad();
 
     cantidad_lecturas_en_lista++;
 
-    for (int i_lectura_lista = 0; i_lectura_lista < cantidad_lecturas_en_lista; i_lectura_lista++) {
+    for (int i_lectura_lista = 0; i_lectura_lista < cantidad_lecturas_en_lista;
+         i_lectura_lista++) {
         Lectura* lectura_a_insertar = ll.consulta(i_lectura_lista);
         cargar_grafo(lectura_a_insertar);
     }
@@ -245,22 +258,30 @@ void Grafo::cargar_grafo(Lista_lecturas& ll){//meterle un caracter booleano
 vector<vector<int>> Grafo::obtener_adyacencia() {
         return matriz_adyacente;
 }
+
 vector<vector<int>> Grafo::obtener_pesos(){
         return matriz_pesos;
 }
 
+vector<string> Grafo::obtener_nombres_lecturas() {
+    return nombres_lecturas;
+}
 
+vector<string> Grafo::obtener_tipos_lecturas() {
+    return tipos_lecturas;
+}
 
-
-
-
-
+vector<Arista> Grafo::obtener_vector_aristas() {
+    return aristas;
+}
 
 
 void Grafo::agregar_arista(int v1, int v2, int peso) {
     Arista arista(v1, v2, peso);
     aristas.push_back(arista);
 }
+
+//ver si es necesaria esta funcion:
 void Grafo::sacar_arista(int vertice_a_remover) {
     int cant_aritas = castear_a_int(aristas.size());
     for (int i = 0; i < cant_aritas; i++) {
@@ -268,7 +289,7 @@ void Grafo::sacar_arista(int vertice_a_remover) {
             aristas.erase(aristas.begin() + i);
     }
 }
-//TIENE QUE HABER UN QUITAR ARISTA
+
 
 int Grafo::buscar(int *subconjunto, int i) {
     if (subconjunto[i] == -1) {

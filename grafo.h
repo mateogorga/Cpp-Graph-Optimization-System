@@ -10,13 +10,11 @@
 using namespace std;
 
 class Grafo {
+
     private:
-        //tengo un orden que me importa.
+    
         vector<string> nombres_lecturas;
         vector<string> tipos_lecturas;
-        //voy a hacer un vector de strings donde guardo el tipo de lectura en la misma
-        //posicion que su nombre. vere si lo hago matriz despues
-
         vector<vector<int>> matriz_adyacente;
         vector<vector<int>> matriz_pesos;
         vector<Arista> aristas;
@@ -61,7 +59,10 @@ class Grafo {
         Grafo();
         vector<vector<int>> obtener_adyacencia();
         vector<vector<int>> obtener_pesos();
-    
+        vector<string> obtener_nombres_lecturas();
+        vector<string> obtener_tipos_lecturas();
+        vector<Arista> obtener_vector_aristas();
+
         //PRE: El grafo debe existir, el tipo de lectura debe pertenecer a las 
         //contempladas por el grafo.
         //POST: Si la lectura ya se encontraba en el grafo no hace nada, de lo 
