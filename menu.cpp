@@ -238,17 +238,27 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
     int cota_sup = l_lecturas.obtener_cantidad();
     int posicion;
     bool posicion_valida = false;
+    bool cero_lecturas = false;
     cout << endl << "Ingrese el numero de la lectura a quitar " << endl;
     cin >> posicion;
     posicion_valida = chequear_rango(1, posicion, cota_sup);
     while (!posicion_valida) {
-        cout << "La posicion ingresada es invalida, debe ser entre 1 y " << cota_sup;
-        cin >> posicion;
-        posicion_valida = chequear_rango(1, posicion, cota_sup);
+
+        if (!cota_sup == 0) {
+            cout << "La posicion ingresada es invalida, debe ser entre 1 y " << cota_sup << endl;
+            cout << endl << "Ingrese el numero de la lectura a quitar " << endl;
+            cin >> posicion;
+            posicion_valida = chequear_rango(1, posicion, cota_sup);
+        } else {
+            cout << "No hay mas lecturas" << endl;
+            posicion_valida = true;
+            cero_lecturas = true;
+        }       
     }
-    grafo.eliminar_lectura(l_lecturas.consulta(posicion)->obtener_titulo());
-    l_lecturas.baja(posicion);
-    
+    if (!cero_lecturas) {
+        grafo.eliminar_lectura(l_lecturas.consulta(posicion)->obtener_titulo());
+        l_lecturas.baja(posicion);
+    }
 }
 
 void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escritores, Grafo& grafo) {

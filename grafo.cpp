@@ -15,6 +15,11 @@ const int NOVELA_A_NOVELA = 30;
 const int NOVELA_A_NOVELA_HISTORICA = 60;
 const int NOVELA_HISORICA_A_NOVELA_HISORICA = 80;
 
+int Grafo::castear_a_int(size_t n) {
+    int int_n = (int)n;
+    return int_n;
+}
+
 
 void Grafo::actualizar_matriz(long unsigned int tamanio) {
             vector<vector<int>>  matriz_adyacente_anterior = matriz_adyacente;
@@ -83,6 +88,7 @@ void Grafo::eliminar_lectura(string nombre) {
         matriz_adyacente.erase(matriz_adyacente.begin() + posicion);
         matriz_pesos.erase(matriz_pesos.begin() + posicion);
         nombres_lecturas.erase(nombres_lecturas.begin() + posicion);
+        sacar_arista(castear_a_int(posicion));
     }
 }
 
@@ -122,8 +128,8 @@ void Grafo::insertar_peso (string origen, string destino, int peso) {
     //linea anterior hace que la matriz se carge simetricamente
     //por ser no dirigido por enunciado
 
-    int v1 = (int)posicion_origen;
-    int v2 = (int)posicion_destino;
+    int v1 = castear_a_int(posicion_origen);
+    int v2 = castear_a_int(posicion_destino);
 
     agregar_arista(v1, v2, peso);
 
@@ -211,8 +217,8 @@ void Grafo::cargar_grafo(Lectura* lectura_a_insertar) {
     string nombre_nodo_nuevo = lectura_a_insertar->obtener_titulo();
     string tipo_nodo_nuevo = lectura_a_insertar->obtener_tipo();
     insertar_lectura(nombre_nodo_nuevo, tipo_nodo_nuevo);
-    size_t aux = nombres_lecturas.size();
-    int cantidad_lecturas_en_vector = (int)aux;
+
+    int cantidad_lecturas_en_vector = castear_a_int(nombres_lecturas.size());
 
     for (int i_lectura_vector = 0; i_lectura_vector < cantidad_lecturas_en_vector ; i_lectura_vector++) {
         string nombre_nodo_viejo = nombres_lecturas[i_lectura_vector];
@@ -255,6 +261,14 @@ void Grafo::agregar_arista(int v1, int v2, int peso) {
     Arista arista(v1, v2, peso);
     aristas.push_back(arista);
 }
+void Grafo::sacar_arista(int vertice_a_remover) {
+    int cant_aritas = castear_a_int(aristas.size());
+    for (int i = 0; i < cant_aritas; i++) {
+        if (aristas[i].obtener_vertice1() == vertice_a_remover || aristas[i].obtener_vertice2() == vertice_a_remover)
+            aristas.erase(aristas.begin() + i);
+    }
+}
+//TIENE QUE HABER UN QUITAR ARISTA
 
 int Grafo::buscar(int *subconjunto, int i) {
     if (subconjunto[i] == -1) {
@@ -271,21 +285,16 @@ void Grafo::unir_subconjuntos(int *subconjunto, int v1, int v2) {
 
 void Grafo::kruskal() {
     vector<Arista> arbol;
-    //long unsigned int tamanio_aristas = aristas.size();
-    size_t aux = aristas.size();
-    int tamanio_aristas = (int)aux;
-
     sort(aristas.begin(), aristas.end());//ordena las aristas por menor peso
-    //for(int i = 0; i < tamanio_aristas; i++){
-        //cout << aristas[i].obtener_vertice1() << " - " << aristas[i].obtener_vertice2() << " - "<<aristas[i].obtener_peso()<< "\n";
-    //}
-    size_t aux3 = nombres_lecturas.size();
-    int cant_lecturas = (int)aux3;
+
+    int cant_lecturas = castear_a_int(nombres_lecturas.size());
+    //esto se carga desde el vector de nombres de lecturas que se actualiza cuando saco o pongo lecturas
     int * subconjunto = new int[cant_lecturas];
 
     //inicializa todos los subconjuntos como conjuntos de un unico elemento
     memset(subconjunto, -1, sizeof(int) * cant_lecturas);
 
+    int tamanio_aristas = castear_a_int(aristas.size());
     for(int i = 0; i < tamanio_aristas; i++) {
         int v1 = buscar(subconjunto, aristas[i].obtener_vertice1());
         int v2 = buscar(subconjunto, aristas[i].obtener_vertice2());
@@ -298,9 +307,7 @@ void Grafo::kruskal() {
         }
     }
 
-    //int tamanio_arbol = arbol.size();
-    size_t aux2 = arbol.size();
-    int tamanio_arbol= (int)aux2;
+    int tamanio_arbol= castear_a_int(arbol.size());
     int tiempo_lecturas = 0;
 
     for(int i = 0; i < tamanio_arbol; i++) {

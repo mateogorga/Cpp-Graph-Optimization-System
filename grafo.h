@@ -41,6 +41,8 @@ class Grafo {
         //POST:
         bool buscar_arista (string origen, string destino);
 
+        int castear_a_int (size_t n);
+
          
     public:
 
@@ -87,6 +89,7 @@ class Grafo {
 
             
         void agregar_arista(int v1, int v2, int peso);
+        void sacar_arista(int vertice_a_remover);
         int buscar(int subconjunto[], int i);//busca el subconjunto de un elemento "i"
         void unir_subconjuntos(int subconjunto[], int v1, int v2);
         void kruskal();
