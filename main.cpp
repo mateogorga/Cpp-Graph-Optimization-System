@@ -18,73 +18,16 @@ const string ARCHIVO_ESCRITORES = "escritores.txt";
 using namespace std;
 
 int main() {
-    
     Menu menu;
-
     Parser_escritores parser_escritores = Parser_escritores();
     Hash_escritores t_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
     Parser_lecturas parser_lecturas = Parser_lecturas();
     Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, t_escritores);
-    
     Lista_lecturas lista_aux;
     Cola cola;
     Grafo grafo;
     grafo.cargar_grafo(l_lecturas);
-    
-    //arbol.ordenar_arbol(grafo, l_lecturas.obtener_cantidad());
-
-    //grafo.insertar_arista(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo());
-    //grafo.insertar_arista(l_lecturas.consulta(3)->obtener_titulo(), l_lecturas.consulta(4)->obtener_titulo());
-    //grafo.insertar_peso(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo(), 20);
-
-  
-/*
-    grafo.agregar_arista(0, 1, 5);
-    grafo.agregar_arista(0, 2, 1);
-    grafo.agregar_arista(0, 3, 0);
-    grafo.agregar_arista(0, 4, 20);
-    grafo.agregar_arista(1, 0, 5);
-    grafo.agregar_arista(1, 2, 5);
-    grafo.agregar_arista(1, 3, 10);
-    grafo.agregar_arista(1, 4, 60);
-    grafo.agregar_arista(2, 0, 1);
-    grafo.agregar_arista(2, 1, 5);
-    grafo.agregar_arista(2, 3, 0);
-    grafo.agregar_arista(2, 4, 20);
-    grafo.agregar_arista(3, 0, 0);
-    grafo.agregar_arista(3, 1, 10);
-    grafo.agregar_arista(3, 2, 0);
-    grafo.agregar_arista(3, 4, 15);
-    grafo.agregar_arista(4, 0, 20);
-    grafo.agregar_arista(4, 1, 60);
-    grafo.agregar_arista(4, 2, 20);
-    grafo.agregar_arista(4, 3, 15);
-*/
     menu.mensaje_inicial();
     menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo);    
-/*    
-    Hash_escritores escritores;
-
-    Escritor* p_escritor = new Escritor("Stephen King", "estadounidense", 1947, -1, "123");
-    escritores.alta(p_escritor);
-
-    Escritor* p_escritor2 = new Escritor("Cortazar", "uruguayo", 1914, 1984, "555");
-    escritores.alta(p_escritor2);
-
-    escritores.listar();
-    cout << endl << "Ahora pruebo obtener un escritor. Ingrese el codigo:" << endl;
-    int codigo;
-    cin >> codigo;
-    cout << endl;
-    if(escritores.obtener_escritor(codigo) != 0)
-        escritores.obtener_escritor(codigo)->mostrar_datos();
-    else
-        cout << "No hay un escritor con ese codigo" << endl;
-
-    cout << endl << "Ahora eliminamos uno, ingrese al q quiere eliminar" << endl;
-    int isni;
-    cin >> isni;
-    escritores.baja(isni);
-    escritores.listar();*/
     return 0;   
 }
