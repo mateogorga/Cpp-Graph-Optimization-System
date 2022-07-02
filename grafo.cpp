@@ -15,6 +15,9 @@ const int NOVELA_A_NOVELA = 30;
 const int NOVELA_A_NOVELA_HISTORICA = 60;
 const int NOVELA_HISORICA_A_NOVELA_HISORICA = 80;
 
+Grafo::Grafo() {
+}
+    
 int Grafo::castear_a_int(size_t n) {
     int int_n = (int)n;
     return int_n;
@@ -77,7 +80,6 @@ void Grafo::insertar_lectura(string nombre, string tipo) {
 
 
 
-
 void Grafo::eliminar_lectura(string nombre) {
     if (encontrar_lectura(nombre)) {
         long unsigned int posicion = encontrar_posicion_lectura (nombre);
@@ -93,7 +95,7 @@ void Grafo::eliminar_lectura(string nombre) {
 }
 
 
-//supongoq eu los nodos o existen o fueron agregados
+
 bool Grafo::buscar_arista (string origen, string destino) {
     long unsigned int posicion_origen = encontrar_posicion_lectura(origen);
     long unsigned int posicion_destino = encontrar_posicion_lectura(destino);
@@ -116,15 +118,13 @@ void Grafo::insertar_arista (string origen, string destino) {
 }
 
 
-//los pesos van a ser fijos SUPONGO QUE EXISTE ARISTA
-//supongo que solo se agraga una vez, sino se pisa
+
 void Grafo::insertar_peso (string origen, string destino, int peso) {
     if (buscar_arista(origen, destino)) {
     long unsigned int posicion_origen = encontrar_posicion_lectura(origen);
     long unsigned int posicion_destino = encontrar_posicion_lectura(destino);
     matriz_pesos[posicion_origen][posicion_destino] = peso;
     matriz_pesos[posicion_destino][posicion_origen] = peso;
-    
     //linea anterior hace que la matriz se carge simetricamente
     //por ser no dirigido por enunciado
 
@@ -183,7 +183,7 @@ void Grafo::mostrar_grafo() {
 }
 
 
-int calcular_siesta(string tipo_nodo_a, string tipo_nodo_b) {
+int Grafo::calcular_peso(string tipo_nodo_a, string tipo_nodo_b) {
     int siesta;
     if (tipo_nodo_a == tipo_nodo_b) {
         if (tipo_nodo_a == "Cuento") {
@@ -223,7 +223,7 @@ void Grafo::cargar_grafo(Lectura* lectura_a_insertar) {
     for (int i_lectura_vector = 0; i_lectura_vector < cantidad_lecturas_en_vector ; i_lectura_vector++) {
         string nombre_nodo_viejo = nombres_lecturas[i_lectura_vector];
         string tipo_nodo_viejo = tipos_lecturas[i_lectura_vector];
-        int siesta = calcular_siesta(tipo_nodo_viejo, tipo_nodo_nuevo);
+        int siesta = calcular_peso(tipo_nodo_viejo, tipo_nodo_nuevo);
         insertar_arista(nombre_nodo_nuevo, nombre_nodo_viejo);
         insertar_peso(nombre_nodo_nuevo, nombre_nodo_viejo, siesta);
     } 
