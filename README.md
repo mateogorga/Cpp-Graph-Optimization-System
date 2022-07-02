@@ -1,5 +1,4 @@
-Ya encontre la idea: 
-
+PARA TP VERSION IDEAL:
 En el grafo vamos a agregar dos atributos.
 El primero es un "vector<int> arista", 
 un vector de tres posiciones. Las primeras dos corresponden a las 
@@ -17,5 +16,15 @@ que hace el código. PERO ya se tendrían todos los elementos como para que sea 
 metodo del grafo.
 
 
+
+
+
+
+Luego con la data que me da kruskal, armar nuevo grafo que sea el arbol de expansion minima
+    PARA ESTO HABLAR CON MATEO
+
+
 Ver que pasa con el grafo al eliminar todas las lecturas
     no se si hace falta la funcion sacar_arista(int v)
+
+
