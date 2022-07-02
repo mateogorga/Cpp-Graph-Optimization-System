@@ -15,6 +15,10 @@ const int NOVELA_A_NOVELA = 30;
 const int NOVELA_A_NOVELA_HISTORICA = 60;
 const int NOVELA_HISORICA_A_NOVELA_HISORICA = 80;
 
+Grafo::Grafo() {
+    
+}
+
 
 void Grafo::actualizar_matriz(long unsigned int tamanio) {
             vector<vector<int>>  matriz_adyacente_anterior = matriz_adyacente;
