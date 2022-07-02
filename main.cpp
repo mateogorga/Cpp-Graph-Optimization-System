@@ -61,7 +61,7 @@ int main() {
     grafo.agregar_arista(4, 3, 15);
 */
     menu.mensaje_inicial();
-    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo, arbol);    
+    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo);    
 /*    
     Hash_escritores escritores;
 
