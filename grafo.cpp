@@ -88,7 +88,7 @@ void Grafo::eliminar_lectura(string nombre) {
         matriz_adyacente.erase(matriz_adyacente.begin() + posicion);
         matriz_pesos.erase(matriz_pesos.begin() + posicion);
         nombres_lecturas.erase(nombres_lecturas.begin() + posicion);
-        sacar_arista(castear_a_int(posicion));
+        //sacar_arista(castear_a_int(posicion));
     }
 }
 

@@ -17,10 +17,5 @@ que hace el código. PERO ya se tendrían todos los elementos como para que sea 
 metodo del grafo.
 
 
-
-Corregir nombres de variables y completar pres y post
-¿Uso el nombre "peso" o "siesta" para referirme al peso de las aristas?
-
-
-Bugs: Al eliminar todas las lecturas no puedo seguir con el programa
 Ver que pasa con el grafo al eliminar todas las lecturas
+    no se si hace falta la funcion sacar_arista(int v)

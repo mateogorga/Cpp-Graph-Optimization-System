@@ -233,7 +233,6 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
 
 
  void Menu::quitar_lectura(Lista_lecturas &l_lecturas, Grafo& grafo) {
-
     l_lecturas.listar();
     int cota_sup = l_lecturas.obtener_cantidad();
     int posicion;
@@ -243,7 +242,6 @@ void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, 
     cin >> posicion;
     posicion_valida = chequear_rango(1, posicion, cota_sup);
     while (!posicion_valida) {
-
         if (!cota_sup == 0) {
             cout << "La posicion ingresada es invalida, debe ser entre 1 y " << cota_sup << endl;
             cout << endl << "Ingrese el numero de la lectura a quitar " << endl;
