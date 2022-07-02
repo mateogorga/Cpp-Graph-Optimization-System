@@ -11,7 +11,6 @@
 #include "parser_lecturas.h"
 #include "parser_escritores.h"
 #include "grafo.h"
-#include "arbol.h"
 
 const string ARCHIVO_LECTURAS = "lecturas.txt";
 const string ARCHIVO_ESCRITORES = "escritores.txt";
@@ -30,9 +29,6 @@ int main() {
     Cola cola;
     Grafo grafo;
     grafo.cargar_grafo(l_lecturas);
-
-
-    Arbol arbol = Arbol(l_lecturas.obtener_cantidad());
     
     //arbol.ordenar_arbol(grafo, l_lecturas.obtener_cantidad());
 
@@ -41,34 +37,30 @@ int main() {
     //grafo.insertar_peso(l_lecturas.consulta(5)->obtener_titulo(), l_lecturas.consulta(2)->obtener_titulo(), 20);
 
   
-
-    arbol.agregar_arista(0, 1, 5);
-    arbol.agregar_arista(0, 2, 1);
-    arbol.agregar_arista(0, 3, 0);
-    arbol.agregar_arista(0, 4, 20);
-
-    arbol.agregar_arista(1, 0, 5);
-    arbol.agregar_arista(1, 2, 5);
-    arbol.agregar_arista(1, 3, 10);
-    arbol.agregar_arista(1, 4, 60);
-
-    arbol.agregar_arista(2, 0, 1);
-    arbol.agregar_arista(2, 1, 5);
-    arbol.agregar_arista(2, 3, 0);
-    arbol.agregar_arista(2, 4, 20);
-
-    arbol.agregar_arista(3, 0, 0);
-    arbol.agregar_arista(3, 1, 10);
-    arbol.agregar_arista(3, 2, 0);
-    arbol.agregar_arista(3, 4, 15);
-
-    arbol.agregar_arista(4, 0, 20);
-    arbol.agregar_arista(4, 1, 60);
-    arbol.agregar_arista(4, 2, 20);
-    arbol.agregar_arista(4, 3, 15);
-
+/*
+    grafo.agregar_arista(0, 1, 5);
+    grafo.agregar_arista(0, 2, 1);
+    grafo.agregar_arista(0, 3, 0);
+    grafo.agregar_arista(0, 4, 20);
+    grafo.agregar_arista(1, 0, 5);
+    grafo.agregar_arista(1, 2, 5);
+    grafo.agregar_arista(1, 3, 10);
+    grafo.agregar_arista(1, 4, 60);
+    grafo.agregar_arista(2, 0, 1);
+    grafo.agregar_arista(2, 1, 5);
+    grafo.agregar_arista(2, 3, 0);
+    grafo.agregar_arista(2, 4, 20);
+    grafo.agregar_arista(3, 0, 0);
+    grafo.agregar_arista(3, 1, 10);
+    grafo.agregar_arista(3, 2, 0);
+    grafo.agregar_arista(3, 4, 15);
+    grafo.agregar_arista(4, 0, 20);
+    grafo.agregar_arista(4, 1, 60);
+    grafo.agregar_arista(4, 2, 20);
+    grafo.agregar_arista(4, 3, 15);
+*/
     menu.mensaje_inicial();
-    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo, arbol);    
+    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo);    
 /*    
     Hash_escritores escritores;
 

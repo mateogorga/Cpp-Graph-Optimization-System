@@ -18,7 +18,7 @@ Menu::Menu(){
 }
 
 void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores& t_escritores,
-                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo, Arbol& arbol){
+                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo){
     bool terminar_programa = false;
     int respuesta;
     while (!terminar_programa) {
@@ -64,7 +64,7 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
                 break;
             case 13:
                 grafo.mostrar_grafo();
-                arbol.kruskal();
+                grafo.kruskal();
                 break;
 
             case 14:

@@ -118,8 +118,14 @@ void Grafo::insertar_peso (string origen, string destino, int peso) {
     long unsigned int posicion_destino = encontrar_posicion_lectura(destino);
     matriz_pesos[posicion_origen][posicion_destino] = peso;
     matriz_pesos[posicion_destino][posicion_origen] = peso;
+    
     //linea anterior hace que la matriz se carge simetricamente
     //por ser no dirigido por enunciado
+
+    int v1 = (int)posicion_origen;
+    int v2 = (int)posicion_destino;
+
+    agregar_arista(v1, v2, peso);
 
     }
 }   
@@ -232,8 +238,78 @@ void Grafo::cargar_grafo(Lista_lecturas& ll){//meterle un caracter booleano
 
 vector<vector<int>> Grafo::obtener_adyacencia() {
         return matriz_adyacente;
-    }
+}
 vector<vector<int>> Grafo::obtener_pesos(){
         return matriz_pesos;
+}
+
+
+
+
+
+
+
+
+
+void Grafo::agregar_arista(int v1, int v2, int peso) {
+    Arista arista(v1, v2, peso);
+    aristas.push_back(arista);
+}
+
+int Grafo::buscar(int *subconjunto, int i) {
+    if (subconjunto[i] == -1) {
+        return i;
+    }
+    return buscar(subconjunto, subconjunto[i]);
+}
+
+void Grafo::unir_subconjuntos(int *subconjunto, int v1, int v2) {
+    int v1_set = buscar(subconjunto, v1);
+    int v2_set = buscar(subconjunto, v2);
+    subconjunto[v1_set] = v2_set;
+}
+
+void Grafo::kruskal() {
+    vector<Arista> arbol;
+    //long unsigned int tamanio_aristas = aristas.size();
+    size_t aux = aristas.size();
+    int tamanio_aristas = (int)aux;
+
+    sort(aristas.begin(), aristas.end());//ordena las aristas por menor peso
+    //for(int i = 0; i < tamanio_aristas; i++){
+        //cout << aristas[i].obtener_vertice1() << " - " << aristas[i].obtener_vertice2() << " - "<<aristas[i].obtener_peso()<< "\n";
+    //}
+    size_t aux3 = nombres_lecturas.size();
+    int cant_lecturas = (int)aux3;
+    int * subconjunto = new int[cant_lecturas];
+
+    //inicializa todos los subconjuntos como conjuntos de un unico elemento
+    memset(subconjunto, -1, sizeof(int) * cant_lecturas);
+
+    for(int i = 0; i < tamanio_aristas; i++) {
+        int v1 = buscar(subconjunto, aristas[i].obtener_vertice1());
+        int v2 = buscar(subconjunto, aristas[i].obtener_vertice2());
+        cout << "Compara: "<< nombres_lecturas[v1] << "   -   "<< nombres_lecturas[v2] << "   peso: " <<aristas[i].obtener_peso() <<"\n";
+
+        if(v1 != v2) {
+            //si son diferentes es porque no forman un ciclo
+            arbol.push_back(aristas[i]);
+            unir_subconjuntos(subconjunto, v1, v2);
+        }
     }
 
+    //int tamanio_arbol = arbol.size();
+    size_t aux2 = arbol.size();
+    int tamanio_arbol= (int)aux2;
+    int tiempo_lecturas = 0;
+
+    for(int i = 0; i < tamanio_arbol; i++) {
+        int v1 = arbol[i].obtener_vertice1();
+        int v2 = arbol[i].obtener_vertice2();
+        tiempo_lecturas = tiempo_lecturas + arbol[i].obtener_peso();
+        cout << "(" << nombres_lecturas[v1] << ", " << nombres_lecturas[v2] << ") = " << arbol[i].obtener_peso() << endl;
+    }
+
+    cout << "En total tardaras: " << tiempo_lecturas << " minutos\n";
+    delete [] subconjunto;
+}

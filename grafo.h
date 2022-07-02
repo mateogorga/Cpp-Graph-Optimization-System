@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include "lista_lecturas.h"
+#include "arista.h"
 
 using namespace std;
 
@@ -16,13 +17,11 @@ class Grafo {
         //voy a hacer un vector de strings donde guardo el tipo de lectura en la misma
         //posicion que su nombre. vere si lo hago matriz despues
 
-
-
         vector<vector<int>> matriz_adyacente;
         vector<vector<int>> matriz_pesos;
-
+        vector<Arista> aristas;
         
-        vector<vector<int>> arbol;
+
         //PRE:
         //POST:
         void actualizar_matriz(long unsigned int tamanio);
@@ -83,6 +82,14 @@ class Grafo {
 
 
         void cargar_grafo(Lectura* lectura_a_insertar);
+
+
+
+            
+        void agregar_arista(int v1, int v2, int peso);
+        int buscar(int subconjunto[], int i);//busca el subconjunto de un elemento "i"
+        void unir_subconjuntos(int subconjunto[], int v1, int v2);
+        void kruskal();
 };
 
 #endif //GRAFO_H
