@@ -56,6 +56,9 @@ public:
     // de minutos en lugar del anio.
     int comparar(Lectura* l, bool comparar_minutos);
     
+    //PRE: -
+    //POS: modifica el puntero a escritor haciendo que apunte a null.
+    void modificar_autor();
 
     //OBTENER DATOS() que redefino en cada clase para que me devuelva su propio atributo?
     //void mostrar el atributo. que imprima el atributo y con eso puedo comparar los stri

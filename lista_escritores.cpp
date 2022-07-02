@@ -67,7 +67,7 @@ Escritor* Lista_escritores::buscar_segun_codigo(int codigo) {
     if(vacia()) {
         aux = 0;
     } else {
-        while ((contador <= cantidad) && (stoi(aux->obtener_dato()->obtener_codigo()) != codigo)) {
+        while ((contador < cantidad) && (stoi(aux->obtener_dato()->obtener_codigo()) != codigo)) {
             aux = aux->obtener_siguiente();
             contador++;
         }
@@ -120,7 +120,7 @@ int Lista_escritores::obtener_pos_segun_clave(int clave){
     int contador = INICIO_CONTADOR;
     if(vacia() == false) {
         Nodo<Escritor*>* aux = primero;
-        while((contador <= cantidad) && (stoi(aux->obtener_dato()->obtener_codigo()) != clave)){
+        while((contador < cantidad) && (stoi(aux->obtener_dato()->obtener_codigo()) != clave)){
             aux = aux->obtener_siguiente();
             contador++;
         }

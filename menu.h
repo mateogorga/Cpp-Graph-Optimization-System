@@ -157,6 +157,11 @@ public:
     //POST: le da la opcion al usuario de eliminar la lectura que tenia pendiente de la cola. Y si la
     // cola ya se encuentra vacia, lo informa.
     void lectura_leida(Cola& cola);
+
+    //PRE: -
+    //POS: elimina al escritor de la lista de escritores, haciendo que las lecturas que lo 
+    //     tenian como autor ahora pasen a tener autor anonimo.
+    void eliminar_escritor(Hash_escritores& t_escritores, Lista_lecturas& l_lecturas);
 };
 
 #endif //MENU_H

@@ -3,6 +3,8 @@
 #include "nodo.h"
 #include "lectura.h"
 
+const int INICIO_CONTADOR = 1;
+
 class Lista_lecturas {
 
     // Atributos
@@ -54,6 +56,9 @@ public:
     //POS: Imprime por pantalla todos los elementos de la lista con sus atributos.
     void listar();
 
+    //PRE: -
+    //POS: modifica el atributo autor del escritor pasado, haciendo que apunte a null.
+    void modificar_escritor(Escritor* escritor);
 
     // Destructor
     ~Lista_lecturas();

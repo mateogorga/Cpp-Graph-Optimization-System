@@ -8,7 +8,7 @@ const int NO = 2;
 const int PRIMER_GENERO = 1;
 const int ULTIMO_GENERO = 6;
 const int MENU_OPCION_1 = 1;
-const int MENU_OPCION_14 = 14;
+const int MENU_OPCION_ULTIMA = 15;
 const int NOVELA = 1;
 const int CUENTO = 2;
 const int POEMA = 3;
@@ -68,9 +68,13 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
                 break;
 
             case 14:
+                menu.eliminar_escritor(t_escritores, l_lecturas);
+                break;
+
+            case 15:
                 terminar_programa = true;
                 break;
-            
+
             default:
                 break;
         }
@@ -121,11 +125,12 @@ int Menu::mostrar_menu() {
         cout << "11) Armar una cola ordenada por tiempo de lectura " << endl;
         cout << "12) Lectura leida " << endl;
         cout << "13) Mostrar Grafo" << endl;
-        cout << "14) Salir" << endl;
+        cout << "14) Eliminar escritor" << endl;
+        cout << "15) Salir" << endl;
         cin >> respuesta;
         cin.ignore();
 
-        respuesta_correcta = chequear_rango(MENU_OPCION_1, respuesta, MENU_OPCION_14);
+        respuesta_correcta = chequear_rango(MENU_OPCION_1, respuesta, MENU_OPCION_ULTIMA);
         if (!respuesta_correcta)
             cout << "LO LAMENTO, LA RESPUESTA DEBE SER ENTRE 1 Y 14" << endl;
     }
@@ -328,6 +333,7 @@ Escritor* Menu::agregar_devolver_escritor(Hash_escritores& t_escritores) {
     return nuevo_escritor;
 }
 
+
 void Menu::agregar_escritor(Hash_escritores& t_escritores) {
     string nombre_comp, nacionalidad, isni;
     int nacimiento, fallecimiento;
@@ -343,7 +349,7 @@ void Menu::cambiar_fallecimiento(Hash_escritores& t_escritores) {
     cout << endl << "Ingrese el ISNI del escritor al que le desea cambiar el anio" << endl;
     cin >> isni;
     if(t_escritores.obtener_escritor(isni) == 0)
-        cout << "La posicion ingresada es invalida." << endl;
+        cout << "El ISNI ingresado no corresponde a ningun escritor." << endl;
     else{
         cout << "Ingrese el anio de fallecimiento a agregar: " << endl; 
         int anio;
@@ -375,15 +381,16 @@ void Menu::listar_lecturas_por_escritor(Lista_lecturas& l_lecturas,
     cin >> respuesta;
     if (t_escritores.obtener_escritor(respuesta) == 0) { 
         cout << "El ISNI ingresado no corresponde a ningun escritor" << endl;
-    }
-    int i = 1;
-    while (i <= l_lecturas.obtener_cantidad()) {
-        if (l_lecturas.consulta(i)->obtener_autor() 
-            && respuesta == stoi(l_lecturas.consulta(i)->obtener_autor()->obtener_codigo())) {
-            cout << endl;
-            l_lecturas.consulta(i)->mostrar_datos();
+    } else {
+        int i = 1;
+        while (i <= l_lecturas.obtener_cantidad()) {
+            if (l_lecturas.consulta(i)->obtener_autor() 
+                && respuesta == stoi(l_lecturas.consulta(i)->obtener_autor()->obtener_codigo())) {
+                cout << endl;
+                l_lecturas.consulta(i)->mostrar_datos();
+            }
+            i++; 
         }
-        i++; 
     }
 }
 
@@ -435,6 +442,7 @@ void Menu::lecturas_en_cola(Lista_lecturas& l_lecturas, Cola& cola, Lista_lectur
     
         cola.consulta()->mostrar_datos();
 }
+
 
 void Menu::traspasar_lecturas(Cola& cola, Lista_lecturas& lista_aux) {
     int cant = lista_aux.obtener_cantidad();
@@ -501,3 +509,15 @@ void Menu::listar_lecturas_entre_anios(Lista_lecturas &l_lecturas) {
     }
 }
 
+void Menu::eliminar_escritor(Hash_escritores& t_escritores, Lista_lecturas& l_lecturas){
+    t_escritores.listar_segun_codigo();
+    cout << endl << "Ingrese el ISNI del escritor que desea eliminar" << endl;
+    int isni;
+    cin >> isni;
+    if(t_escritores.obtener_escritor(isni) == 0)
+        cout << "El ISNI ingresado no corresponde a ningun escritor." << endl;
+    else {
+        l_lecturas.modificar_escritor(t_escritores.obtener_escritor(isni));
+        t_escritores.baja(isni);
+    }
+}

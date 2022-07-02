@@ -43,17 +43,18 @@ string obtener_string_genero(Genero genero){
 
 void Novela::mostrar_datos() {
 
-    std::cout << "Titulo de la lectura: " << titulo << endl;
-    std::cout << "Duracion: " << minutos << " minutos" << endl;
-    std::cout << "Fue escrita en: " << anio << endl;
-    std::cout << "El autor es: "; 
-    autor->mostrar_nombre_completo();
+    cout << "Titulo de la lectura: " << titulo << endl;
+    cout << "Duracion: " << minutos << " minutos" << endl;
+    cout << "Fue escrita en: " << anio << endl;
+    cout << "Autor: "; 
+    if(autor != 0)
+        autor->mostrar_nombre_completo();
+    else
+        cout << "ANONIMO" << endl;
     string str_genero = obtener_string_genero(genero);
-    std::cout << "Genero: " << str_genero << endl;
+    cout << "Genero: " << str_genero << endl;
 
 }
-
-
 
 void Novela::mostrar_segun_parametro(string dato) {
     int int_dato = stoi(dato);

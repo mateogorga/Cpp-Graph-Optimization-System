@@ -15,7 +15,10 @@ void Cuento::mostrar_datos(){
     cout << "Minutos de lectura: " << minutos << endl; 
     cout << "Anio de publicacion: " << anio << endl;
     cout << "Autor: "; 
-    autor->mostrar_nombre_completo();
+    if(autor != 0)
+        autor->mostrar_nombre_completo();
+    else
+        cout << "ANONIMO" << endl;
     cout << "Libro en el que se publico: " << libro << endl;
 }
 

@@ -12,6 +12,7 @@
 #include "parser_escritores.h"
 #include "grafo.h"
 
+
 const string ARCHIVO_LECTURAS = "lecturas.txt";
 const string ARCHIVO_ESCRITORES = "escritores.txt";
 using namespace std;
@@ -60,7 +61,7 @@ int main() {
     grafo.agregar_arista(4, 3, 15);
 */
     menu.mensaje_inicial();
-    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo);    
+    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo, arbol);    
 /*    
     Hash_escritores escritores;
 
