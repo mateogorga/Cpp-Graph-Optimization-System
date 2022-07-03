@@ -56,7 +56,7 @@ void Lista_lecturas::baja(int pos) {
 
 Nodo<Lectura*>* Lista_lecturas::obtener_nodo(int pos) {
     Nodo<Lectura*>* aux = primero;
-    int contador = 1;
+    int contador = INICIO_CONTADOR;
     while (contador < pos) {
         aux = aux->obtener_siguiente();
         contador++;
@@ -64,22 +64,33 @@ Nodo<Lectura*>* Lista_lecturas::obtener_nodo(int pos) {
     return aux;
 }
 
-void Lista_lecturas::listar(){ 
-    if(vacia() == false){
+void Lista_lecturas::listar() { 
+    if(vacia() == false) {
         Nodo<Lectura*>* aux = primero;
-        int contador = 1;
-        while(contador <= cantidad){
+        int contador = INICIO_CONTADOR;
+        while(contador <= cantidad) {
             cout << endl;
             cout << contador << ". ";
             aux->obtener_dato()->mostrar_datos();
             aux = aux->obtener_siguiente();
             contador++;
         }
-    }else{
+    } else {
         cout << endl << "La lista de lecturas se encuentra vacia." << endl;
     }
 }
 
+
+void Lista_lecturas::modificar_escritor(Escritor* escritor) {
+    Nodo<Lectura*>* aux = primero;
+    int contador = INICIO_CONTADOR;
+    while (contador <= cantidad) {
+        if(aux->obtener_dato()->obtener_autor() == escritor) 
+            aux->obtener_dato()->modificar_autor();
+        aux = aux->obtener_siguiente();
+        contador++;
+    }
+}
 
 Lista_lecturas::~Lista_lecturas()  {
     while (! vacia())

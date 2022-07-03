@@ -18,7 +18,7 @@ void Hash_escritores::alta(Escritor* escritor){
 
 Escritor* Hash_escritores::obtener_escritor(int clave){
     int pos = hashing(clave);
-    return vec_escritores[pos]->buscar_segun_codigo(clave);
+    return vec_escritores[pos]->buscar_segun_codigo(clave); 
 }
 
 void Hash_escritores::listar() {

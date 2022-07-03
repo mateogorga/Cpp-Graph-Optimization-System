@@ -18,11 +18,10 @@ void Poema::mostrar_datos(){
     cout << "Minutos de lectura: " << minutos << endl; 
     cout << "Anio de publicacion: " << anio << endl;
     cout << "Autor: ";
-    if (!autor) {
-        cout << "ANONIMO" << endl;
-    } else {
+    if(autor != 0)
         autor->mostrar_nombre_completo();
-    }
+    else
+        cout << "ANONIMO" << endl;
     cout << "Cantidad de versos: " << versos << endl;
 }
 

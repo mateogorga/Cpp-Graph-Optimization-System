@@ -67,4 +67,8 @@ int Lectura::comparar(Lectura *l, bool comparar_minutos) {
     return resultado;
 }
 
+void Lectura::modificar_autor(){
+    autor = 0;
+}
+
 Lectura::~Lectura() {};

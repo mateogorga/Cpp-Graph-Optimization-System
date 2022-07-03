@@ -3,28 +3,7 @@ Casa Tomada
 20
 1951
 Bestiario
-(1568)
-
-N
-Rayuela
-2900
-1963
-FICCION
-(1568)
-
-N
-Rayuela
-2900
-1963
-FICCION
-(1568)
-
-N
-Misery
-2100
-1987
-TERROR
-(1757)
+(1600)
 
 P
 El Poema del Mío Cid
@@ -41,14 +20,6 @@ Voy a dormir
 (4567)
 
 N
-Rayuela
-2900
-1963
-FICCION
-(1568)
-
-
-N
 Frankestein
 1600
 1818
@@ -62,4 +33,3 @@ Una columna de fuego
 HISTORICA
 Guerra de religiones en Europa en la segunda mitad del siglo XVI
 (5474)
-

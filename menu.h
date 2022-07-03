@@ -14,7 +14,6 @@
 #include <string>
 #include <stdlib.h>
 #include "grafo.h"
-#include "arbol.h"
 
 class Menu {
 
@@ -76,7 +75,7 @@ public:
 
 
     void ejecutar_menu(Menu menu, Lista_lecturas &l_lecturas, Hash_escritores& t_escritores,
-                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo, Arbol& arbol);
+                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo);
 
     //PRE: -
     //POS: imprime por pantalla un mensaje inicial para el usuario.
@@ -158,6 +157,11 @@ public:
     //POST: le da la opcion al usuario de eliminar la lectura que tenia pendiente de la cola. Y si la
     // cola ya se encuentra vacia, lo informa.
     void lectura_leida(Cola& cola);
+
+    //PRE: -
+    //POS: elimina al escritor de la lista de escritores, haciendo que las lecturas que lo 
+    //     tenian como autor ahora pasen a tener autor anonimo.
+    void eliminar_escritor(Hash_escritores& t_escritores, Lista_lecturas& l_lecturas);
 };
 
 #endif //MENU_H
