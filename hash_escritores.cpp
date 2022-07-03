@@ -26,7 +26,19 @@ void Hash_escritores::listar() {
     for(int i = 0; i < TAMANIO_TABLA; i++){
         if(vec_escritores[i]->vacia() == false)
             vec_escritores[i]->listar();
-        else
+        else    
+            contador++;
+    }
+    if(contador == TAMANIO_TABLA)
+        cout << "La tabla de hashing de escritores se encuentra vacia" << endl;
+}
+
+void Hash_escritores::listar_segun_codigo() {
+    int contador = 0;
+    for(int i = 0; i < TAMANIO_TABLA; i++){
+        if(vec_escritores[i]->vacia() == false)
+            vec_escritores[i]->listar_segun_codigo();
+        else    
             contador++;
     }
     if(contador == TAMANIO_TABLA)

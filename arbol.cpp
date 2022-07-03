@@ -58,6 +58,9 @@ void Arbol::kruskal() {
     int tamanio_aristas = aristas.size();
 
     sort(aristas.begin(), aristas.end());//ordena las aristas por menor peso
+    //for(int i = 0; i < tamanio_aristas; i++){
+        //cout << aristas[i].obtener_vertice1() << " - " << aristas[i].obtener_vertice2() << " - "<<aristas[i].obtener_peso()<< "\n";
+    //}
 
     int * subconjunto = new int[cant_lecturas];
 
@@ -67,6 +70,7 @@ void Arbol::kruskal() {
     for(int i = 0; i < tamanio_aristas; i++) {
         int v1 = buscar(subconjunto, aristas[i].obtener_vertice1());
         int v2 = buscar(subconjunto, aristas[i].obtener_vertice2());
+        cout << "Compara: "<< v1 << "   -   "<< v2 << "   peso: " <<aristas[i].obtener_peso() <<"\n";
 
         if(v1 != v2) {
             //si son diferentes es porque no forman un ciclo
@@ -79,13 +83,12 @@ void Arbol::kruskal() {
     int tiempo_lecturas = 0;
 
     for(int i = 0; i < tamanio_arbol; i++) {
-        char v1 = 'A' + arbol[i].obtener_vertice1();
-        char v2 = 'A' + arbol[i].obtener_vertice2();
+        int v1 = arbol[i].obtener_vertice1();
+        int v2 = arbol[i].obtener_vertice2();
         tiempo_lecturas = tiempo_lecturas + arbol[i].obtener_peso();
         cout << "(" << v1 << ", " << v2 << ") = " << arbol[i].obtener_peso() << endl;
     }
 
     cout << "En total tardaras: " << tiempo_lecturas << " minutos\n";
 }
-
 

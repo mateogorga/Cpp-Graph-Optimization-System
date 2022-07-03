@@ -6,13 +6,15 @@
 #include "escritor.h"
 #include "historica.h"
 #include "poema.h"
-#include "lista_escritores.h"
+#include "hash_escritores.h"
 #include "lista_lecturas.h"
 #include "cola.h"
 #include <iostream>
 #include <fstream> 
 #include <string>
 #include <stdlib.h>
+#include "grafo.h"
+#include "arbol.h"
 
 class Menu {
 
@@ -25,7 +27,7 @@ private:
 
     //PRE: -
     //POST: pide los datos de un escritor al usuario y los guarda.
-    void pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &nacimiento, int &fallecimiento);
+    void pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &nacimiento, int &fallecimiento, string& isni);
     
 
     //PRE: lista_aux tiene que estar cargada.
@@ -35,17 +37,17 @@ private:
 
     //PRE: str_genero debe ser ingresado en mayusculas
     //POS: carga una nueva novela a la lista de lecturas
-    void cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero);
+    void cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero, Grafo& grafo);
 
 
     //PRE: -
     //POS: carga un nuevo cuento a la lista de lecturas
-    void cargar_cuento(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor);
+    void cargar_cuento(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, Grafo& grafo);
 
 
     //PRE: -
     //POS: carga un nuevo poema a la lista de lecturas
-    void cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor);
+    void cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, Grafo& grafo);
 
 
     //PRE: str_tema debe ser un string
@@ -58,17 +60,26 @@ private:
     Genero procesar_str_genero(string str_genero);
 
 
+    //PRE: -
+    //POS: Le pide al usuario que ingrese los datos de la lectura y los guarda.
     void pedir_datos_lectura(string &titulo, int &minutos, int &anio, int &int_tipo);
 
 
+    //PRE: respuesta1 debe valer 1 o 2.
+    //POS: devuelve un puntero al escritor que decida el usuario.
+    Escritor* asignar_escritor(Hash_escritores& t_escritores, int& respuesta1);
+
 public:
 
+    //Constructor
     Menu();
 
-    void ejecutar_menu(Menu menu, Lista_lecturas &l_lecturas, Lista_escritores& l_escritores,
-                        Cola& cola, Lista_lecturas& lista_aux);
 
- 
+    void ejecutar_menu(Menu menu, Lista_lecturas &l_lecturas, Hash_escritores& t_escritores,
+                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo, Arbol& arbol);
+
+    //PRE: -
+    //POS: imprime por pantalla un mensaje inicial para el usuario.
     void mensaje_inicial();
  
 
@@ -77,31 +88,37 @@ public:
     int mostrar_menu();
 
 
-    //PRE: la lectura no debe estar en la lista
-    //POS: agrega una nueva lectura a la lista
-    //void agregar_lectura(Lista_lecturas& l_lecturas, Lectura *lectura);
-    void agregar_lectura(Lista_lecturas& l_lecturas, Lista_escritores& l_escritores);
+    //PRE: la lectura no debe estar en la lista.
+    //POS: agrega una nueva lectura a la lista.
+    void agregar_lectura(Lista_lecturas& l_lecturas, Hash_escritores& t_escritores, Grafo& grafo);
 
 
     //PRE: la lectura debe estar en la lista
     //POS: elimina la lectura de la lista
     //void quitar_lectura(Lista_lecturas& l_lecturas);
-    void quitar_lectura(Lista_lecturas& l_lecturas);
+    void quitar_lectura(Lista_lecturas& l_lecturas, Grafo& grafo);
 
 
     //PRE: -
-    //POST: agrega un escritor ingresado por el usuario a la lista de escritores al final de la misma.
-    void agregar_escritor(Lista_escritores& l_escritores);
+    //POS: agrega un escritor ingresado por el usuario a la tabla de escritores 
+    //     en la pos que le corresponda.
+    void agregar_escritor(Hash_escritores& t_escritores);
+
+
+    //PRE: -
+    //POS: agrega un escritor ingresado por el usuario a la tabla de escritores
+    //     en la pos que le corresponda, y devuelve un puntero a dicho escritor.
+    Escritor* agregar_devolver_escritor(Hash_escritores& t_escritores);
 
 
     //PRE: -
     //POST: modifica el anio de fallecimiento del escritor elegido por el usuario, por el anio ingresado. 
-    void cambiar_fallecimiento(Lista_escritores& l_escritores);
+    void cambiar_fallecimiento(Hash_escritores& t_escritores);
 
 
     //PRE: -
-    //POST: imprime por pantalla todos los escritores de la lista con sus respectivos atributos.
-    void listar_escritores(Lista_escritores& l_escritores);
+    //POST: imprime por pantalla todos los escritores de la tabla con sus respectivos atributos.
+    void listar_escritores(Hash_escritores& t_escritores);
 
 
     //PRE: -
@@ -109,6 +126,8 @@ public:
     Lectura* lectura_random(Lista_lecturas& l_lecturas);
 
 
+    //PRE: -
+    //POS: imprime por pantalla todas las lecturas de la lista con sus atributos.
     void listar_lecturas(Lista_lecturas& l_lecturas);
 
 
@@ -117,10 +136,10 @@ public:
     void listar_lecturas_entre_anios(Lista_lecturas& l_lecturas);
 
 
-    //PRE: Recibe las listas de escritores y lecturas cargadas.
-    //POST: 
+    //PRE: Recibe la tabla de escritores y la lista de lecturas cargadas.
+    //POST: imprime por pantalla todas las lecturas del escritor que el usuario elija.
     void listar_lecturas_por_escritor(Lista_lecturas& l_lecturas, 
-                                      Lista_escritores& l_escritores);
+                                      Hash_escritores& t_escritores);
     
 
     //PRE: Recibe la lista de lecturas previamente cargada.

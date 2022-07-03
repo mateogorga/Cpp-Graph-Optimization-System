@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <iostream>
 #include <string.h>
+#include "lectura.h"
+#include "grafo.h"
 
 using namespace std;
 

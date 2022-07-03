@@ -21,18 +21,18 @@ protected:
     int minutos;
     int anio;
     Escritor* autor;
-    char tipo;
+    string tipo;
 
 public:
     //constructor
-    Lectura(string titulo, int minutos, int anio, Escritor* autor, char tipo);
+    Lectura(string titulo, int minutos, int anio, Escritor* autor);
     //metodo virtual
     virtual void mostrar_datos() = 0;
     string obtener_titulo();
     int obtener_minutos();
     int obtener_anio();
     Escritor* obtener_autor();
-    char obtener_tipo();
+    string obtener_tipo();
 
     //PRE: el parametro debe ser o minutos o anio.
     //POS: si el parametro recibido es minutos, llama al metodo comparar para los minutos, y si es anio

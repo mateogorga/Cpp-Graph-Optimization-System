@@ -6,6 +6,7 @@ using namespace std;
 Poema::Poema(string titulo, int minutos, int anio, Escritor* autor, int versos)
             :Lectura(titulo, minutos, anio, autor){
     this->versos = versos;
+    this -> tipo = "Poema";
 }
 
 int Poema::obtener_versos(){

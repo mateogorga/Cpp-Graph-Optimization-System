@@ -1,29 +1,22 @@
+#ifndef GRAFO_H
+#define GRAFO_H
+
 #include <vector>
 #include <string>
 #include <iostream>
+#include "lista_lecturas.h"
+
 using namespace std;
 
 class Grafo {
     private:
 
-        /*
-         *      0   1   2   3   4   5
-         * 0    -1  10  10  10  15
-         * 1    10          15  30
-         * 2    10          5   5
-         * 3                -1   0
-         * 4                0   -1
-         * 5                30  10
-         */
-
-        /*3-4-2-5-0-1*/
-        /*BUSCAR EL VALOR CERO DENTRO DE LA MATRIZ*/
-        /*VECTOR STRING PARA CARGAR TITULOS*/
-        /*VECTOR INT PARA CARGAR SIESTAS*/
-        /*VECTOR INT PARA TIEMPOS DE LECTURA*/
-
-        /*BUSCAR EL SIGUIENTE VALOR MAYOR AL ANTERIOR*/
-
+        vector<string> nombres_lecturas;
+        vector<string> tipos_lecturas;
+        //voy a hacer un vector de strings donde guardo el tipo de lectura en la misma
+        //posicion que su nombre. vere si lo hago matriz despues
+        vector<vector<int>> matriz_adyacente;
+        vector<vector<int>> matriz_pesos;
 
         //PRE:
         //POST:
@@ -47,15 +40,15 @@ class Grafo {
          
     public:
 
-        vector<string> nombres_lecturas;
-        vector<vector<int>> matriz_adyacente;
-        vector<vector<int>> matriz_pesos;
+
+        vector<vector<int>> obtener_adyacencia();
+        vector<vector<int>> obtener_pesos();
     
         //PRE:
         //POST:
-        void insertar_lectura(string nombre, char tipo);
+        void insertar_lectura(string nombre, string tipo);
 
-
+        
         //PRE:
         //POST:
         void eliminar_lectura(string nombre);
@@ -68,15 +61,24 @@ class Grafo {
 
         //PRE:
         //POST:
-        void insertar_peso (string origen, string destino, int peso);
-
-
-        //PRE:
-        //POST:
         void eliminar_arista (string origen, string destino);
 
 
         //PRE:
         //POST:
+        void insertar_peso (string origen, string destino, int peso);
+
+
+        //PRE:
+        //POST:
         void mostrar_grafo();
+
+
+        void cargar_grafo(Lista_lecturas& ll);
+
+
+        void cargar_grafo(Lectura* lectura_a_insertar);
+
     };
+
+    #endif //GRAFO_H
