@@ -88,7 +88,7 @@ class Grafo {
 
 
         //PRE:
-        //POST: Si las aristas entre lecturas existen las elimina, (cero en su matriz de \
+        //POST: Si las aristas entre lecturas existen las elimina, (cero en su matriz de
         //adyacencia) de lo contrario no hace nada.
         void eliminar_arista(string origen, string destino);
 

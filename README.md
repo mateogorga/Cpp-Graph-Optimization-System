@@ -28,3 +28,6 @@ Ver que pasa con el grafo al eliminar todas las lecturas
     no se si hace falta la funcion sacar_arista(int v)
 
 
+    ACORDARSE DEL TIEMPO DE LECTURA
+
+

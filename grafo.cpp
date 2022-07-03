@@ -90,7 +90,7 @@ void Grafo::eliminar_lectura(string nombre) {
         matriz_adyacente.erase(matriz_adyacente.begin() + posicion);
         matriz_pesos.erase(matriz_pesos.begin() + posicion);
         nombres_lecturas.erase(nombres_lecturas.begin() + posicion);
-        //sacar_arista(castear_a_int(posicion));
+        sacar_arista(castear_a_int(posicion));
     }
 }
 
@@ -276,6 +276,9 @@ vector<Arista> Grafo::obtener_vector_aristas() {
 }
 
 
+
+
+
 void Grafo::agregar_arista(int v1, int v2, int peso) {
     Arista arista(v1, v2, peso);
     aristas.push_back(arista);
@@ -334,9 +337,14 @@ void Grafo::kruskal() {
     for(int i = 0; i < tamanio_arbol; i++) {
         int v1 = arbol[i].obtener_vertice1();
         int v2 = arbol[i].obtener_vertice2();
-        tiempo_lecturas = tiempo_lecturas + arbol[i].obtener_peso();
+        tiempo_lecturas = tiempo_lecturas + arbol[i].obtener_peso(); 
+        //if (!lectura_leida[i]) ==> += minutos_lecura[i];
+        //            ==> cout << nombres_lecturas[i];
+        //+TIEMPO DE LECTURA DE CADA VERTICE 
         cout << "(" << nombres_lecturas[v1] << ", " << nombres_lecturas[v2] << ") = " << arbol[i].obtener_peso() << endl;
     }
+
+    //
 
     cout << "En total tardaras: " << tiempo_lecturas << " minutos\n";
     delete [] subconjunto;
