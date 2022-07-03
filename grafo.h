@@ -15,6 +15,8 @@ class Grafo {
     
         vector<string> nombres_lecturas;
         vector<string> tipos_lecturas;
+        //GUARDAR LOS ENTEROS DE DURACIOS DE LECTURAS <== vector<int> minutos_lecura;
+        //[0, 1, 1,1,] leida, no leida <== vector<int> lectura_leida;  empezar en 0
         vector<vector<int>> matriz_adyacente;
         vector<vector<int>> matriz_pesos;
         vector<Arista> aristas;
