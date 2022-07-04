@@ -13,10 +13,16 @@ class Arista {
     int vertice1, vertice2, peso;
 
 public:
+    //PRE: Recibe dos enteros correspondientes a los vertices y un peso.
+    //POST: Crea una arista.
     Arista(int v1, int v2, int peso);
     int obtener_vertice1();
     int obtener_vertice2();
     int obtener_peso();
+
+
+    //PRE: Recibe una arista.
+    //POST: Compara el peso de las aristas.
     bool operator < (const Arista& arista2) const;
 };
 

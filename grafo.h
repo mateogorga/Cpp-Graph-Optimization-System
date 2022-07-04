@@ -136,11 +136,33 @@ class Grafo {
 
 
 
-            
+        //PRE: Recibe dos enteros que represesentan los vertices de las arista y un peso.
+        //POST: Crea la arista y la agrega al vector de aristas.
         void agregar_arista(int v1, int v2, int peso);
+
+
+
+
         void sacar_arista(int vertice_a_remover);
-        int buscar(int subconjunto[], int i);//busca el subconjunto de un elemento "i"
+
+
+
+        //PRE: Recibe un entero a buscar dentro de los subconjuntos.
+        //POST: Busca el subconjunto de vertices de un elemento "i".
+        int buscar(int subconjunto[], int i);
+
+
+
+        //PRE: v1 y v2 deben ser diferentes, ya que en caso contrario se estaría formando un ciclo.
+        //POST: Une los subconjuntos de v1 y v2 para formar la arista del MST.
         void unir_subconjuntos(int subconjunto[], int v1, int v2);
+
+
+
+        //PRE: El vector de aristas posibles ya debe estar cargado.
+        //POST: Implementacion del algoritmo de Kruskal, el cual permite encontrar el arbol de expansion minima.
+        //Una vez creado, imprime la matriz de adyacencia del arbol, el orden de las lecturas y el tiempo total
+        //que tardará Sid entre lecturas y siestas.
         void kruskal();
 };
 
