@@ -63,7 +63,7 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores&
                 menu.lectura_leida(cola);
                 break;
             case 13:
-                grafo.mostrar_grafo();
+                //grafo.mostrar_grafo();
                 grafo.kruskal();
                 break;
 

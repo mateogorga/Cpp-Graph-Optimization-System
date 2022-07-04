@@ -16,8 +16,6 @@ class Grafo {
         vector<string> nombres_lecturas;
         vector<string> tipos_lecturas;
         vector<int> minutos_lecturas;
-        //GUARDAR LOS ENTEROS DE DURACIOS DE LECTURAS <== vector<int> minutos_lecura;
-        //[0, 1, 1,1,] leida, no leida <== vector<int> lectura_leida;  empezar en 0
         vector<vector<int>> matriz_adyacente;
         vector<vector<int>> matriz_pesos;
         vector<Arista> aristas;
@@ -102,7 +100,7 @@ class Grafo {
         //PRE:
         //POST: Imprime por consola las matrices de adyacencia del grafo. Primero la de
         //aristas, luego la de sus pesos. Ambas matrices acompañadas por los nombres de
-        //las lecturas.
+        //las lecturas. Donde no hay arista, imprime como peso "888".
         void mostrar_grafo();
 
 
@@ -120,6 +118,15 @@ class Grafo {
         //de todas las lecturas de la lista. Si recibe solo el puntero a la lectura, carga su 
         //informacion pertinente al grafo.
         void cargar_grafo(Lectura* lectura_a_insertar);
+
+
+
+        //PRE: Recibe un vector de objetos aristas, que son las aristas minimas necesarias para
+        //formar el arbol de expansion minima. Las aristas poseen dos vertices que coinciden con
+        //las posiciones de los vectores atributos del grafo y su peso correspondiente.
+        //POST: Crea, carga y muestra por pantalla las matrices de adyacencia del arbol de
+        //de expansion minima.
+        void mostar_arbol_expansion_minima(vector<Arista> arbol);
 
 
 

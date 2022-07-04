@@ -15,6 +15,9 @@ const int NOVELA_A_NOVELA = 30;
 const int NOVELA_A_NOVELA_HISTORICA = 60;
 const int NOVELA_HISORICA_A_NOVELA_HISORICA = 80;
 
+const int NO_LEIDA = 0;
+const int LEIDA = 1;
+
 Grafo::Grafo() {
 }
     
@@ -28,7 +31,7 @@ void Grafo::actualizar_matriz(long unsigned int tamanio) {
             vector<vector<int>>  matriz_adyacente_anterior = matriz_adyacente;
             vector<vector<int>>  matriz_pesos_anterior = matriz_pesos;
             matriz_adyacente = vector<vector<int>>(tamanio, vector<int>(tamanio, 0));
-            matriz_pesos = vector<vector<int>>(tamanio, vector<int>(tamanio, 0));
+            matriz_pesos = vector<vector<int>>(tamanio, vector<int>(tamanio, 888));
             for (long unsigned int fila = 0; fila < matriz_adyacente_anterior.size(); fila++) {
                 for (long unsigned int columna = 0; columna < matriz_adyacente_anterior.size(); columna++) {
                     matriz_adyacente[fila][columna] = matriz_adyacente_anterior[fila][columna];
@@ -71,11 +74,12 @@ void Grafo::insertar_lectura(string nombre, string tipo, int minutos) {
         nombres_lecturas.push_back(nombre);
         tipos_lecturas.push_back(tipo);
         minutos_lecturas.push_back(minutos);
+        
         actualizar_matriz(nombres_lecturas.size());
     } else if (!encontrar_lectura(nombre)) {
         nombres_lecturas.push_back(nombre);
         tipos_lecturas.push_back(tipo);
-        minutos_lecturas.push_back(minutos);
+        minutos_lecturas.push_back(minutos);     
         actualizar_matriz(nombres_lecturas.size());
     }
 }
@@ -92,6 +96,8 @@ void Grafo::eliminar_lectura(string nombre) {
         matriz_adyacente.erase(matriz_adyacente.begin() + posicion);
         matriz_pesos.erase(matriz_pesos.begin() + posicion);
         nombres_lecturas.erase(nombres_lecturas.begin() + posicion);
+        minutos_lecturas.erase(minutos_lecturas.begin() + posicion);
+        //uso begin + posicion para pasarle un iterador a erase()
         sacar_arista(castear_a_int(posicion));
     }
 }
@@ -257,6 +263,34 @@ void Grafo::cargar_grafo(Lista_lecturas& ll) {
     }
 }
 
+void Grafo::mostar_arbol_expansion_minima(vector<Arista> arista){
+    int cantidad_aristas = castear_a_int(arista.size());
+    Grafo arbol_minimo;
+
+    //cantidad_aristas++;
+
+    for (int i = 0; i < cantidad_aristas; i++) {
+        int n_vertice_origen = arista[i].obtener_vertice1();
+        int n_vertice_destino = arista[i].obtener_vertice2();
+        int peso = arista[i].obtener_peso();
+
+        arbol_minimo.insertar_lectura(nombres_lecturas[n_vertice_origen], 
+                                      tipos_lecturas[n_vertice_origen], 
+                                      minutos_lecturas[n_vertice_origen]);
+
+        arbol_minimo.insertar_lectura(nombres_lecturas[n_vertice_destino], 
+                                      tipos_lecturas[n_vertice_destino], 
+                                      minutos_lecturas[n_vertice_destino]);
+
+        arbol_minimo.insertar_arista(nombres_lecturas[n_vertice_origen],
+                                     nombres_lecturas[n_vertice_destino]);
+
+        arbol_minimo.insertar_peso(nombres_lecturas[n_vertice_origen],
+                                    nombres_lecturas[n_vertice_destino], peso);
+    }
+    arbol_minimo.mostrar_grafo();
+}
+
 
 
 vector<vector<int>> Grafo::obtener_adyacencia() {
@@ -286,6 +320,7 @@ vector<int> Grafo::obtener_lecturas_leidas() {
 vector<int> Grafo::obtener_minutos_lecturas() {
     return minutos_lecturas;
 }
+
 
 
 
@@ -356,9 +391,8 @@ void Grafo::kruskal() {
         //if (!lectura_leida[i]) ==> += minutos_lecura[i];
         //            ==> cout << nombres_lecturas[i];
         //+TIEMPO DE LECTURA DE CADA VERTICE
-
+    }
     cout << "El orden de las lecturas es el siguiente: \n";
-
     for (int i = 0; i < cantidad; i++) {
         int pos1 = arbol[i].obtener_vertice1();
         if (lecturas_leidas[pos1] == 0) {
@@ -373,10 +407,9 @@ void Grafo::kruskal() {
             tiempo_lecturas = tiempo_lecturas + minutos_lecturas[pos2];
         }
     }
-
-        //cout << "(" << nombres_lecturas[v1] << ", " << nombres_lecturas[v2] << ") = " << arbol[i].obtener_peso() << endl;
-    }
-
+            //cout << "(" << nombres_lecturas[v1] << ", " << nombres_lecturas[v2] << ") = " << arbol[i].obtener_peso() << endl;
+    
+    mostar_arbol_expansion_minima(arbol);
 
     cout << "En total tardaras: " << tiempo_lecturas << " minutos\n";
     delete [] subconjunto;
