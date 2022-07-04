@@ -267,8 +267,6 @@ void Grafo::mostar_arbol_expansion_minima(vector<Arista> arista){
     int cantidad_aristas = castear_a_int(arista.size());
     Grafo arbol_minimo;
 
-    //cantidad_aristas++;
-
     for (int i = 0; i < cantidad_aristas; i++) {
         int n_vertice_origen = arista[i].obtener_vertice1();
         int n_vertice_destino = arista[i].obtener_vertice2();
@@ -320,9 +318,6 @@ vector<int> Grafo::obtener_lecturas_leidas() {
 vector<int> Grafo::obtener_minutos_lecturas() {
     return minutos_lecturas;
 }
-
-
-
 
 
 void Grafo::agregar_arista(int v1, int v2, int peso) {
