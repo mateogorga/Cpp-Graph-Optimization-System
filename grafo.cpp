@@ -2,7 +2,7 @@
 #include <iomanip>
 
 const int ESPACIO_NOMBRES_FILAS = 25;
-const int ESPACIO_COLUMNAS = 15;
+const int ESPACIO_COLUMNAS = 25;
 
 const int CUENTO_A_NOVELA = 10;
 const int CUENTO_A_NOVELA_HISTORICA = 15;
@@ -289,6 +289,12 @@ void Grafo::mostar_arbol_expansion_minima(vector<Arista> arista){
     arbol_minimo.mostrar_grafo();
 }
 
+void Grafo::resetear_lecturas_leidas() {
+    int cant_lecturas = castear_a_int(lecturas_leidas.size());
+    for (int i = 0; i < cant_lecturas; i++)
+        lecturas_leidas[i] = 0;
+}
+
 
 
 vector<vector<int>> Grafo::obtener_adyacencia() {
@@ -405,6 +411,8 @@ void Grafo::kruskal() {
             //cout << "(" << nombres_lecturas[v1] << ", " << nombres_lecturas[v2] << ") = " << arbol[i].obtener_peso() << endl;
     
     mostar_arbol_expansion_minima(arbol);
+    resetear_lecturas_leidas();
+
 
     cout << "En total tardaras: " << tiempo_lecturas << " minutos\n";
     delete [] subconjunto;

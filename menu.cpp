@@ -123,7 +123,7 @@ int Menu::mostrar_menu() {
         cout << "10) Listar las novelas de determinado género " << endl;
         cout << "11) Armar una cola ordenada por tiempo de lectura " << endl;
         cout << "12) Lectura leida " << endl;
-        cout << "13) Mostrar oden optimo de lecturas " << endl;
+        cout << "13) Mostrar orden óptimo de lecturas y sus caminos" << endl;
         cout << "14) Eliminar escritor" << endl;
         cout << "15) Salir" << endl;
         cin >> respuesta;

@@ -130,6 +130,12 @@ class Grafo {
 
 
 
+        //PRE:
+        //POST: Setea en NO_LEIDA (0) todas las lecturas del vector lecturas_leidas.
+        void resetear_lecturas_leidas();
+
+
+
             
         void agregar_arista(int v1, int v2, int peso);
         void sacar_arista(int vertice_a_remover);
