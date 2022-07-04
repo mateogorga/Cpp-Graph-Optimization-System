@@ -142,17 +142,6 @@ void Grafo::insertar_peso (string origen, string destino, int peso) {
     agregar_arista(v1, v2, peso);
 
     }
-}   
-
-
-void Grafo::eliminar_arista (string origen, string destino) {
-    if (encontrar_lectura(origen) && encontrar_lectura(destino)) {
-        long unsigned int posicion_origen = encontrar_posicion_lectura(origen);
-        long unsigned int posicion_destino = encontrar_posicion_lectura(destino);
-        if (buscar_arista(origen, destino)) {
-            matriz_adyacente[posicion_origen][posicion_destino] = 0;
-        }
-    }
 }
 
 
@@ -331,7 +320,7 @@ void Grafo::agregar_arista(int v1, int v2, int peso) {
     aristas.push_back(arista);
 }
 
-//ver si es necesaria esta funcion:
+
 void Grafo::sacar_arista(int vertice_a_remover) {
     int cant_aritas = castear_a_int(aristas.size());
     for (int i = 0; i < cant_aritas; i++) {
@@ -339,6 +328,7 @@ void Grafo::sacar_arista(int vertice_a_remover) {
             aristas.erase(aristas.begin() + i);
     }
 }
+
 
 
 int Grafo::buscar(int *subconjunto, int i) {
@@ -356,11 +346,9 @@ void Grafo::unir_subconjuntos(int *subconjunto, int v1, int v2) {
 
 void Grafo::kruskal() {
     vector<Arista> arbol;
-    int cantidad = 0;
     sort(aristas.begin(), aristas.end());//ordena las aristas por menor peso
 
     int cant_lecturas = castear_a_int(nombres_lecturas.size());
-    //esto se carga desde el vector de nombres de lecturas que se actualiza cuando saco o pongo lecturas
     int * subconjunto = new int[cant_lecturas];
 
     //inicializa todos los subconjuntos como conjuntos de un unico elemento
@@ -374,13 +362,19 @@ void Grafo::kruskal() {
         if(v1 != v2) {
             //si son diferentes es porque no forman un ciclo
             arbol.push_back(aristas[i]);
-            cantidad++;
             lecturas_leidas.push_back(0);
             lecturas_leidas.push_back(0);
             unir_subconjuntos(subconjunto, v1, v2);
         }
     }
 
+    mostrar_orden_lecturas(arbol);
+
+    delete [] subconjunto;
+}
+
+
+void Grafo::mostrar_orden_lecturas(vector<Arista> arbol) {
     int tamanio_arbol= castear_a_int(arbol.size());
     int tiempo_lecturas = 0;
 
@@ -389,7 +383,7 @@ void Grafo::kruskal() {
     }
 
     cout << "El orden de las lecturas es el siguiente: \n";
-    for (int i = 0; i < cantidad; i++) {
+    for (int i = 0; i < tamanio_arbol; i++) {
         int pos1 = arbol[i].obtener_vertice1();
         if (lecturas_leidas[pos1] == 0) {
             cout << nombres_lecturas[pos1] << endl;
@@ -403,10 +397,12 @@ void Grafo::kruskal() {
             tiempo_lecturas = tiempo_lecturas + minutos_lecturas[pos2];
         }
     }
+    mostrar_tiempo_lecturas(tiempo_lecturas, arbol);
+}
 
+
+void Grafo::mostrar_tiempo_lecturas(int tiempo_lecturas, vector<Arista> arbol) {
     cout << "En total tardaras: " << tiempo_lecturas << " minutos\n";
     mostar_arbol_expansion_minima(arbol);
     resetear_lecturas_leidas();
-
-    delete [] subconjunto;
 }

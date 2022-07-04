@@ -53,6 +53,18 @@ class Grafo {
         int calcular_peso(string tipo_nodo_a, string tipo_nodo_b);
 
 
+
+        //PRE: Recibe el vector de Aristas que corresponde al arbol ya cargado.
+        //POST: Muestra un posible orden de lecturas.
+        void mostrar_orden_lecturas(vector<Arista> arbol);
+
+
+
+        //PRE: Recibe el tiempo de lecturas ya calculado (lecturas + siestas).
+        //POST: Muestra el tiempo total.
+        void mostrar_tiempo_lecturas(int tiempo_lecturas, vector<Arista> arbol);
+
+
          
     public:
 
@@ -90,11 +102,6 @@ class Grafo {
         //tenia un peso cargado, este se sobre-escribe.
         void insertar_peso(string origen, string destino, int peso);
 
-
-        //PRE:
-        //POST: Si las aristas entre lecturas existen las elimina, (cero en su matriz de
-        //adyacencia) de lo contrario no hace nada.
-        void eliminar_arista(string origen, string destino);
 
 
         //PRE:
@@ -139,7 +146,6 @@ class Grafo {
         //PRE: Recibe dos enteros que represesentan los vertices de las arista y un peso.
         //POST: Crea la arista y la agrega al vector de aristas.
         void agregar_arista(int v1, int v2, int peso);
-
 
 
 
