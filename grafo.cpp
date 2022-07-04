@@ -1,8 +1,8 @@
 #include "grafo.h"
 #include <iomanip>
 
-const int ESPACIO_NOMBRES_FILAS = 25;
-const int ESPACIO_COLUMNAS = 25;
+const int ESPACIO_NOMBRES_FILAS = 23;
+const int ESPACIO_COLUMNAS = 23;
 
 const int CUENTO_A_NOVELA = 10;
 const int CUENTO_A_NOVELA_HISTORICA = 15;
@@ -164,7 +164,8 @@ void Grafo::mostrar_grafo() {
     }
     cout << endl;
     cout << endl;
-    cout << "PESOS" << endl;
+    cout << "PESOS (donde dice '888' significa que no hay aristas)" << endl;
+    cout << endl;
     cout<< setw(ESPACIO_NOMBRES_FILAS) << " ";;
     for (long unsigned int columna = 0; columna < cantidad_lecturas; columna++) {
         cout << setw(ESPACIO_COLUMNAS) << nombres_lecturas[columna];
@@ -324,8 +325,13 @@ void Grafo::agregar_arista(int v1, int v2, int peso) {
 void Grafo::sacar_arista(int vertice_a_remover) {
     int cant_aritas = castear_a_int(aristas.size());
     for (int i = 0; i < cant_aritas; i++) {
-        if (aristas[i].obtener_vertice1() == vertice_a_remover || aristas[i].obtener_vertice2() == vertice_a_remover)
+        if (aristas[i].obtener_vertice1() == vertice_a_remover || aristas[i].obtener_vertice2() == vertice_a_remover) {
             aristas.erase(aristas.begin() + i);
+            i++;
+            //si saca un vertice, saca un arista y la cantidad de aristas se reduce.
+            //esta suma hace que se itere una vez menos
+        }
+
     }
 }
 
@@ -371,6 +377,7 @@ void Grafo::kruskal() {
     mostrar_orden_lecturas(arbol);
 
     delete [] subconjunto;
+    
 }
 
 
@@ -381,7 +388,7 @@ void Grafo::mostrar_orden_lecturas(vector<Arista> arbol) {
     for(int i = 0; i < tamanio_arbol; i++) {
         tiempo_lecturas = tiempo_lecturas + arbol[i].obtener_peso();
     }
-
+    cout << endl;
     cout << "El orden de las lecturas es el siguiente: \n";
     for (int i = 0; i < tamanio_arbol; i++) {
         int pos1 = arbol[i].obtener_vertice1();
@@ -402,6 +409,7 @@ void Grafo::mostrar_orden_lecturas(vector<Arista> arbol) {
 
 
 void Grafo::mostrar_tiempo_lecturas(int tiempo_lecturas, vector<Arista> arbol) {
+    cout << endl;
     cout << "En total tardaras: " << tiempo_lecturas << " minutos\n";
     mostar_arbol_expansion_minima(arbol);
     resetear_lecturas_leidas();
