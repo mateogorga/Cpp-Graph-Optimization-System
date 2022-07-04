@@ -3,7 +3,7 @@
 const int SIGUE_VIVO = -1;
 
 Escritor::Escritor(string nombre_completo, string nacionalidad, int nacimiento,
-                   int fallecimiento, string codigo) {
+             int fallecimiento, string codigo) {
     this -> nombre_completo = nombre_completo;
     this -> nacionalidad = nacionalidad;
     this -> nacimiento = nacimiento;
@@ -25,6 +25,10 @@ void Escritor::mostrar_datos() {
 
 void Escritor::mostrar_nombre_completo() {
     cout << nombre_completo << endl;
+}
+
+void Escritor::mostrar_codigo() {
+    cout << codigo << endl;
 }
 
 string Escritor::obtener_nombre_completo() {

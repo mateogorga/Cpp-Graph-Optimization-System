@@ -3,19 +3,22 @@
 #include <cstdlib>
 
 
-
 const int SI = 1;
 const int NO = 2;
 const int PRIMER_GENERO = 1;
 const int ULTIMO_GENERO = 6;
 const int MENU_OPCION_1 = 1;
-const int MENU_OPCION_13 = 13;
+const int MENU_OPCION_ULTIMA = 15;
+const int NOVELA = 1;
+const int CUENTO = 2;
+const int POEMA = 3;
+
 Menu::Menu(){
 
 }
 
-void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Lista_escritores& l_escritores,
-                        Cola& cola, Lista_lecturas& lista_aux){
+void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Hash_escritores& t_escritores,
+                        Cola& cola, Lista_lecturas& lista_aux, Grafo& grafo){
     bool terminar_programa = false;
     int respuesta;
     while (!terminar_programa) {
@@ -23,19 +26,19 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Lista_escritores
 
         switch (respuesta) {
             case 1:
-                menu.agregar_lectura(l_lecturas, l_escritores);
+                menu.agregar_lectura(l_lecturas, t_escritores, grafo);
                 break;
             case 2:
-                menu.quitar_lectura(l_lecturas);
+                menu.quitar_lectura(l_lecturas, grafo);
                 break;
             case 3:
-                menu.agregar_escritor(l_escritores);
+                menu.agregar_escritor(t_escritores);
                 break;
             case 4:
-                menu.cambiar_fallecimiento(l_escritores);
+                menu.cambiar_fallecimiento(t_escritores);
                 break;
             case 5:
-                menu.listar_escritores(l_escritores);
+                menu.listar_escritores(t_escritores);
                 break;
             case 6:
                 menu.lectura_random(l_lecturas)->mostrar_datos();
@@ -47,7 +50,7 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Lista_escritores
                 menu.listar_lecturas_entre_anios(l_lecturas);
                 break;
             case 9:
-                menu.listar_lecturas_por_escritor(l_lecturas, l_escritores);
+                menu.listar_lecturas_por_escritor(l_lecturas, t_escritores);
                 break;
             case 10:
                 menu.listar_novelas_por_genero(l_lecturas);
@@ -60,9 +63,18 @@ void Menu::ejecutar_menu(Menu menu, Lista_lecturas& l_lecturas, Lista_escritores
                 menu.lectura_leida(cola);
                 break;
             case 13:
+                grafo.mostrar_grafo();
+                grafo.kruskal();
+                break;
+
+            case 14:
+                menu.eliminar_escritor(t_escritores, l_lecturas);
+                break;
+
+            case 15:
                 terminar_programa = true;
                 break;
-            
+
             default:
                 break;
         }
@@ -74,15 +86,17 @@ void Menu::mensaje_inicial() {
     string enter;
     cout << "\033[H\033[2J\033[3J" ;
     cout << "BIENVENIDOS A LOS MIL Y UN MARTES Y JUEVES" << endl << endl;
-    cout << "Este programa especialmente diseniado para lectores y clubs de lecturas l_escritores permitira organizar";
-    cout << "eficientemente la informacion sobre sus lecturas y escritores favoritos." << endl;
-    cout << "Desde crear y administrar listas de lecturas y escritores en tiempo real, hasta crearse una cola de lecturas";
-    cout << "ordenadas por tiempo." << endl;
-    cout << "Para interactuar con el programa tan solo debe ingresar por consola el numero de la accion que desea realizar." << endl;
-
+    cout << "Este programa especialmente diseniado para lectores y clubs de lecturas" << endl;
+    cout << "le permitira organizar eficientemente la informacion" << endl;
+    cout << "sobre sus lecturas y escritores favoritos." << endl;
+    cout << "Desde crear y administrar listas de lecturas y escritores en tiempo real, " << endl;
+    cout << "hasta crearse una cola de lecturas ordenadas por tiempo." << endl;
+    cout << "Para interactuar con el programa tan solo debe ingresar por consola " << endl;
+    cout << "el numero de la accion que desea realizar." << endl;
     cout << endl << endl;
     cout << "Ingrese cualquier letra seguida de enter para continuar . . ." << endl << endl;
     cin >> enter;
+    cout << "\033[H\033[2J\033[3J" ;
 }
 
 bool Menu::chequear_rango(int a, int x, int b) {
@@ -97,7 +111,7 @@ int Menu::mostrar_menu() {
     while (!respuesta_correcta) {
         cout << endl << endl;
         cout << "Ingrese el numero de la opcion que desee: " << endl;
-        cout << "ENTRE 1 Y 12" << endl;
+        cout << "ENTRE 1 Y 14" << endl;
         cout << "1) Agregar una nueva lectura a la lista " << endl;
         cout << "2) Quitar una lectura de la lista " << endl;
         cout << "3) Agregar un escritor " << endl;
@@ -110,13 +124,15 @@ int Menu::mostrar_menu() {
         cout << "10) Listar las novelas de determinado género " << endl;
         cout << "11) Armar una cola ordenada por tiempo de lectura " << endl;
         cout << "12) Lectura leida " << endl;
-        cout << "13) Salir" << endl;
+        cout << "13) Mostrar Grafo" << endl;
+        cout << "14) Eliminar escritor" << endl;
+        cout << "15) Salir" << endl;
         cin >> respuesta;
         cin.ignore();
 
-        respuesta_correcta = chequear_rango(MENU_OPCION_1, respuesta, MENU_OPCION_13);
+        respuesta_correcta = chequear_rango(MENU_OPCION_1, respuesta, MENU_OPCION_ULTIMA);
         if (!respuesta_correcta)
-            cout << "LO LAMENTO, LA RESPUESTA DEBE SER ENTRE 1 Y 12" << endl;
+            cout << "LO LAMENTO, LA RESPUESTA DEBE SER ENTRE 1 Y 14" << endl;
     }
     return respuesta;
 }
@@ -130,34 +146,39 @@ void Menu::pedir_datos_lectura(string &titulo, int &minutos, int &anio, int &int
     cout << "Ingrese el anio de publicacion: "<< endl;
     cin >> anio;
     cout << "Ingrese el tipo de lectura (el numero): "<< endl;
-    cout << "1) Novela\n2)Cuento\n3)Poema"<< endl;
+    cout << "1)Novela\n2)Cuento\n3)Poema"<< endl;
     cin >> int_tipo;
+    while((int_tipo != NOVELA) && (int_tipo != CUENTO) && (int_tipo != POEMA)){
+        cout << endl << "Entrada invalida. Por favor, ingrese un valor de los indicados." << endl;
+        cin >> int_tipo;
+    }
 }
 
-void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero) {
-    cout<<"Ingrese uno de estos generos, todo en mayusculas: " << endl;
-    cout<< "DRAMA" << endl;
-    cout<< "FICCION" << endl;
-    cout<< "SUSPENSO" << endl;
-    cout<< "TERROR" << endl;
-    cout<< "ROMANTICA" << endl;
-    cout<< "HISTORICA" << endl;
-    cin>>str_genero;
+void Menu::cargar_novela(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, string str_genero, Grafo& grafo) {
+    cout <<"Ingrese uno de estos generos, todo en mayusculas: " << endl;
+    cout << "DRAMA" << endl;
+    cout << "FICCION" << endl;
+    cout << "SUSPENSO" << endl;
+    cout << "TERROR" << endl;
+    cout << "ROMANTICA" << endl;
+    cout << "HISTORICA" << endl;
+    cin >> str_genero;
     Genero genero = procesar_str_genero(str_genero);
 
 
     if (str_genero == "HISTORICA") {
         string str_tema;
         cout<<"Ingrese el tema: ";
-        cin>>str_tema;
+        cin.ignore();
+        getline(cin, str_tema);
         char* tema = procesar_tema_historica(str_tema);
         Historica* nueva_lectura = new Historica(titulo,minutos,anio,autor,HISTORICA,tema);
         l_lecturas.alta(nueva_lectura, ANIO_L);
-    }
-
-    else {
+        grafo.cargar_grafo(nueva_lectura);
+    } else {
         Novela* nueva_lectura = new Novela(titulo,minutos,anio,autor,genero);
         l_lecturas.alta(nueva_lectura, ANIO_L);
+        grafo.cargar_grafo(nueva_lectura);
     }
 
 }
@@ -194,74 +215,103 @@ char* Menu::procesar_tema_historica(string str_tema) {
 }
 
 
-void Menu::cargar_cuento(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor) {
+void Menu::cargar_cuento(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, Grafo& grafo) {
     string str_libro;
     cout<<"Ingrese el libro en el que se encuentra el cuento: ";
-    cin>>str_libro;
-
+    cin.ignore();
+    getline(cin, str_libro);
     Cuento* nueva_lectura = new Cuento(titulo,minutos,anio,autor,str_libro);
     l_lecturas.alta(nueva_lectura, ANIO_L);
+    grafo.cargar_grafo(nueva_lectura);
 }
 
 
-void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor) {
+void Menu::cargar_poema(Lista_lecturas &l_lecturas, string titulo, int minutos, int anio, Escritor* autor, Grafo& grafo) {
     int cant_versos;
     cout<< "Ingrese la cantidad de versos: ";
     cin >> cant_versos;
 
     Poema* nueva_lectura = new Poema(titulo, minutos, anio, autor, cant_versos);
     l_lecturas.alta(nueva_lectura, ANIO_L);
+    grafo.cargar_grafo(nueva_lectura);
 }
 
 
- void Menu::quitar_lectura(Lista_lecturas &l_lecturas) {
-
+ void Menu::quitar_lectura(Lista_lecturas &l_lecturas, Grafo& grafo) {
     l_lecturas.listar();
     int cota_sup = l_lecturas.obtener_cantidad();
     int posicion;
     bool posicion_valida = false;
-    cout<<"Ingrese el numero de la lectura a quitar " << endl;
+    bool cero_lecturas = false;
+    cout << endl << "Ingrese el numero de la lectura a quitar " << endl;
     cin >> posicion;
     posicion_valida = chequear_rango(1, posicion, cota_sup);
     while (!posicion_valida) {
-        cout << "La posicion ingresada es invalida, debe ser entre 1 y " << cota_sup;
-        cin >> posicion;
-        posicion_valida = chequear_rango(1, posicion, cota_sup);
+        if (!cota_sup == 0) {
+            cout << "La posicion ingresada es invalida, debe ser entre 1 y " << cota_sup << endl;
+            cout << endl << "Ingrese el numero de la lectura a quitar " << endl;
+            cin >> posicion;
+            posicion_valida = chequear_rango(1, posicion, cota_sup);
+        } else {
+            cout << "No hay mas lecturas" << endl;
+            posicion_valida = true;
+            cero_lecturas = true;
+        }       
     }
-    l_lecturas.baja(posicion);
+    if (!cero_lecturas) {
+        grafo.eliminar_lectura(l_lecturas.consulta(posicion)->obtener_titulo());
+        l_lecturas.baja(posicion);
+    }
 }
 
-
-void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Lista_escritores& l_escritores) {
+void Menu::agregar_lectura(Lista_lecturas &l_lecturas, Hash_escritores& t_escritores, Grafo& grafo) {
     string titulo, autor, str_genero;
     int minutos, anio, int_tipo;
-
-    agregar_escritor(l_escritores);
-    int pos = l_escritores.obtener_cantidad();
-    Escritor* pescritor = l_escritores.consulta(pos);
-
+    cout << "El autor de la lectura que desea agregar ya se encuentra en la tabla de escritores?" << endl;
+    cout << "1.Si       2.No" << endl;
+    int respuesta1;
+    cin >> respuesta1;
+    while((respuesta1 != SI) && (respuesta1 != NO)) {
+        cout << "Entrada invalida. Por favor, ingrese '1' para si y '2' para no." << endl;
+        cin >> respuesta1;
+    }
+    Escritor* pescritor = asignar_escritor(t_escritores, respuesta1);
+    cout << endl << "Ahora si se le pediran los datos de la lectura." << endl << endl;
     pedir_datos_lectura(titulo, minutos, anio, int_tipo);
-
     if (int_tipo == 1) {
-        cargar_novela(l_lecturas,titulo,minutos,anio,pescritor,str_genero);
+        cargar_novela(l_lecturas,titulo,minutos,anio,pescritor,str_genero, grafo);
+    } else if (int_tipo == 2) {
+        cargar_cuento(l_lecturas,titulo,minutos,anio,pescritor, grafo);
+    } else {
+        cargar_poema(l_lecturas,titulo,minutos,anio,pescritor, grafo);
     }
-
-    else if (int_tipo == 2) {
-        cargar_cuento(l_lecturas,titulo,minutos,anio,pescritor);
-    }
-
-    else {
-        cargar_poema(l_lecturas,titulo,minutos,anio,pescritor);
-    }
-
 }
 
 
+Escritor* Menu::asignar_escritor(Hash_escritores& t_escritores, int& respuesta1){
+    Escritor* pescritor;
+    if(respuesta1 == NO) {
+        cout << endl << "Entonces es necesario que agregue la informacion del autor." << endl;
+        pescritor = agregar_devolver_escritor(t_escritores);
+    } else if (respuesta1 == SI){
+        t_escritores.listar_segun_codigo();
+        cout << endl;
+        cout << "Ingrese el ISNI del escritor correspondiente" << endl;
+        int respuesta2;
+        cin >> respuesta2;
+        while (t_escritores.obtener_escritor(respuesta2) == 0) { 
+            cout << "El ISNI ingresado no corresponde a ningun escritor. Por favor ingrese uno valido" << endl;
+            cin >> respuesta2;
+        } 
+        pescritor = t_escritores.obtener_escritor(respuesta2);
+    }
+    return pescritor;
+}
 
 
-
-void Menu::pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &nacimiento, int &fallecimiento) {
+void Menu::pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &nacimiento, int &fallecimiento, string& isni) {
     cout << "Ingrese el nombre completo del escritor: " << endl;
+    cin.ignore();
     getline(cin, nombre_comp);
     cout << "Ingrese la nacionalidad del escritor: " << endl;
     getline(cin, nacionalidad);
@@ -269,36 +319,50 @@ void Menu::pedir_datos_escritor(string &nombre_comp, string &nacionalidad, int &
     cin >> nacimiento;
     cout << "Ingrese el anio de fallecimiento. Si el escritor se encuentra vivo, ingrese -1" << endl;
     cin >> fallecimiento;
+    cout << "Ingrese el ISNI del escritor: " << endl;
+    cin >> isni;
 }
 
-void Menu::agregar_escritor(Lista_escritores& l_escritores) {
-    string nombre_comp, nacionalidad;
+
+Escritor* Menu::agregar_devolver_escritor(Hash_escritores& t_escritores) {
+    string nombre_comp, nacionalidad, isni;
     int nacimiento, fallecimiento;
-    pedir_datos_escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento);
-    int pos = l_escritores.obtener_cantidad() + 1;
-    string codigo_escritor = '(' + to_string(pos) + ')';
-    Escritor* nuevo_escritor = new Escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, codigo_escritor);
-    l_escritores.alta(nuevo_escritor, pos);
+    pedir_datos_escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, isni);
+    Escritor* nuevo_escritor = new Escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, isni);
+    t_escritores.alta(nuevo_escritor);
+    return nuevo_escritor;
 }
 
-void Menu::cambiar_fallecimiento(Lista_escritores& l_escritores) {
-    l_escritores.listar_nombres();
-    int pos;
-    cout << endl << "Ingrese la posicion del escritor al que l_escritores desea cambiar el anio" << endl;
-    cin >> pos;
-    if(pos <= 0 || pos > l_escritores.obtener_cantidad())
-        cout << "La posicion ingresada es invalida." << endl;
+
+void Menu::agregar_escritor(Hash_escritores& t_escritores) {
+    string nombre_comp, nacionalidad, isni;
+    int nacimiento, fallecimiento;
+    pedir_datos_escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, isni);
+    Escritor* nuevo_escritor = new Escritor(nombre_comp, nacionalidad, nacimiento, fallecimiento, isni);
+    t_escritores.alta(nuevo_escritor);
+}
+
+
+void Menu::cambiar_fallecimiento(Hash_escritores& t_escritores) {
+    t_escritores.listar();
+    int isni;
+    cout << endl << "Ingrese el ISNI del escritor al que le desea cambiar el anio" << endl;
+    cin >> isni;
+    if(t_escritores.obtener_escritor(isni) == 0)
+        cout << "El ISNI ingresado no corresponde a ningun escritor." << endl;
     else{
         cout << "Ingrese el anio de fallecimiento a agregar: " << endl; 
         int anio;
         cin >> anio;
-        l_escritores.cambiar_fallecimiento(anio, pos);
+        t_escritores.obtener_escritor(isni)->cambiar_fallecimiento(anio);
     }
 }
 
-void Menu::listar_escritores(Lista_escritores& l_escritores){ 
-    l_escritores.listar();
+
+void Menu::listar_escritores(Hash_escritores& t_escritores){ 
+    t_escritores.listar();
 }
+
 
 void Menu::listar_lecturas(Lista_lecturas& l_lecturas) {
     l_lecturas.listar();
@@ -306,31 +370,27 @@ void Menu::listar_lecturas(Lista_lecturas& l_lecturas) {
 
 
 void Menu::listar_lecturas_por_escritor(Lista_lecturas& l_lecturas, 
-                                        Lista_escritores& l_escritores) {
-    bool respuesta_correcta = false;
-    int respuesta, cantidad_de_escritores;
-    cantidad_de_escritores = l_escritores.obtener_cantidad();
-
-    while (!respuesta_correcta) {
-        l_escritores.listar_nombres();
-        cout << "Ingrese el NUMERO de la posicion del escritor cuyas lecturas";
-        cout << " desea listar" << endl;
-        cout << "(En caso de que el autor no posea ninguna novela escrita, el";
-        cout << " campo permancera vacio)" << endl;
-        cin >> respuesta;
-        respuesta_correcta = chequear_rango(1, respuesta, cantidad_de_escritores);
-        if (!respuesta_correcta) {
-            cout << "LO LAMENTO, LA RESPUESTA DEBE SER ENTRE 1 Y ";
-            cout << cantidad_de_escritores << endl;
+                                        Hash_escritores& t_escritores) {
+    
+    int respuesta;
+    t_escritores.listar_segun_codigo();
+    cout << endl;
+    cout << "Ingrese el ISNI del escritor cuyas lecturas desea listar" << endl;
+    cout << "(En caso de que el autor no posea ninguna novela escrita, el";
+    cout << " campo permancera vacio)" << endl;
+    cin >> respuesta;
+    if (t_escritores.obtener_escritor(respuesta) == 0) { 
+        cout << "El ISNI ingresado no corresponde a ningun escritor" << endl;
+    } else {
+        int i = 1;
+        while (i <= l_lecturas.obtener_cantidad()) {
+            if (l_lecturas.consulta(i)->obtener_autor() 
+                && respuesta == stoi(l_lecturas.consulta(i)->obtener_autor()->obtener_codigo())) {
+                cout << endl;
+                l_lecturas.consulta(i)->mostrar_datos();
+            }
+            i++; 
         }
-    }
-    int i = 1;
-    string nombre_autor = l_escritores.consulta(respuesta)->obtener_nombre_completo();
-    while (i <= l_lecturas.obtener_cantidad()) {
-        if (l_lecturas.consulta(i)->obtener_autor()
-            && nombre_autor == l_lecturas.consulta(i)->obtener_autor()->obtener_nombre_completo())
-            l_lecturas.consulta(i)->mostrar_datos();
-        i++; 
     }
 }
 
@@ -359,10 +419,10 @@ void Menu::listar_novelas_por_genero(Lista_lecturas& l_lecturas) {
     string genero_numero1 = to_string(genero_numero);
     while (i <= l_lecturas.obtener_cantidad()) {
         l_lecturas.consulta(i)->mostrar_segun_parametro(genero_numero1);
+        cout << endl;
         i++;
     }
 }
-    
 
 
 
@@ -382,6 +442,7 @@ void Menu::lecturas_en_cola(Lista_lecturas& l_lecturas, Cola& cola, Lista_lectur
     
         cola.consulta()->mostrar_datos();
 }
+
 
 void Menu::traspasar_lecturas(Cola& cola, Lista_lecturas& lista_aux) {
     int cant = lista_aux.obtener_cantidad();
@@ -434,16 +495,29 @@ void Menu::listar_lecturas_entre_anios(Lista_lecturas &l_lecturas) {
     int contador = 1;
     int cant_lecturas = l_lecturas.obtener_cantidad();
 
-    cout<<"Ingrese el primer anio: ";
-    cin>>desde;
-    cout<<"Ingrese el segundo anio: ";
-    cin>>hasta;
+    cout << "Ingrese el primer anio: ";
+    cin >> desde;
+    cout << "Ingrese el segundo anio: ";
+    cin >> hasta;
 
-    while (cant_lecturas>=contador) {
-        if (l_lecturas.consulta(contador)->obtener_anio()>=desde and l_lecturas.consulta(contador)->obtener_anio()<=hasta) {
+    while (cant_lecturas >= contador) {
+        if (l_lecturas.consulta(contador)->obtener_anio() >= desde and l_lecturas.consulta(contador)->obtener_anio()<=hasta) {
+            cout << endl;
             l_lecturas.consulta(contador)->mostrar_datos();
         }
         contador++;
     }
 }
 
+void Menu::eliminar_escritor(Hash_escritores& t_escritores, Lista_lecturas& l_lecturas){
+    t_escritores.listar_segun_codigo();
+    cout << endl << "Ingrese el ISNI del escritor que desea eliminar" << endl;
+    int isni;
+    cin >> isni;
+    if(t_escritores.obtener_escritor(isni) == 0)
+        cout << "El ISNI ingresado no corresponde a ningun escritor." << endl;
+    else {
+        l_lecturas.modificar_escritor(t_escritores.obtener_escritor(isni));
+        t_escritores.baja(isni);
+    }
+}

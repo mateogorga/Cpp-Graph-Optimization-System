@@ -5,6 +5,7 @@ Historica::Historica(string titulo, int minutos, int anio, Escritor* autor,
                     Genero genero, char* tema) : Novela (titulo, minutos, anio, autor, genero) {
     this -> genero = Genero::HISTORICA;
     this -> tema = tema;
+    this -> tipo = "Novela Historica";
 }
 
 char* Historica::obtener_tema() {
@@ -20,12 +21,15 @@ void Historica::mostrar_tema() {
 
 void Historica::mostrar_datos() {
 
-    std::cout << "Titulo de la lectura: " << titulo << endl;
-    std::cout << "Duracion: " << minutos << " minutos" << endl;
-    std::cout << "Fue escrita en: " << anio << endl;
-    std::cout << "El autor es: "; 
-    autor->mostrar_nombre_completo();
-    std::cout << "Genero HISTORICA" << endl;
+    cout << "Titulo de la lectura: " << titulo << endl;
+    cout << "Duracion: " << minutos << " minutos" << endl;
+    cout << "Fue escrita en: " << anio << endl;
+    cout << "El autor es: "; 
+    if(autor != 0)
+        autor->mostrar_nombre_completo();
+    else
+        cout << "ANONIMO" << endl;;
+    cout << "Genero HISTORICA" << endl;
     mostrar_tema();
 }
 

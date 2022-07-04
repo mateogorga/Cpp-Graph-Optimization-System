@@ -25,14 +25,14 @@ protected:
 
 public:
     //constructor
-    Lectura(string titulo, int minutos, int anio, Escritor* autor, char tipo);
+    Lectura(string titulo, int minutos, int anio, Escritor* autor);
     //metodo virtual
     virtual void mostrar_datos() = 0;
     string obtener_titulo();
     int obtener_minutos();
     int obtener_anio();
     Escritor* obtener_autor();
-    char obtener_tipo();
+    string obtener_tipo();
 
     //PRE: el parametro debe ser o minutos o anio.
     //POS: si el parametro recibido es minutos, llama al metodo comparar para los minutos, y si es anio
@@ -56,6 +56,9 @@ public:
     // de minutos en lugar del anio.
     int comparar(Lectura* l, bool comparar_minutos);
     
+    //PRE: -
+    //POS: modifica el puntero a escritor haciendo que apunte a null.
+    void modificar_autor();
 
     //OBTENER DATOS() que redefino en cada clase para que me devuelva su propio atributo?
     //void mostrar el atributo. que imprima el atributo y con eso puedo comparar los stri

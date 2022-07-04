@@ -3,6 +3,7 @@
 Cuento::Cuento(string titulo, int minutos, int anio, Escritor* autor, string libro)
             :Lectura(titulo, minutos, anio, autor){
     this->libro = libro;
+    this->tipo = "Cuento";
 }
 
 string Cuento::obtener_libro(){
@@ -14,7 +15,10 @@ void Cuento::mostrar_datos(){
     cout << "Minutos de lectura: " << minutos << endl; 
     cout << "Anio de publicacion: " << anio << endl;
     cout << "Autor: "; 
-    autor->mostrar_nombre_completo();
+    if(autor != 0)
+        autor->mostrar_nombre_completo();
+    else
+        cout << "ANONIMO" << endl;
     cout << "Libro en el que se publico: " << libro << endl;
 }
 

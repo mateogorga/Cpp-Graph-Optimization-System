@@ -1,12 +1,11 @@
 #include "lectura.h"
 
 
-Lectura::Lectura(string titulo, int minutos, int anio, Escritor* autor, char tipo) {
+Lectura::Lectura(string titulo, int minutos, int anio, Escritor* autor) {
     this -> titulo = titulo;
     this -> minutos = minutos;
     this -> anio = anio;
     this -> autor = autor;
-    this -> tipo = tipo;
 }
 
 string Lectura::obtener_titulo() {
@@ -25,7 +24,7 @@ Escritor* Lectura::obtener_autor() {
     return autor;
 }
 
-char Lectura::obtener_tipo() {
+string Lectura::obtener_tipo() {
     return tipo;
 }
 
@@ -66,6 +65,10 @@ int Lectura::comparar(Lectura *l, bool comparar_minutos) {
         resultado = IGUAL;
     }
     return resultado;
+}
+
+void Lectura::modificar_autor(){
+    autor = 0;
 }
 
 Lectura::~Lectura() {};

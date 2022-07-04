@@ -11,29 +11,23 @@
 #include "parser_lecturas.h"
 #include "parser_escritores.h"
 #include "grafo.h"
-#include "arbol.h"
+
 
 const string ARCHIVO_LECTURAS = "lecturas.txt";
 const string ARCHIVO_ESCRITORES = "escritores.txt";
 using namespace std;
 
 int main() {
-    
-    Parser_escritores parser_escritores = Parser_escritores();
-    Lista_escritores l_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
-
-    Parser_lecturas parser_lecturas = Parser_lecturas();
-    Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, l_escritores);
-
-    Arbol arbol;
-    arbol.cargar_arbol(l_lecturas);
-    
     Menu menu;
+    Parser_escritores parser_escritores = Parser_escritores();
+    Hash_escritores t_escritores = parser_escritores.cargar_lista_escritores(ARCHIVO_ESCRITORES);
+    Parser_lecturas parser_lecturas = Parser_lecturas();
+    Lista_lecturas l_lecturas = parser_lecturas.cargar_lista_lecturas(ARCHIVO_LECTURAS, t_escritores);
     Lista_lecturas lista_aux;
     Cola cola;
-
+    Grafo grafo;
+    grafo.cargar_grafo(l_lecturas);
     menu.mensaje_inicial();
-    menu.ejecutar_menu(menu, l_lecturas, l_escritores, cola, lista_aux);
-    
+    menu.ejecutar_menu(menu, l_lecturas, t_escritores, cola, lista_aux, grafo);    
     return 0;   
 }

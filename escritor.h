@@ -7,7 +7,7 @@ using namespace std;
 
 class Escritor {
 
-private:
+private: 
     string nombre_completo;
     string nacionalidad;
     int nacimiento;
@@ -23,7 +23,7 @@ public:
     //PRE: -
     //POS: imprime por pantalla la informacion del escritor.
     void mostrar_datos();
-
+    
     //PRE: -
     //POS: modifica el anio de fallecimiento del escritor por el anio pasado.
     void cambiar_fallecimiento(int anio);
@@ -31,6 +31,10 @@ public:
     //PRE: -
     //POS: imprime por pantalla el nombre del escritor.
     void mostrar_nombre_completo();
+
+    //PRE: -
+    //POS: imprime por pantalla el codigo del escritor.
+    void mostrar_codigo();
 
     string obtener_nombre_completo();
     string obtener_nacionalidad();
