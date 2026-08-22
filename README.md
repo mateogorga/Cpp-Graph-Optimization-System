@@ -3,7 +3,6 @@
 **Trabajo práctico Nº3**
 **grupal**
 
-1
 ## Introducción
 Luego de unos meses de estar en el club de lectura Sid comenzó a aficionarse a llevar un
 registro de cuánto tiempo tardaría en leer todos los libros de los que se hablaba en la reunión. Pero
